@@ -1,10 +1,3 @@
-window.scrollToVenueSection = function() {
-  const section = document.getElementById('venue-section');
-  section.scrollIntoView({ 
-    behavior: 'smooth', 
-    block: 'start' 
-  });
-};
 
 import { venueData } from '../data/venue.js';
 
@@ -12,7 +5,7 @@ let venueHtml = '';
 venueData.forEach(venue => {
   venueHtml += `
     <div class="venue-card">
-      <img src="images/1.jpg" alt="" width="100%" />
+      <img src="images/${venue.image}" alt="${venue.name}" width="100%" />
       <h3>${venue.name}</h3>
       <p>${venue.address}</p>
       <p>Available Courts: ${venue.availableCourts}</p>
@@ -24,3 +17,10 @@ venueData.forEach(venue => {
 
 document.querySelector('.venue-cards').innerHTML = venueHtml;
 
+window.scrollToVenueSection = function() {
+  const section = document.getElementById('venue-section');
+  section.scrollIntoView({ 
+    behavior: 'smooth', 
+    block: 'start' 
+  });
+};

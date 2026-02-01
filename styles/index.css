@@ -210,7 +210,7 @@
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.venue-card img{
+.venue-image{
     width: 100%;
     border-radius: 10px;
     height: 250px;
@@ -231,6 +231,16 @@
     color: #fff;
     font-size: 16px;
     cursor: pointer;
+}
+
+.product-rating-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.product-rating-stars {
+    width: 100px;
+    margin-right: 6px;
 }
 
 @media (max-width: 768px) {

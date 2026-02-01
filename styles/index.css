@@ -18,17 +18,13 @@
     padding: 0;
     box-sizing: border-box;
 }
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #000;
-    color: #fff;
-}
 .vid-text {
     font-family: "vid txt";
 }
 .khyah {
     font-family: Logo;
     font-size: 45px;
+    color: #fff;
 }
 .nav-font {
     font-family: txt;
@@ -98,6 +94,7 @@ body {
     justify-content: center;
     text-align: center;
     padding: 0 20px;
+    color: #fff;
 }
 
 .vid-content h1 {
@@ -187,6 +184,52 @@ body {
 
 .btn-primary .btn-text {
     color: black;
+}
+.venue-container{
+    width: 100%;
+    padding: 60px 10px;
+    justify-content: center;
+    color: #000000;
+    background: linear-gradient(135deg, #f8f9fa 0%, #dfe4ea 100%);
+}
+.venue-heading{
+    text-align: center;
+}
+.venue-cards{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 50px;
+
+}
+.venue-card{
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.venue-card h3{
+    margin: 15px 0;
+}
+.venue-card p{
+    margin: 8px 0;
+}
+.venue-card button{
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px; 
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.venue-card button:hover{
+    background-color: #0056b3;
+
 }
 
 @media (max-width: 768px) {

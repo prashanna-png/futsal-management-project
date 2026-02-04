@@ -22,5 +22,13 @@ export const venueData = [
         bookingPrice: 600,
         contact: 9234567890,
         rating: { stars: 5 }
+    },
+    {
+        image: "green-field.jpeg",
+        name: "Greenfield Futsal Ground",
+        address: "Patan, lalitpur",
+        bookingPrice: 550,
+        contact: 9345678901,
+        rating: { stars: 4 }
     }
 ];

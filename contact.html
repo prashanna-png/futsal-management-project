@@ -1,110 +1,101 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact Us | Khyah</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us | Khyah</title>
+    <link rel="stylesheet" href="styles/contact.css" />
+  </head>
 
-<body class="bg-black text-white">
-
-<!-- NAVBAR -->
-<header class="bg-black border-b border-gray-800">
-  <nav class="max-w-7xl mx-auto flex justify-between items-center p-6">
-    <div class="text-2xl font-bold italic">Khyah</div>
-    <div class="flex gap-6 text-sm">
-      <a href="index.html">Home</a>
-      <a href="venue.html">Venues</a>
-      <a href="contact.html" class="text-gray-300">Contact</a>
-    </div>
-  </nav>
-</header>
-
-<!-- HERO -->
-<section class="relative h-[40vh] flex items-center justify-center text-center">
-  <div class="absolute inset-0 bg-gradient-to-b from-black to-gray-900"></div>
-  <div class="relative px-6">
-    <h1 class="text-4xl font-bold mb-4">Contact Khyah</h1>
-    <p class="text-gray-300">
-      Need help with bookings or want to list your futsal court?
-    </p>
-  </div>
-</section>
-
-<!-- CONTENT -->
-<section class="bg-white text-black">
-  <div class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12">
-
-    <!-- CONTACT FORM -->
-    <div>
-      <h2 class="text-2xl font-bold mb-6">Get in Touch</h2>
-
-      <form class="space-y-4">
-        <div>
-          <label class="block text-sm mb-1">Full Name</label>
-          <input type="text" class="w-full p-3 border rounded" placeholder="Your name" />
-        </div>
-        <div>
-          <label class="block text-sm mb-1">Email Address</label>
-          <input type="email" class="w-full p-3 border rounded" placeholder="you@example.com" />
-        </div>
-        <div>
-          <label class="block text-sm mb-1">Reason for Contact</label>
-          <select class="w-full p-3 border rounded">
-            <option>Booking Issue</option>
-            <option>Payment Problem</option>
-            <option>Venue Listing</option>
-            <option>General Inquiry</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm mb-1">Message</label>
-          <textarea rows="5" class="w-full p-3 border rounded"
-            placeholder="Describe your issue or inquiry"></textarea>
-        </div>
-        <button class="bg-black text-white px-6 py-3 rounded font-semibold">
-          Send Message
-        </button>
-        <p class="text-xs text-gray-500 mt-3">
-          We usually respond within 24 hours.
-        </p>
-      </form>
-    </div>
-    <!-- CONTACT DETAILS -->
-    <div>
-      <h2 class="text-2xl font-bold mb-6">Contact Information</h2>
-
-      <div class="space-y-4 text-gray-700">
-        <p><strong>Email:</strong> support@khyah.com</p>
-        <p><strong>Phone:</strong> +977-98XXXXXXXX</p>
-        <p><strong>Office Hours:</strong> 9 AM – 6 PM (Sun–Fri)</p>
-        <p><strong>Location:</strong> Kathmandu, Nepal</p>
+  <body class="bg-black text-white">
+    <nav class="navbar">
+      <div class="khyah">
+        <a
+          href="index.html"
+          style="
+            all: inherit;
+            display: inline-block;
+            cursor: pointer;
+            text-decoration: none;
+          "
+        >
+          Footsal
+        </a>
       </div>
+      <div class="nav-right nav-font">
+        <a href="index.html">HOME</a>
+        <a onclick="scrollToContact()">CONTACT US</a>
+        <a href="Register.html">REGISTER</a>
+        <a href="#">LOGIN</a>
+      </div>
+    </nav>
 
-      <!-- MAP -->
-      <div class="mt-8">
-        <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">
-          Google Map Placeholder
+    <div class="contact" id="contact">
+      <section class="contact-hero">
+        <div class="contact-hero-overlay"></div>
+        <div class="contact-hero-content">
+          <h1 class="contact-hero-title">Contact Khyah</h1>
         </div>
-      </div>
+      </section>
 
-      <!-- VENUE OWNER CTA -->
-      <div class="mt-10 bg-gray-100 p-6 rounded">
-        <h3 class="font-bold mb-2">Own a Futsal Court?</h3>
-        <p class="text-sm text-gray-600 mb-4">
-          Partner with Khyah to get more bookings.
-        </p>
-        <button class="bg-black text-white px-4 py-2 rounded text-sm">
-          List Your Court
-        </button>
-      </div>
+      <section class="contact-section">
+        <div class="contact-container">
+          <div class="contact-form-wrapper">
+            <h2 class="contact-form-title">Get in Touch</h2>
+
+            <form class="contact-form">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-input" placeholder="Your name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input
+                  type="email"
+                  class="form-input"
+                  placeholder="you@example.com"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Reason for Contact</label>
+                <select class="form-input">
+                  <option>General Inquiry</option>
+                  <option>Booking Issue</option>
+                  <option>Payment Problem</option>
+                  <option>Venue Listing</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Message</label>
+                <textarea
+                  rows="5"
+                  class="form-input"
+                  placeholder="Describe your issue or inquiry"
+                ></textarea>
+              </div>
+              <button class="form-submit-btn">Send Message</button>
+              <p class="form-helper-text">
+                We usually respond within 24 hours.
+              </p>
+            </form>
+          </div>
+          <div class="contact-info-wrapper">
+            <h2 class="contact-info-title">Contact Information</h2>
+
+            <div class="contact-info-list">
+              <p><strong>Email:</strong> support@khyah.com</p>
+              <p><strong>Phone:</strong> +977-98XXXXXXXX</p>
+              <p><strong>Office Hours:</strong> 9 AM – 6 PM (Sun–Fri)</p>
+              <p><strong>Location:</strong> Kathmandu, Nepal</p>
+            </div>
+            <div class="map-placeholder">
+               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2804.3622977427062!2d85.33237612386105!3d27.677897400342818!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19c18b827885%3A0x4207ecf181978d2e!2sHimalaya%20College%20of%20Engineering!5e0!3m2!1sen!2snp!4v1770041938745!5m2!1sen!2snp" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-  </div>
-</section>
-<!-- FOOTER -->
-<footer class="bg-black text-gray-400 text-center text-sm py-8">
-  © 2026 Khyah. All rights reserved.
-</footer>
-</body>
+    
+    <footer class="footer">© 2026 Khyah. All rights reserved.</footer>
+  </body>
 </html>

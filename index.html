@@ -1,69 +1,67 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>footsal</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/index.css">
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/index.css" />
+  </head>
 
-<body>
-<nav class="navbar">
-    <div class="nav-left nav-font">
-        <a href="index.html">HOME</a>
-        <a href="Venues.html">VENUES</a>
-        <a href="contact.html">CONTACT US</a>
-    </div>
-
-    <div class="khyah">
-        <a href="index.html"
-            style="
-                all: inherit;
-                display: inline-block;
-                cursor: pointer;
-                text-decoration: none;
-            ">
-            Footsal
+  <body>
+    <nav class="navbar">
+      <div class="khyah">
+        <a
+          href="index.html"
+          style="
+            all: inherit;
+            display: inline-block;
+            cursor: pointer;
+            text-decoration: none;
+          "
+        >
+          Footsal
         </a>
-    </div>
-    <div class="nav-right nav-font">
+      </div>
+      <div class="nav-right nav-font">
+        <a href="index.html">HOME</a>
+        <a href="contact.html">CONTACT US</a>
         <a href="Register.html">REGISTER</a>
         <a href="#">LOGIN</a>
-    </div>
-</nav>
+      </div>
+    </nav>
 
-
-<section class="vid">
-    <video autoplay muted loop playsinline>
-        <source src="video/Cinematic.mp4" type="video/mp4">
-    </video>
-
-    <div class="vid-content">
+    <section class="vid">
+      <div class="vid-content">
         <h1 class="vid-text">Book. Play. Compete.</h1>
 
         <div class="v-buttons">
-            <a href="#" class="btn btn-primary">
-                <span class="btn-text btn-text-one">Book a Court</span>
-                <span class="btn-text btn-text-two">Book a Court</span>
-            </a>
+          <a href="#" class="btn btn-primary">
+            <span class="btn-text btn-text-one">Book a Court</span>
+            <span class="btn-text btn-text-two">Book a Court</span>
+          </a>
 
-            <a href="" class="btn btn-outline" onclick="event.preventDefault(); scrollToVenueSection()">
-                <span class="btn-text btn-text-one">View Venues</span>
-                <span class="btn-text btn-text-two">View Venues</span>
-            </a>
+          <a
+            href=""
+            class="btn btn-outline"
+            onclick="
+              event.preventDefault();
+              scrollToVenueSection();
+            "
+          >
+            <span class="btn-text btn-text-one">View Venues</span>
+            <span class="btn-text btn-text-two">View Venues</span>
+          </a>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-<div class="venue-container" id="venue-section">
-    <h1 class="venue-heading">
-        Our Venues
-    </h1>
-    <div class="venue-cards">
-        <!-- Venue cards will be dynamically inserted here -->
+    <div class="venue-container" id="venue-section">
+      <h1 class="venue-heading">Our Venues</h1>
+      <div class="venue-cards"></div>
     </div>
-</div>
+    
+    <footer class="footer">© 2026 Khyah. All rights reserved.</footer>
 
-<script type="module" src="scripts/index.js"></script>
-</body>
+    <script type="module" src="scripts/index.js"></script>
+  </body>
 </html>

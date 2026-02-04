@@ -27,3 +27,11 @@ window.scrollToVenueSection = function() {
     block: 'start' 
   });
 };
+
+window.scrollToContact = function() {
+  const section = document.getElementById('contact');
+  section.scrollIntoView({ 
+    behavior: 'smooth', 
+    block: 'start' 
+  });
+};

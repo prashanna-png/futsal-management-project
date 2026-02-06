@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Your Venue - Footsal</title>
+    <link rel="stylesheet" href="styles/addvenue.css" />
+</head>
+
+<body class="bg-black text-white">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="khyah">
+            <a href="index.html" style="
+            all: inherit;
+            display: inline-block;
+            cursor: pointer;
+            text-decoration: none;
+          ">
+                Footsal
+            </a>
+        </div>
+        <div class="nav-right nav-font">
+            <a href="index.html">HOME</a>
+            <a href="contact.html">CONTACT US</a>
+            <a href="Register.html">REGISTER</a>
+            <a href="login.html">LOGIN</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="add-venue-container">
+        <h1>Add Your Venue</h1>
+
+        <form id="venue-form" action="#" method="POST" enctype="multipart/form-data">
+            <!-- Venue Name -->
+            <div class="form-group venue-name">
+                <label for="venue-name">Venue Name:</label>
+                <input type="text" id="venue-name" name="venue-name" placeholder="Enter venue name" required>
+            </div>
+
+            <!-- Venue Location -->
+            <div class="form-group venue-location">
+                <label for="venue-location">Location:</label>
+                <input type="text" id="venue-location" name="venue-location" placeholder="Enter venue address" required>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="form-group venue-contact">
+                <label for="venue-contact">Contact Number:</label>
+                <input type="tel" id="venue-contact" name="venue-contact" placeholder="Your contact number" required>
+            </div>
+
+            <!-- Email (added for better contact) -->
+            <div class="form-group venue-email">
+                <label for="venue-email">Email Address:</label>
+                <input type="email" id="venue-email" name="venue-email" placeholder="Your email address" required>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group venue-description">
+                <label for="venue-description">Description:</label>
+                <textarea id="venue-description" name="venue-description"
+                    placeholder="Describe your venue (facilities, size, amenities, etc.)" rows="4"></textarea>
+            </div>
+
+            <!-- Images Upload -->
+            <div class="form-group venue-images">
+                <label for="venue-images">Add Your Images:</label>
+                <input type="file" id="venue-images" name="venue-images" accept="image/*" multiple>
+                <small class="helper-text">You can upload multiple images (JPEG, PNG formats)</small>
+            </div>
+
+            <!-- Price Information -->
+            <div class="form-group venue-price">
+                <label for="venue-price">Hourly Rate ($):</label>
+                <input type="number" id="venue-price venue-booking-price" name="venue-price" placeholder="Price per hour" min="0"
+                    step="0.01">
+            </div>
+
+            <!-- Operating Hours -->
+            <div class="form-group venue-hours">
+                <label>Operating Hours:</label>
+                <div class="hours-input">
+                    <input type="time" id="opening-time" name="opening-time" placeholder="Opening time">
+                    <span> to </span>
+                    <input type="time" id="closing-time" name="closing-time" placeholder="Closing time">
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group submit-section">
+                <button type="submit" class="submit-btn">Submit Venue</button>
+            </div>
+        </form>
+    </main>
+
+    <!-- Contact Section -->
+    <footer id="contact-section" class="footer-contact">
+        <h2>Contact Us</h2>
+        <div class="contact-info">
+            <p>Email: info@footsal.com</p>
+            <p>Phone: +1 (123) 456-7890</p>
+            <p>Address: 123 Sports Street, City, Country</p>
+        </div>
+    </footer>
+
+        <footer class="footer">© 2026 Khyah. All rights reserved.</footer>
+
+    <script type="module" src="/scripts/addVenue.js"></script>
+</body>
+
+</html>

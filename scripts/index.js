@@ -1,8 +1,15 @@
 
 import { venueData } from '../data/venue.js';
 
+const userVenues = JSON.parse(localStorage.getItem('venues')) || [];
+
+function getAllVenue(){
+  const userAddedVenue = userVenues;
+  const defaultVenue = venueData;
+  return [...userAddedVenue, ...defaultVenue];
+}
 let venueHtml = '';
-venueData.forEach(venue => {
+getAllVenue().forEach(venue => {
   venueHtml += `
     <div class="venue-card">
       <img class="venue-image" src="images/${venue.image}" alt="${venue.name}" width="100%" />

@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --clr-neutral-900: hsl(0, 0%, 5%);
+  --clr-neutral-800: hsl(0, 0%, 12%);
+  --clr-neutral-500: hsl(0, 0%, 40%);
+  --clr-neutral-400: hsl(0, 0%, 55%);
+  --clr-neutral-0: hsl(0, 0%, 100%);
+
+  --clr-blue-600: hsl(200, 100%, 50%);
+  --clr-blue-400: hsl(195, 100%, 65%);
+
+  --clr-red-500: hsl(0, 80%, 55%);
+  --clr-green-500: hsl(145, 70%, 55%);
+  --clr-yellow-400: hsl(50, 90%, 65%);
+
+  --font-main: "Sora", sans-serif;
+  --font-size: 16px;
+}
+
+body {
+  font-family: var(--font-main);
+  font-size: var(--font-size);
+  color: var(--clr-neutral-0);
+  /* light text */
+  background-color: var(--clr-neutral-900);
+  /* dark background */
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100%;
+}
+
+.left-pannel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, var(--clr-neutral-900), var(--clr-neutral-800));
+  color: var(--clr-neutral-0);
+  padding: 2rem;
+  text-align: center;
+}
+
+.left-pannel .logo {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--clr-neutral-0);
+  margin-bottom: 1.5rem;
+}
+
+.left-pannel .side h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: var(--clr-neutral-0);
+}
+
+.left-pannel .side p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--clr-neutral-400);
+  max-width: 300px;
+}
+
+
+.right-pannel {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--clr-neutral-0);
+  color: var(--clr-neutral-900);
+}
+
+
+
+form {
+  width: 400px;
+  padding: 2rem;
+}
+
+form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  text-shadow: 0 0 8px var(--clr-blue-600);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 0.5px solid var(--clr-neutral-400);
+  font-size: 0.9rem;
+  transition: 0.3s;
+  margin-top: 20px;
+}
+
+input::placeholder {
+  color: var(--clr-neutral-400);
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--clr-blue-600);
+}
+
+.error-message {
+  background-color: var(--clr-neutral-900);
+  color: var(--clr-red-500);
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+input[type="submit"] {
+  margin-top: 10px;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--clr-neutral-900);
+  color: var(--clr-neutral-0);
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+input[type="submit"]:hover {
+  opacity: 0.8;
+}
+
+p {
+  margin-top: 1rem;
+  text-align: center;
+  color: var(--clr-neutral-400);
+  font-size: 0.85rem;
+}
+
+p a {
+  color: var(--clr-blue-400);
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+p a:hover {
+  text-shadow: 0 0 8px var(--clr-blue-600);
+}

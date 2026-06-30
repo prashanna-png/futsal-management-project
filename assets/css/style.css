@@ -26,9 +26,7 @@ body {
   font-family: var(--font-main);
   font-size: var(--font-size);
   color: var(--clr-neutral-0);
-  /* light text */
   background-color: var(--clr-neutral-900);
-  /* dark background */
 }
 
 .container {

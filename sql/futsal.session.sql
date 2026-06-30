@@ -8,6 +8,9 @@ CREATE TABLE users (
   role ENUM('customer', 'owner', 'staff', 'admin') NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+select * from users;
+
 CREATE TABLE futsal (
   futsalid INT AUTO_INCREMENT PRIMARY KEY,
   ownerid INT NOT NULL,

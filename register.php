@@ -8,7 +8,7 @@ $role = "";
 $password = "";
 $conform = "";
 
-$error ='';
+$error = $_SESSION['error'] ?? '';
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   $name = trim($_POST['name']);
@@ -18,32 +18,35 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   $password = $_POST['password'];
   $confirm = $_POST['confirm_password'];
 
-  if($name === ''||
-    $email === '' || $phone === '' ||
-    $role === '' || $password === '' ||
-    $confirm === ''){
-      $error = "All fields are required";
-  }
-
-  elseif(!preg_match("/^[A-Za-z]+$/", $name)){
-    $error = "Only letters are allowed in name";
-  }
-
-  elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-    $error = "Invalid email format";
-  }
-
-  elseif(!is_numeric($phone) || strlen($phone) != 10){
-    $error = "Please enter a valid 10-digit phone number";
-  }
-
-
-  elseif($role != "customer" && $role != "owner" && $role != "staff"){
-    $error = "Please select a valid role";
-  }
-
-  elseif($password != $confirm){
-    $error = "Passwords do not match";
+  if ($name === '' || $email === '' || $phone === '' || $role === '' || $password === '' || $confirm === '') {
+      $_SESSION['error'] = "All fields are required";
+      header("Location: register.php");
+      exit;
+  } 
+  elseif (!preg_match("/^[A-Za-z\s]+$/", $name)) {
+    $_SESSION['error'] = "Only letters are allowed in name";
+    header("Location: register.php");
+    exit;
+  } 
+  elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $_SESSION['error'] = "Invalid email format";
+      header("Location: register.php");
+      exit;
+  } 
+  elseif (!is_numeric($phone) || strlen($phone) != 10) {
+    $_SESSION['error'] = "Please enter a valid 10-digit phone number";
+    header("Location: register.php");
+    exit;
+  } 
+  elseif ($role != "customer" && $role != "owner" && $role != "staff") {
+    $_SESSION['error'] = "Please select a valid role";
+    header("Location: register.php");
+    exit;
+  } 
+  elseif ($password != $confirm) {
+    $_SESSION['error'] = "Passwords do not match";
+    header("Location: register.php");
+    exit;
   }
 
   else{
@@ -51,14 +54,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $result = mysqli_query($conn, $check_email);
 
     if (mysqli_num_rows($result) > 0) {
-      $error = "Email already exists";
+      $_SESSION["error"] = "Email already exist";
     }
     else{
-      $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+      $password = password_hash($password, PASSWORD_DEFAULT);
       $sql = "INSERT INTO users
-      (name, email, phone, password_hash, role)
+      (name, email, phone, password, role)
       VALUES
-      ('$name', '$email', '$phone', '$hashed_password', '$role')";
+      ('$name', '$email', '$phone', '$password', '$role')";
 
       if (mysqli_query($conn, $sql)) {
         header("Location: login.php?registered=1");
@@ -106,12 +109,12 @@ mysqli_close($conn);
       <?php endif; ?>
       <form action="" method="POST">
         <div class="name">
-            <input type="text" id="name" name="name" placeholder="Name">
+            <input type="text" id="name" name="name" placeholder="Name" required>
         </div>
 
-        <input type="text" name="phone" required placeholder="Phone Number">
-        <select name="role" required placeholder="Select Role">
-          <option value="" disabled selected>Select Role
+        <input type="text" name="phone" placeholder="Phone Number" required>
+        <select name="role"  placeholder="Select Role" required>
+          <option value="" disabled selected>Select Role</option>
           <option value="customer">Player</option>
           <option value="owner">Futsal Owner</option>
           <option value="staff">Staff</option>

@@ -9,6 +9,7 @@ $password = "";
 $conform = "";
 
 $error = $_SESSION['error'] ?? '';
+unset($_SESSION['error']);
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   $name = trim($_POST['name']);
@@ -82,7 +83,7 @@ mysqli_close($conn);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Authentication</title>
+  <title>Register</title>
   <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
@@ -102,6 +103,11 @@ mysqli_close($conn);
     </div>
     <div class="right-pannel">
       <h1>Register</h1>
+      <?php if(!empty($error)): ?>
+        <div class="error-message">
+          <?php echo $error; ?>
+        </div>
+      <?php endif; ?>
       <form action="" method="POST">
         <div class="name">
             <input type="text" id="name" name="name" placeholder="Name" required>

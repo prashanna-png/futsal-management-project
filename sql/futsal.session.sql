@@ -11,6 +11,7 @@ CREATE TABLE users (
 
 select * from users;
 
+
 CREATE TABLE futsal (
   futsalid INT AUTO_INCREMENT PRIMARY KEY,
   ownerid INT NOT NULL,

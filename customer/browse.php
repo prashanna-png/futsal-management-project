@@ -26,8 +26,12 @@ $currentPage = 'browse';
     <?php include 'includes/sidebar.php'; ?>
 
     <main class="main">
-
-      <?php include 'includes/header.php'; ?>
+      <div class="header">
+        <div>
+          <h1>Browse Futsals</h1>
+          <p>Find the best futsals near you.</p>
+        </div>
+      </div>
     </main>
 
   </div>

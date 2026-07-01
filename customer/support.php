@@ -1,7 +1,7 @@
 <?php
 require_once '../config/auth.php';
 require_login();
-$currentPage = 'profile';
+$currentPage = 'support';
 ?>
 
 <!DOCTYPE html>
@@ -28,8 +28,8 @@ $currentPage = 'profile';
     <main class="main">
       <div class="header">
         <div>
-          <h1>My Profile</h1>
-          <p>Manage your account information.</p>
+          <h1>Support Center</h1>
+          <p>Need help? Contact us or browse frequently asked questions.</p>
         </div>
       </div>
     </main>

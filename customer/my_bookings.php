@@ -1,7 +1,7 @@
 <?php
 require_once '../config/auth.php';
 require_login();
-$currentPage = 'browse';
+$currentPage = 'bookings';
 ?>
 
 <!DOCTYPE html>
@@ -26,8 +26,12 @@ $currentPage = 'browse';
     <?php include 'includes/sidebar.php'; ?>
 
     <main class="main">
-
-      <?php include 'includes/header.php'; ?>
+      <div class="header">
+        <div>
+          <h1>My Bookings</h1>
+          <p>View your upcoming, completed, and cancelled bookings.</p>
+        </div>
+      </div>
     </main>
 
   </div>

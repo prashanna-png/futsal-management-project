@@ -2,6 +2,7 @@
 session_start();
 require_once '../config/auth.php';
 require_login();
+$currentPage = 'addFutsal';
 ?>
 
 <!DOCTYPE html>

@@ -1,8 +1,47 @@
 <?php
 session_start();
+
 require_once '../config/auth.php';
+require_once '../config/db.php';
+
 require_login();
+
+$error = $_SESSION['error'] ?? '';
+unset($_SESSION['error']);
+
 $currentPage = 'addFutsal';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+  $name = trim($_POST['name']);
+  $location = trim($_POST['location']);
+  $address = trim($_POST['address']);
+  $description = trim($_POST['description']);
+
+  $price_per_hour = trim($_POST['price_per_hour']);
+  $contact_number = trim($_POST['contact_number']);
+
+  $opening_time = $_POST['opening_time'];
+  $closing_time = $_POST['closing_time'];
+
+  $image = $_FILES['image'];
+
+  $facilities = $_POST['facility'] ?? [];
+
+  if ($name === '' || $location === '' || $address === "" || $description === "" || $price_per_hour === "" || $contact_number === '' || $opening_time === '' || $closing_time === '') {
+    $_SESSION['error'] = 'All fields are required';
+  } elseif (!preg_match("/^[A-Za-z0-9\s]+$/", $name)) {
+    $_SESSION['error'] = "Futsal name contains invalid characters.";
+  } elseif (!is_numeric($price_per_hour) || $price_per_hour <= 0) {
+    $_SESSION['error'] = "Enter a valid price per hour.";
+  } elseif ($opening_time >= $closing_time) {
+    $_SESSION['error'] = "Closing time must be after opening time.";
+  } elseif ($image['error'] != 0) {
+    $error = "Please upload a futsal image.";
+  } elseif (!is_numeric($phone) || strlen($phone) != 10) {
+    $_SESSION['error'] = "Please enter a valid 10-digit phone number";
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +76,11 @@ $currentPage = 'addFutsal';
         </div>
 
       </div>
+      <?php if (!empty($error)): ?>
+        <div class="error-message">
+          <?php echo $error; ?>
+        </div>
+      <?php endif; ?>
 
       <div class="form-container">
 
@@ -45,31 +89,21 @@ $currentPage = 'addFutsal';
           <div class="form-group">
 
             <label>Futsal Name</label>
-            <input
-              type="text"
-              name="name"
-              placeholder="Enter futsal name"
-              required>
+            <input type="text" name="name" placeholder="Enter futsal name" required>
 
           </div>
 
           <div class="form-group">
 
             <label>Location</label>
-            <input
-              type="text"
-              name="location"
-              placeholder="Enter city/location"
-              required>
+            <input type="text" name="location" placeholder="Enter city/location" required>
 
           </div>
 
           <div class="form-group">
 
             <label>Address</label>
-            <textarea
-              name="address"
-              placeholder="Enter complete address"></textarea>
+            <textarea name="address" placeholder="Enter complete address"></textarea>
 
           </div>
 
@@ -77,9 +111,7 @@ $currentPage = 'addFutsal';
 
             <label>Description</label>
 
-            <textarea
-              name="description"
-              placeholder="Describe your futsal"></textarea>
+            <textarea name="description" placeholder="Describe your futsal"></textarea>
 
           </div>
 
@@ -89,11 +121,7 @@ $currentPage = 'addFutsal';
 
               <label>Price Per Hour (Rs.)</label>
 
-              <input
-                type="number"
-                name="price_per_hour"
-                placeholder="1500"
-                required>
+              <input type="number" name="price_per_hour" placeholder="1500" required>
 
             </div>
 
@@ -101,11 +129,7 @@ $currentPage = 'addFutsal';
 
               <label>Contact Number</label>
 
-              <input
-                type="text"
-                name="contact_number"
-                placeholder="98XXXXXXXX"
-                required>
+              <input type="text" name="contact_number" placeholder="98XXXXXXXX" required>
 
             </div>
 
@@ -117,10 +141,7 @@ $currentPage = 'addFutsal';
 
               <label>Opening Time</label>
 
-              <input
-                type="time"
-                name="opening_time"
-                required>
+              <input type="time" name="opening_time" required>
 
             </div>
 
@@ -128,10 +149,7 @@ $currentPage = 'addFutsal';
 
               <label>Closing Time</label>
 
-              <input
-                type="time"
-                name="closing_time"
-                required>
+              <input type="time" name="closing_time" required>
 
             </div>
 
@@ -141,10 +159,7 @@ $currentPage = 'addFutsal';
 
             <label>Upload Image</label>
 
-            <input
-              type="file"
-              name="image"
-              accept="image/*">
+            <input type="file" name="image" accept="image/*">
 
           </div>
 
@@ -183,9 +198,7 @@ $currentPage = 'addFutsal';
 
           </div>
 
-          <button
-            type="submit"
-            class="btn">
+          <button type="submit" class="btn">
 
             Register Futsal
 

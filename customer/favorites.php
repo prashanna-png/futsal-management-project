@@ -12,7 +12,7 @@ $currentPage = 'favorites';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Customer Dashboard</title>
 
-  <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <link rel="stylesheet" href="../assets/css/customer.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,10 +29,47 @@ $currentPage = 'favorites';
       <div class="header">
         <div>
           <h1>Favorite Futsals</h1>
-          <p>Quickly access the futsals you've saved as favorites.</p>
+          <p>Your saved futsals for quick booking.</p>
         </div>
       </div>
-    </main>
+
+      <div class="futsal-grid">
+
+        <div class="futsal-card">
+
+          <img src="../assets/images/futsal.jpg">
+
+          <h3>KickOff Arena</h3>
+
+          <p>📍 Kathmandu</p>
+
+          <p>⭐⭐⭐⭐⭐</p>
+
+          <button>Book Now</button>
+
+          <button>Remove</button>
+
+        </div>
+
+        <div class="futsal-card">
+
+          <img src="../assets/images/futsal.jpg">
+
+          <h3>Goal Arena</h3>
+
+          <p>📍 Bhaktapur</p>
+
+          <p>⭐⭐⭐⭐☆</p>
+
+          <button>Book Now</button>
+
+          <button>Remove</button>
+
+        </div>
+
+      </div>
+  </div>
+  </main>
 
   </div>
 

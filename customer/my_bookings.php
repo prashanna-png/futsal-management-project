@@ -12,7 +12,7 @@ $currentPage = 'bookings';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Customer Booking</title>
 
-  <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <link rel="stylesheet" href="../assets/css/customer.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,10 +29,48 @@ $currentPage = 'bookings';
       <div class="header">
         <div>
           <h1>My Bookings</h1>
-          <p>View your upcoming, completed, and cancelled bookings.</p>
+          <p>View all your booked matches.</p>
         </div>
       </div>
-    </main>
+
+      <div class="table">
+
+        <table>
+
+          <tr>
+            <th>Futsal</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+
+          <tr>
+            <td>Goal Arena</td>
+            <td>25 June 2026</td>
+            <td>6 PM - 7 PM</td>
+            <td><span class="status">Confirmed</span></td>
+            <td>
+              <button>View</button>
+              <button>Cancel</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Elite Arena</td>
+            <td>28 June 2026</td>
+            <td>8 PM - 9 PM</td>
+            <td><span class="status">Pending</span></td>
+            <td>
+              <button>View</button>
+            </td>
+          </tr>
+
+        </table>
+
+      </div>
+  </div>
+  </main>
 
   </div>
 

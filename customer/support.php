@@ -12,7 +12,7 @@ $currentPage = 'support';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Customer Dashboard</title>
 
-  <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <link rel="stylesheet" href="../assets/css/customer.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,10 +29,39 @@ $currentPage = 'support';
       <div class="header">
         <div>
           <h1>Support Center</h1>
-          <p>Need help? Contact us or browse frequently asked questions.</p>
+          <p>Need help? Contact us anytime.</p>
         </div>
       </div>
-    </main>
+
+      <div class="support-container">
+
+        <div class="contact-info">
+
+          <h3>Contact Information</h3>
+
+          <p>📞 +977-9800000000</p>
+
+          <p>📧 support@futsalhub.com</p>
+
+          <p>📍 Kathmandu, Nepal</p>
+
+        </div>
+
+        <div class="support-form">
+
+          <h3>Send Message</h3>
+
+          <input type="text" placeholder="Subject">
+
+          <textarea rows="6" placeholder="Write your message..."></textarea>
+
+          <button>Send Message</button>
+
+        </div>
+
+      </div>
+  </div>
+  </main>
 
   </div>
 

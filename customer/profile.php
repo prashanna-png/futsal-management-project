@@ -42,16 +42,21 @@ $currentPage = 'profile';
         <form>
 
           <label>Full Name</label>
-          <input type="text" value="Prashanna">
+          <input type="text" value="">
 
           <label>Email</label>
-          <input type="email" value="example@gmail.com">
+          <input type="email" value="">
 
           <label>Phone</label>
-          <input type="text" value="9812345678">
+          <input type="text" value="">
 
           <label>Role</label>
-          <input type="text" value="Customer" readonly>
+          <select name="role" placeholder="Select Role" required>
+            <option value="" disabled selected>Select Role</option>
+            <option value="customer">Player</option>
+            <option value="owner">Futsal Owner</option>
+            <option value="staff">Staff</option>
+          </select>
 
           <button>Update Profile</button>
 

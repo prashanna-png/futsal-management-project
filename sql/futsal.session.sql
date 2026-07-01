@@ -1,4 +1,5 @@
 USE futsal_management_system;
+-- USERS
 CREATE TABLE users (
   userid INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
@@ -9,52 +10,83 @@ CREATE TABLE users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-select * from users;
+DROP TABLE timeslot;
+DROP TABLE futsal;
 
-
+select *
+from users;
+-- FUTSAL
 CREATE TABLE futsal (
   futsalid INT AUTO_INCREMENT PRIMARY KEY,
   ownerid INT NOT NULL,
   name VARCHAR(100) NOT NULL,
   location VARCHAR(100) NOT NULL,
+  address TEXT,
   description TEXT,
   price_per_hour DECIMAL(10, 2) NOT NULL,
+  opening_time TIME NOT NULL,
+  closing_time TIME NOT NULL,
+  contact_number VARCHAR(15),
+  image VARCHAR(255),
   status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (ownerid) REFERENCES users(userid) ON DELETE CASCADE
 );
+-- FACILITIES
+CREATE TABLE facility (
+  facilityid INT AUTO_INCREMENT PRIMARY KEY,
+  futsalid INT NOT NULL,
+  facility_name VARCHAR(50) NOT NULL,
+  FOREIGN KEY (futsalid) REFERENCES futsal(futsalid) ON DELETE CASCADE
+);
+-- TIME SLOTS
 CREATE TABLE timeslot (
   slotid INT AUTO_INCREMENT PRIMARY KEY,
   futsalid INT NOT NULL,
   start_time TIME NOT NULL,
   end_time TIME NOT NULL,
-  is_booked BOOLEAN DEFAULT FALSE,
   FOREIGN KEY (futsalid) REFERENCES futsal(futsalid) ON DELETE CASCADE
 );
+-- BOOKINGS
 CREATE TABLE booking (
   bookingid INT AUTO_INCREMENT PRIMARY KEY,
   playerid INT NOT NULL,
   futsalid INT NOT NULL,
-  staffid INT,
+  staffid INT DEFAULT NULL,
   booking_date DATE NOT NULL,
   start_time TIME NOT NULL,
   end_time TIME NOT NULL,
-  status ENUM('pending', 'confirmed', 'completed', 'cancelled') DEFAULT 'pending',
+  amount DECIMAL(10, 2) NOT NULL,
+  status ENUM(
+    'pending',
+    'confirmed',
+    'completed',
+    'cancelled'
+  ) DEFAULT 'pending',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (playerid) REFERENCES users(userid) ON DELETE CASCADE,
   FOREIGN KEY (futsalid) REFERENCES futsal(futsalid) ON DELETE CASCADE,
   FOREIGN KEY (staffid) REFERENCES users(userid) ON DELETE
   SET NULL
 );
+-- PAYMENTS
 CREATE TABLE payment (
   paymentid INT AUTO_INCREMENT PRIMARY KEY,
   bookingid INT NOT NULL,
   amount DECIMAL(10, 2) NOT NULL,
-  method ENUM('cash', 'esewa', 'khalti', 'card') DEFAULT 'cash',
+  method ENUM(
+    'cash',
+    'esewa',
+    'khalti',
+    'card'
+  ) DEFAULT 'cash',
+  transaction_id VARCHAR(100),
   status ENUM('pending', 'completed', 'failed') DEFAULT 'pending',
   payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (bookingid) REFERENCES booking(bookingid) ON DELETE CASCADE
 );
+-- REVIEWS
 CREATE TABLE review (
   reviewid INT AUTO_INCREMENT PRIMARY KEY,
   playerid INT NOT NULL,
@@ -64,6 +96,7 @@ CREATE TABLE review (
   ),
   comment VARCHAR(255),
   review_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(playerid, futsalid),
   FOREIGN KEY (playerid) REFERENCES users(userid) ON DELETE CASCADE,
   FOREIGN KEY (futsalid) REFERENCES futsal(futsalid) ON DELETE CASCADE
 );

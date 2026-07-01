@@ -342,6 +342,15 @@ table td {
   font-size: 15px;
 }
 
+.profile-card select {
+  margin-bottom: 20px;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+  resize: none;
+}
+
 .profile-card button {
   padding: 14px;
   border: none;

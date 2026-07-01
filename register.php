@@ -102,11 +102,6 @@ mysqli_close($conn);
     </div>
     <div class="right-pannel">
       <h1>Register</h1>
-      <?php if(!empty($error)): ?>
-          <div class="error-message">
-              <?php echo $error; ?>
-          </div>
-      <?php endif; ?>
       <form action="" method="POST">
         <div class="name">
             <input type="text" id="name" name="name" placeholder="Name" required>

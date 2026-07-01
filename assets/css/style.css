@@ -157,14 +157,12 @@ p {
 }
 
 p a {
-  color: var(--clr-blue-400);
+  color: var(--clr-blue-600);
   text-decoration: none;
   transition: 0.3s;
 }
 
-p a:hover {
-  text-shadow: 0 0 8px var(--clr-blue-600);
-}
+
 
 .mid-box {
   display: flex;
@@ -191,4 +189,6 @@ p a:hover {
 
 .forgot-password {
   text-align: right;
+  text-decoration: none;
+  color: var(--clr-blue-600);
 }

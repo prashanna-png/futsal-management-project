@@ -4,7 +4,7 @@ require_once '../config/db.php';
 require_login();
 $currentPage = 'browse';
 
-$sql = "SELECT * FROM futsal";
+$sql = "SELECT * FROM futsal WHERE status='approved'";
 $result = mysqli_query($conn, $sql);
 ?>
 

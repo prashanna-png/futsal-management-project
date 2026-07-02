@@ -48,7 +48,6 @@ $result = mysqli_query($conn, $sql);
             $futsalid = $row['futsalid'];
             $facilitySQL = "SELECT * FROM facility WHERE futsalid='$futsalid'";
             $facilityresult = mysqli_query($conn, $facilitySQL);
-
         ?>
             <div class="futsal-card">
               <img src="../assets/uploads/<?php echo htmlspecialchars($row['image']); ?>" alt="Futsal">

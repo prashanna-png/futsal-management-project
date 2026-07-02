@@ -10,8 +10,8 @@
       "server": "localhost",
       "port": 3306,
       "driver": "MySQL",
-      "name": "futsal",
-      "database": "futsal_management_system",
+      "name": "SQL",
+      "database": "futsal_system",
       "username": "root"
     }
   ]

@@ -1,73 +1,93 @@
 <?php
-session_start();
-
-require_once '../config/auth.php';
 require_once '../config/db.php';
-
+require_once '../config/auth.php';
 require_login();
+global $conn;
 
-$error = $_SESSION['error'] ?? '';
-unset($_SESSION['error']);
+if ($_SESSION['role'] !== 'owner') {
+  header("Location: ../login.php");
+  exit();
+}
+
+$error   = $_SESSION['error'] ?? '';
+$success = $_SESSION['success'] ?? '';
+unset($_SESSION['error'], $_SESSION['success']);
 
 $currentPage = 'addFutsal';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $name = trim($_POST['name']);
-  $location = trim($_POST['location']);
-  $address = trim($_POST['address']);
-  $description = trim($_POST['description']);
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $name           = trim($_POST['name']);
+  $location       = trim($_POST['location']);
+  $address        = trim($_POST['address']);
+  $description    = trim($_POST['description']);
   $price_per_hour = trim($_POST['price_per_hour']);
   $contact_number = trim($_POST['contact_number']);
+  $opening_time   = $_POST['opening_time'];
+  $closing_time   = $_POST['closing_time'];
+  $facilities     = $_POST['facility'] ?? [];
+  $ownerid        = $_SESSION['userid'];
 
-  $opening_time = $_POST['opening_time'];
-  $closing_time = $_POST['closing_time'];
-
-  $image = $_FILES['image'];
-
-  $facilities = $_POST['facility'] ?? [];
-
-  if ($name === '' || $location === '' || $address === '' || $description === '' || $price_per_hour === '' || $contact_number === '' || $opening_time === '' || $closing_time === '') {
-    $_SESSION['error'] = 'All fields are required';
+  // Validation
+  if (empty($name) || empty($location) || empty($address) || empty($description) || empty($price_per_hour) || empty($contact_number) || empty($opening_time) || empty($closing_time)) {
+    $_SESSION['error'] = 'All fields are required.';
   } elseif (!preg_match("/^[A-Za-z0-9\s]+$/", $name)) {
     $_SESSION['error'] = 'Futsal name contains invalid characters.';
   } elseif (!is_numeric($price_per_hour) || $price_per_hour <= 0) {
     $_SESSION['error'] = 'Enter a valid price per hour.';
   } elseif ($opening_time >= $closing_time) {
     $_SESSION['error'] = 'Closing time must be after opening time.';
-  } elseif ($image['error'] != 0) {
+  } elseif (!preg_match("/^[0-9]{10}$/", $contact_number)) {
+    $_SESSION['error'] = 'Please enter a valid 10-digit phone number.';
+  } elseif ($_FILES['image']['error'] !== 0) {
     $_SESSION['error'] = 'Please upload a futsal image.';
-  } elseif (!is_numeric($contact_number) || strlen($contact_number) != 10) {
-    $_SESSION['error'] = 'Please enter a valid 10-digit phone number';
   } else {
-    $checkFutsal = "SELECT futsalid FROM futsal where name='$name' AND location='$location'";
-    $result = mysqli_query($conn, $checkFutsal);
+    // Check duplicate
+    $checkSql = "SELECT futsalid FROM futsal WHERE name='$name' AND location='$location'";
+    $result   = mysqli_query($conn, $checkSql);
 
     if (mysqli_num_rows($result) > 0) {
-      $_SESSION['error'] = 'A futsal with the same name already exists in this location.';
+      $_SESSION['error'] = 'A futsal with this name already exists in this location.';
     } else {
+      // Handle image upload
+      $allowed   = ['jpg', 'jpeg', 'png', 'webp'];
+      $ext       = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
 
-      $imageName = time() . "_" . basename($_FILES['image']['name']);
-      $target = "../uploads/" . $imageName;
-
-      move_uploaded_file($_FILES['image']['tmp_name'], $target);
-
-      $sql = "INSERT INTO futsal
-            (name, location, address, description, price_per_hour, opening_time, closing_time, contact_number, image)
-            VALUES
-            ('$name', '$location', '$address', '$description', '$price_per_hour', '$opening_time', '$closing_time', '$contact_number', '$imageName')";
-
-      if (mysqli_query($conn, $sql)) {
-
-        $_SESSION['success'] = "Futsal registered successfully.";
-        header("Location: register_futsal.php");
-        exit();
+      if (!in_array($ext, $allowed)) {
+        $_SESSION['error'] = 'Only JPG, PNG and WEBP images are allowed.';
       } else {
+        $imageName = time() . "_" . basename($_FILES['image']['name']);
+        $target    = "../uploads/" . $imageName;
+        move_uploaded_file($_FILES['image']['tmp_name'], $target);
 
-        $_SESSION['error'] = "Failed to register futsal.";
+        // Insert fselect * from futsal;utsal into database
+        $sql = "INSERT INTO futsal 
+                        (ownerid, name, location, address, description, price_per_hour, opening_time, closing_time, contact_number, image)
+                        VALUES
+                        ('$ownerid', '$name', '$location', '$address', '$description', '$price_per_hour', '$opening_time', '$closing_time', '$contact_number', '$imageName')";
+
+        if (mysqli_query($conn, $sql)) {
+          // Get the new futsal id
+          $futsalid = mysqli_insert_id($conn);
+
+          // Save facilities if any selected
+          if (!empty($facilities)) {
+            foreach ($facilities as $facility) {
+              $facSql = "INSERT INTO facility (futsalid, facility_name) 
+                                       VALUES ('$futsalid', '$facility')";
+              mysqli_query($conn, $facSql);
+            }
+          }
+
+          $_SESSION['success'] = 'Futsal registered successfully! Waiting for admin approval.';
+        } else {
+          $_SESSION['error'] = 'Failed to register futsal. Try again.';
+        }
       }
     }
   }
+
+  header("Location: register_futsal.php");
+  exit();
 }
 ?>
 
@@ -106,6 +126,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <?php if (!empty($error)) { ?>
         <div class="error-message">
           <?php echo $error; ?>
+        </div>
+      <?php } ?>
+      <?php if (!empty($success)) { ?>
+        <div class="error-message">
+          <?php echo $success; ?>
         </div>
       <?php } ?>
 
@@ -179,13 +204,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <input type="time" name="closing_time" required>
 
             </div>
+
           </div>
+
           <div class="form-group">
+
             <label>Upload Image</label>
+
             <input type="file" name="image" accept="image/*">
+
           </div>
+
           <div class="form-group">
+
             <label>Facilities</label>
+
             <div class="facility-grid">
 
               <label>

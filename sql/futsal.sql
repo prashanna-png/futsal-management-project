@@ -27,8 +27,14 @@ CREATE TABLE futsal (
   updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (ownerid) REFERENCES users(userid) ON DELETE CASCADE
 );
-select * from futsal;
-select * FROM facility;
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE facility;
+TRUNCATE TABLE futsal;
+SET FOREIGN_KEY_CHECKS = 1;
+select *
+from futsal;
+select *
+FROM facility;
 -- FACILITIES
 CREATE TABLE facility (
   facilityid INT AUTO_INCREMENT PRIMARY KEY,

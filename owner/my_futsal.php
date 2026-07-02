@@ -16,7 +16,7 @@ $success = $_SESSION['success'] ?? '';
 unset($_SESSION['error'], $_SESSION['success']);
 
 $ownerid = $_SESSION['userid'];
-$sql = "SELECT * FROM futsal WHERE        ownerid='$ownerid'";
+$sql = "SELECT * FROM futsal WHERE ownerid='$ownerid'";
 $result = mysqli_query($conn, $sql);
 
 
@@ -74,7 +74,7 @@ $result = mysqli_query($conn, $sql);
 
             <div class="futsal-card">
 
-              <img src="../uploads/<?php echo htmlspecialchars($row['image']); ?>" alt="">
+              <img src="../assets/uploads/<?php echo htmlspecialchars($row['image']); ?>" alt="">
 
               <div class="futsal-info">
 

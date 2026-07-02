@@ -2,6 +2,8 @@
 require_once '../config/auth.php';
 require_login();
 $currentPage = 'profile';
+
+
 ?>
 
 <!DOCTYPE html>

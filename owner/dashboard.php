@@ -1,8 +1,33 @@
 <?php
 session_start();
+require_once '../config/db.php';
 require_once '../config/auth.php';
 require_login();
 $currentPage = 'dashboard';
+
+$ownerid = $_SESSION['userid'];
+
+$sql = "SELECT * FROM futsal WHERE ownerid='$ownerid'";
+$result = mysqli_query($conn, $sql);
+$totalCourt = mysqli_num_rows($result);
+
+$sql = "SELECT * FROM futsal
+        WHERE ownerid='$ownerid'
+        AND status='pending'";
+
+$result = mysqli_query($conn, $sql);
+$totalPending = mysqli_num_rows($result);
+
+$sql = "SELECT * FROM futsal WHERE ownerid='$ownerid' AND status='approved'";
+$result = mysqli_query($conn, $sql);
+$totalApproved = mysqli_num_rows($result);
+
+$sql = "SELECT * FROM futsal WHERE ownerid='$ownerid' AND status='reject'";
+$result = mysqli_query($conn, $sql);
+$totalReject = mysqli_num_rows($result);
+
+$sql = "SELECT * FROM futsal WHERE ownerid='$ownerid'";
+$result = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -58,25 +83,35 @@ $currentPage = 'dashboard';
 
         <div class="card">
           <h4>Total Futsals</h4>
-          <h2>3</h2>
+          <h2><?php echo htmlspecialchars($totalCourt); ?></h2>
           <p>Registered Courts</p>
         </div>
 
         <div class="card">
           <h4>Pending Approval</h4>
-          <h2>1</h2>
+          <h2>
+            <?php echo htmlspecialchars($totalPending); ?>
+          </h2>
           <p>Waiting for Admin</p>
         </div>
 
         <div class="card">
-          <h4>Today's Bookings</h4>
-          <h2>8</h2>
-          <p>Confirmed Matches</p>
+          <h4>Approved Courts</h4>
+          <h2>
+            <?php echo htmlspecialchars($totalApproved); ?>
+          </h2>
+        </div>
+
+        <div class="card">
+          <h4>Reject Courts</h4>
+          <h2>
+            <?php echo htmlspecialchars($totalReject); ?>
+          </h2>
         </div>
 
         <div class="card">
           <h4>Total Earnings</h4>
-          <h2>Rs. 18,500</h2>
+          <h2>Rs. 0</h2>
           <p>This Month</p>
         </div>
 
@@ -91,31 +126,34 @@ $currentPage = 'dashboard';
           <h3>Recent Registered Futsals</h3>
 
           <div class="booking-info">
-
-            <div class="item">
-              <strong>Goal Arena</strong><br>
-              Kathmandu<br>
-              Rs.1500 / Hour<br>
-              Status : Approved
-            </div>
+            <?php
+            if (mysqli_num_rows($result) > 0) {
+              while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+                <div class="item">
+                  <strong>
+                    <?php
+                    echo htmlspecialchars($row['name']);
+                    ?>
+                  </strong>
+                  <br>
+                  <?php
+                  echo htmlspecialchars($row['location']);
+                  ?>
+                  <br>
+                  <?php
+                  echo htmlspecialchars($row['price_per_hour']);
+                  ?> / Hour<br>
+                  Status : <?php
+                            echo htmlspecialchars($row['status']);
+                            ?>
+                </div>
+            <?php
+              }
+            }
+            ?>
 
             <hr>
-
-            <div class="item">
-              <strong>Elite Arena</strong><br>
-              Lalitpur<br>
-              Rs.1800 / Hour<br>
-              Status : Pending
-            </div>
-
-            <hr>
-
-            <div class="item">
-              <strong>Futsal City</strong><br>
-              Bhaktapur<br>
-              Rs.1700 / Hour<br>
-              Status : Approved
-            </div>
 
           </div>
 
@@ -131,12 +169,12 @@ $currentPage = 'dashboard';
               Register Futsal
             </a>
 
-            <a href="my_futsals.php" class="action">
+            <a href="my_futsal.php" class="action">
               My Futsals
             </a>
 
-            <a href="manage_slots.php" class="action">
-              Manage Slots
+            <a href="profile.php" class="action">
+              Profile
             </a>
 
             <a href="manage_bookings.php" class="action">

@@ -1,7 +1,11 @@
 <?php
 require_once '../config/auth.php';
+require_once '../config/db.php';
 require_login();
 $currentPage = 'browse';
+
+$sql = "SELECT * FROM futsal";
+$result = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -38,39 +42,49 @@ $currentPage = 'browse';
       </div>
 
       <div class="futsal-grid">
+        <?php
+        if (mysqli_num_rows($result) > 0) {
+          while ($row = mysqli_fetch_assoc($result)) {
+            $futsalid = $row['futsalid'];
+            $facilitySQL = "SELECT * FROM facility WHERE futsalid='$futsalid'";
+            $facilityresult = mysqli_query($conn, $facilitySQL);
 
-        <div class="futsal-card">
-          <img src="../assets/images/futsal.jpg" alt="Futsal">
-          <h3>Goal Arena</h3>
-          <p>📍 Kathmandu</p>
-          <p>⭐⭐⭐⭐☆ (4.8)</p>
-          <p>Rs. 1500 / hour</p>
+        ?>
+            <div class="futsal-card">
+              <img src="../assets/uploads/<?php echo htmlspecialchars($row['image']); ?>" alt="Futsal">
+              <h3>
+                <?php
+                echo htmlentities($row['name']);
+                ?>
+              </h3>
+              <p>📍
+                <?php
+                echo htmlentities($row['location']);
+                ?>
+              </p>
+              <p>⭐⭐⭐⭐☆ (4.8)</p>
+              <p>Rs. <?php
+                      echo htmlentities($row['price_per_hour']);
+                      ?> / hour</p>
 
-          <div class="facilities">
-            <span>Parking</span>
-            <span>Shower</span>
-            <span>Cafe</span>
-          </div>
+              <div class="facilities">
+                <?php
+                while ($facility = mysqli_fetch_assoc($facilityresult)) {
+                ?>
+                  <span>
+                    <?php echo htmlspecialchars($facility['facility_name']); ?>
+                  </span>
+                <?php
+                }
+                ?>
+              </div>
 
-          <button>View Details</button>
-        </div>
-
-        <div class="futsal-card">
-          <img src="../assets/images/futsal.jpg" alt="Futsal">
-          <h3>Elite Arena</h3>
-          <p>📍 Lalitpur</p>
-          <p>⭐⭐⭐⭐⭐ (5.0)</p>
-          <p>Rs. 1800 / hour</p>
-
-          <div class="facilities">
-            <span>Parking</span>
-            <span>Wifi</span>
-            <span>Cafe</span>
-          </div>
-
-          <button>View Details</button>
-        </div>
-
+              <button>View Details</button>
+            </div>
+        <?php
+          }
+        }
+        ?>
       </div>
     </main>
 

@@ -9,6 +9,10 @@ CREATE TABLE users (
   role ENUM('customer', 'owner', 'staff', 'admin') NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+select * FROM users;
+SELECT * FROM futsal;
+select * from facility
+
 -- FUTSAL COURTS
 CREATE TABLE futsal (
   futsalid INT AUTO_INCREMENT PRIMARY KEY,
@@ -27,14 +31,7 @@ CREATE TABLE futsal (
   updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (ownerid) REFERENCES users(userid) ON DELETE CASCADE
 );
-SET FOREIGN_KEY_CHECKS = 0;
-TRUNCATE TABLE facility;
-TRUNCATE TABLE futsal;
-SET FOREIGN_KEY_CHECKS = 1;
-select *
-from futsal;
-select *
-FROM facility;
+
 -- FACILITIES
 CREATE TABLE facility (
   facilityid INT AUTO_INCREMENT PRIMARY KEY,

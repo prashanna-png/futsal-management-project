@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['error'] = 'Only JPG, PNG and WEBP images are allowed.';
       } else {
         $imageName = time() . "_" . basename($_FILES['image']['name']);
-        $target    = "../uploads/" . $imageName;
+        $target    = "../assets/uploads/" . $imageName;
         move_uploaded_file($_FILES['image']['tmp_name'], $target);
 
         // Insert fselect * from futsal;utsal into database

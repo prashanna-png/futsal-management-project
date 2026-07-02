@@ -12,7 +12,6 @@ unset($_SESSION['error']);
 $currentPage = 'addFutsal';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
   $name = trim($_POST['name']);
   $location = trim($_POST['location']);
   $address = trim($_POST['address']);
@@ -28,18 +27,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   $facilities = $_POST['facility'] ?? [];
 
-  if ($name === '' || $location === '' || $address === "" || $description === "" || $price_per_hour === "" || $contact_number === '' || $opening_time === '' || $closing_time === '') {
+  if ($name === '' || $location === '' || $address === '' || $description === '' || $price_per_hour === '' || $contact_number === '' || $opening_time === '' || $closing_time === '') {
     $_SESSION['error'] = 'All fields are required';
   } elseif (!preg_match("/^[A-Za-z0-9\s]+$/", $name)) {
-    $_SESSION['error'] = "Futsal name contains invalid characters.";
+    $_SESSION['error'] = 'Futsal name contains invalid characters.';
   } elseif (!is_numeric($price_per_hour) || $price_per_hour <= 0) {
-    $_SESSION['error'] = "Enter a valid price per hour.";
+    $_SESSION['error'] = 'Enter a valid price per hour.';
   } elseif ($opening_time >= $closing_time) {
-    $_SESSION['error'] = "Closing time must be after opening time.";
+    $_SESSION['error'] = 'Closing time must be after opening time.';
   } elseif ($image['error'] != 0) {
-    $error = "Please upload a futsal image.";
-  } elseif (!is_numeric($phone) || strlen($phone) != 10) {
-    $_SESSION['error'] = "Please enter a valid 10-digit phone number";
+    $_SESSION['error'] = 'Please upload a futsal image.';
+  } elseif (!is_numeric($contact_number) || strlen($contact_number) != 10) {
+    $_SESSION['error'] = 'Please enter a valid 10-digit phone number';
+  } else {
+    $checkFutsal = "SELECT futsalid FROM futsal where name='$name' AND location='$location'";
+    $result = mysqli_query($conn, $checkFutsal);
+
+    if (mysqli_num_rows($result) > 0) {
+      $_SESSION['error'] = 'A futsal with the same name already exists in this location.';
+    } else {
+
+      $imageName = time() . "_" . basename($_FILES['image']['name']);
+      $target = "../uploads/" . $imageName;
+
+      move_uploaded_file($_FILES['image']['tmp_name'], $target);
+
+      $sql = "INSERT INTO futsal
+            (name, location, address, description, price_per_hour, opening_time, closing_time, contact_number, image)
+            VALUES
+            ('$name', '$location', '$address', '$description', '$price_per_hour', '$opening_time', '$closing_time', '$contact_number', '$imageName')";
+
+      if (mysqli_query($conn, $sql)) {
+
+        $_SESSION['success'] = "Futsal registered successfully.";
+        header("Location: register_futsal.php");
+        exit();
+      } else {
+
+        $_SESSION['error'] = "Failed to register futsal.";
+      }
+    }
   }
 }
 ?>
@@ -76,11 +103,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
       </div>
-      <?php if (!empty($error)): ?>
+      <?php if (!empty($error)) { ?>
         <div class="error-message">
           <?php echo $error; ?>
         </div>
-      <?php endif; ?>
+      <?php } ?>
 
       <div class="form-container">
 
@@ -152,21 +179,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <input type="time" name="closing_time" required>
 
             </div>
-
           </div>
-
           <div class="form-group">
-
             <label>Upload Image</label>
-
             <input type="file" name="image" accept="image/*">
-
           </div>
-
           <div class="form-group">
-
             <label>Facilities</label>
-
             <div class="facility-grid">
 
               <label>

@@ -2,7 +2,7 @@
 session_start();
 require_once 'config/db.php';
 require_once 'config/auth.php';
-$name='';
+$name = '';
 $email = "";
 $phone = "";
 $role = "";
@@ -12,7 +12,7 @@ $conform = "";
 $error = $_SESSION['error'] ?? '';
 unset($_SESSION['error']);
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $name = trim($_POST['name']);
   $email = trim($_POST['email']);
   $phone = ($_POST['phone']);
@@ -21,44 +21,36 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   $confirm = $_POST['confirm_password'];
 
   if ($name === '' || $email === '' || $phone === '' || $role === '' || $password === '' || $confirm === '') {
-      $_SESSION['error'] = "All fields are required";
-      header("Location: register.php");
-      exit;
-  } 
-  elseif (!preg_match("/^[A-Za-z\s]+$/", $name)) {
+    $_SESSION['error'] = "All fields are required";
+    header("Location: register.php");
+    exit;
+  } elseif (!preg_match("/^[A-Za-z\s]+$/", $name)) {
     $_SESSION['error'] = "Only letters are allowed in name";
     header("Location: register.php");
     exit;
-  } 
-  elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $_SESSION['error'] = "Invalid email format";
-      header("Location: register.php");
-      exit;
-  } 
-  elseif (!is_numeric($phone) || strlen($phone) != 10) {
+    header("Location: register.php");
+    exit;
+  } elseif (!is_numeric($phone) || strlen($phone) != 10) {
     $_SESSION['error'] = "Please enter a valid 10-digit phone number";
     header("Location: register.php");
     exit;
-  } 
-  elseif ($role != "customer" && $role != "owner" && $role != "staff") {
+  } elseif ($role != "customer" && $role != "owner" && $role != "staff") {
     $_SESSION['error'] = "Please select a valid role";
     header("Location: register.php");
     exit;
-  } 
-  elseif ($password != $confirm) {
+  } elseif ($password != $confirm) {
     $_SESSION['error'] = "Passwords do not match";
     header("Location: register.php");
     exit;
-  }
-
-  else{
+  } else {
     $check_email = "SELECT * FROM users where email='$email'";
     $result = mysqli_query($conn, $check_email);
 
     if (mysqli_num_rows($result) > 0) {
       $_SESSION["error"] = "Email already exist";
-    }
-    else{
+    } else {
       $password = password_hash($password, PASSWORD_DEFAULT);
       $sql = "INSERT INTO users
       (name, email, phone, password, role)
@@ -68,8 +60,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       if (mysqli_query($conn, $sql)) {
         header("Location: login.php?registered=1");
         exit;
-      } 
-      else {
+      } else {
         $error = "Error: " . mysqli_error($conn);
       }
     }
@@ -104,18 +95,18 @@ mysqli_close($conn);
     </div>
     <div class="right-pannel">
       <h1>Register</h1>
-      <?php if(!empty($error)): ?>
+      <?php if (!empty($error)): ?>
         <div class="error-message">
           <?php echo $error; ?>
         </div>
       <?php endif; ?>
       <form action="" method="POST">
         <div class="name">
-            <input type="text" id="name" name="name" placeholder="Name" required>
+          <input type="text" id="name" name="name" placeholder="Name" required>
         </div>
 
         <input type="text" name="phone" placeholder="Phone Number" required>
-        <select name="role"  placeholder="Select Role" required>
+        <select name="role" placeholder="Select Role" required>
           <option value="" disabled selected>Select Role</option>
           <option value="customer">Player</option>
           <option value="owner">Futsal Owner</option>
@@ -123,7 +114,7 @@ mysqli_close($conn);
         </select>
 
         <input type="email" id="email" name="email" placeholder="Email">
-        
+
         <input type="password" id="password" name="password" placeholder="Password">
 
         <input type="password" id="confirm" name="confirm_password" placeholder="Conform Password">
@@ -134,4 +125,5 @@ mysqli_close($conn);
     </div>
   </div>
 </body>
+
 </html>

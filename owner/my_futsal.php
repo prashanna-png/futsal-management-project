@@ -1,8 +1,25 @@
 <?php
 session_start();
+require_once '../config/db.php';
 require_once '../config/auth.php';
+
 require_login();
+
 $currentPage = 'myFutsal';
+
+if ($_SESSION['role'] !== 'owner') {
+  header("Location: ../login.php");
+  exit;
+}
+$error   = $_SESSION['error'] ?? '';
+$success = $_SESSION['success'] ?? '';
+unset($_SESSION['error'], $_SESSION['success']);
+
+$ownerid = $_SESSION['userid'];
+$sql = "SELECT * FROM futsal WHERE        ownerid='$ownerid'";
+$result = mysqli_query($conn, $sql);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -49,103 +66,43 @@ $currentPage = 'myFutsal';
       </div>
 
       <div class="futsal-grid">
+        <?php
+        if (mysqli_num_rows($result) > 0) {
 
-        <div class="futsal-card">
+          while ($row = mysqli_fetch_assoc($result)) {
+        ?>
 
-          <img src="../assets/images/futsal.jpg" alt="">
+            <div class="futsal-card">
 
-          <div class="futsal-info">
+              <img src="../uploads/<?php echo htmlspecialchars($row['image']); ?>" alt="">
 
-            <h3>Goal Arena</h3>
+              <div class="futsal-info">
 
-            <p>📍 Kathmandu</p>
+                <h3><?php echo htmlspecialchars($row['name']); ?></h3>
 
-            <p>Rs.1500 / Hour</p>
+                <p>📍 <?php echo htmlspecialchars($row['location']); ?></p>
 
-            <span class="status approved">
-              Approved
-            </span>
+                <p>Rs. <?php echo $row['price_per_hour']; ?> / Hour</p>
 
-            <div class="card-buttons">
+                <span class="status <?php echo $row['status']; ?>">
+                  <?php echo ucfirst($row['status']); ?>
+                </span>
 
-              <a href="#" class="edit-btn">
-                Edit
-              </a>
+                <div class="card-buttons">
+                  <a href="#" class="edit-btn">Edit</a>
+                  <a href="#" class="delete-btn">Delete</a>
+                </div>
 
-              <a href="#" class="delete-btn">
-                Delete
-              </a>
+              </div>
 
-            </div>
+            </div> <!-- Close futsal-card here -->
 
-          </div>
-
-        </div>
-
-        <div class="futsal-card">
-
-          <img src="../assets/images/futsal.jpg" alt="">
-
-          <div class="futsal-info">
-
-            <h3>Elite Arena</h3>
-
-            <p>📍 Lalitpur</p>
-
-            <p>Rs.1800 / Hour</p>
-
-            <span class="status pending">
-              Pending
-            </span>
-
-            <div class="card-buttons">
-
-              <a href="#" class="edit-btn">
-                Edit
-              </a>
-
-              <a href="#" class="delete-btn">
-                Delete
-              </a>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="futsal-card">
-
-          <img src="../assets/images/futsal.jpg" alt="">
-
-          <div class="futsal-info">
-
-            <h3>Futsal City</h3>
-
-            <p>📍 Bhaktapur</p>
-
-            <p>Rs.1700 / Hour</p>
-
-            <span class="status rejected">
-              Rejected
-            </span>
-
-            <div class="card-buttons">
-
-              <a href="#" class="edit-btn">
-                Edit
-              </a>
-
-              <a href="#" class="delete-btn">
-                Delete
-              </a>
-
-            </div>
-
-          </div>
-
-        </div>
-
+        <?php
+          }
+        } else {
+          echo "<p>No futsal found.</p>";
+        }
+        ?>
       </div>
 
     </main>

@@ -1,103 +1,334 @@
+<?php
+session_start();
+
+require_once '../config/db.php';
+
+
+
+
+$currentPage = 'dashboard';
+
+/* Dashboard Statistics */
+
+// Total Users
+$result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users");
+$totalUsers = mysqli_fetch_assoc($result)['total'];
+
+// Total Futsals
+$result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM futsal");
+$totalFutsals = mysqli_fetch_assoc($result)['total'];
+
+// Pending Futsals
+$result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM futsal WHERE status='pending'");
+$totalPending = mysqli_fetch_assoc($result)['total'];
+
+// Approved Futsals
+$result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM futsal WHERE status='approved'");
+$totalApproved = mysqli_fetch_assoc($result)['total'];
+
+// Recent Pending Futsals
+$pendingResult = mysqli_query($conn, "
+SELECT
+f.futsalid,
+f.name,
+f.location,
+f.image,
+u.name AS owner
+FROM futsal f
+JOIN users u
+ON f.ownerid=u.userid
+WHERE f.status='pending'
+ORDER BY f.created_at DESC
+LIMIT 5
+");
+
+// Recent Users
+$userResult = mysqli_query($conn, "
+SELECT *
+FROM users
+ORDER BY created_at DESC
+LIMIT 5
+");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../assets/css/admin.css">
+
   <title>Admin Dashboard</title>
+
+  <link rel="stylesheet" href="../assets/css/admin.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
-  <div class="header">
-    <div>
-      <h1>Welcome Back, <?php echo $_SESSION['name']; ?> 👋</h1>
-      <p>Manage your futsal business efficiently.</p>
-    </div>
-  </div>
 
-  <div class="cards">
+  <div class="dashboard">
 
-    <div class="card">
-      <h4>Total Futsals</h4>
-      <h2><?php echo $totalCourt; ?></h2>
-    </div>
+    <?php include 'includes/sidebar.php'; ?>
 
-    <div class="card">
-      <h4>Approved</h4>
-      <h2><?php echo $totalApproved; ?></h2>
-    </div>
+    <main class="main">
 
-    <div class="card">
-      <h4>Pending</h4>
-      <h2><?php echo $totalPending; ?></h2>
-    </div>
+      <div class="header">
 
-    <div class="card">
-      <h4>Today's Bookings</h4>
-      <h2><?php echo $todayBookings; ?></h2>
-    </div>
+        <div>
 
-  </div>
+          <h1>Welcome Back, <?php echo htmlspecialchars($_SESSION['name']); ?> 👋</h1>
 
-  <div class="dashboard-content">
+          <p>Manage your futsal management system.</p>
 
-    <div class="recent-futsals">
+        </div>
 
-      <div class="section-title">
-        <h2>Recent Futsals</h2>
-        <a href="my_futsal.php" class="view-btn">View All</a>
-      </div>
+        <div class="admin-user">
 
-      <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+          <div class="avatar">
 
-        <div class="recent-card">
-
-          <img src="../uploads/<?php echo $row['image']; ?>">
-
-          <div class="recent-info">
-
-            <h3><?php echo $row['name']; ?></h3>
-
-            <p><?php echo $row['location']; ?></p>
-
-            <p>Rs. <?php echo $row['price_per_hour']; ?>/hour</p>
-
-            <span class="status <?php echo $row['status']; ?>">
-              <?php echo ucfirst($row['status']); ?>
-            </span>
+            <?php echo strtoupper(substr($_SESSION['name'], 0, 1)); ?>
 
           </div>
 
-          <div class="recent-buttons">
+          <div>
 
-            <a href="#">Edit</a>
+            <strong><?php echo htmlspecialchars($_SESSION['name']); ?></strong>
 
-            <a href="#">Delete</a>
+            <br>
+
+            Administrator
 
           </div>
 
         </div>
 
-      <?php } ?>
+      </div>
 
-    </div>
+      <!-- Statistics -->
 
-    <div class="quick-actions">
+      <div class="cards">
 
-      <h2>Quick Actions</h2>
+        <div class="card">
 
-      <a href="register_futsal.php">+ Register New Futsal</a>
+          <h4>Total Users</h4>
 
-      <a href="my_futsal.php">My Futsals</a>
+          <h2><?php echo $totalUsers; ?></h2>
 
-      <a href="manage_bookings.php">Manage Bookings</a>
+        </div>
 
-      <a href="profile.php">Profile</a>
+        <div class="card">
 
-    </div>
+          <h4>Total Futsals</h4>
+
+          <h2><?php echo $totalFutsals; ?></h2>
+
+        </div>
+
+        <div class="card">
+
+          <h4>Pending Approval</h4>
+
+          <h2><?php echo $totalPending; ?></h2>
+
+        </div>
+
+        <div class="card">
+
+          <h4>Approved</h4>
+
+          <h2><?php echo $totalApproved; ?></h2>
+
+        </div>
+
+      </div>
+
+      <div class="content">
+
+        <!-- Pending Futsals -->
+
+        <div class="panel">
+
+          <h2>Recent Pending Futsals</h2>
+
+          <table>
+
+            <tr>
+
+              <th>Image</th>
+
+              <th>Futsal</th>
+
+              <th>Owner</th>
+
+              <th>Location</th>
+
+              <th>Status</th>
+
+              <th>Action</th>
+
+            </tr>
+
+            <?php while ($row = mysqli_fetch_assoc($pendingResult)) { ?>
+
+              <tr>
+
+                <td>
+
+                  <img
+                    src="../uploads/<?php echo htmlspecialchars($row['image']); ?>"
+                    width="80"
+                    style="border-radius:8px;">
+
+                </td>
+
+                <td>
+
+                  <?php echo htmlspecialchars($row['name']); ?>
+
+                </td>
+
+                <td>
+
+                  <?php echo htmlspecialchars($row['owner']); ?>
+
+                </td>
+
+                <td>
+
+                  <?php echo htmlspecialchars($row['location']); ?>
+
+                </td>
+
+                <td>
+
+                  <span class="status pending">
+
+                    Pending
+
+                  </span>
+
+                </td>
+
+                <td>
+
+                  <button class="btn approve-btn">
+
+                    Approve
+
+                  </button>
+
+                  <button class="btn reject-btn">
+
+                    Reject
+
+                  </button>
+
+                </td>
+
+              </tr>
+
+            <?php } ?>
+
+          </table>
+
+        </div>
+
+        <!-- Right Side -->
+
+        <div>
+
+          <div class="panel">
+
+            <h2>Recent Users</h2>
+
+            <div class="user-list">
+
+              <?php while ($user = mysqli_fetch_assoc($userResult)) { ?>
+
+                <div class="user-item">
+
+                  <div class="user-info">
+
+                    <div class="user-avatar">
+
+                      <?php echo strtoupper(substr($user['name'], 0, 1)); ?>
+
+                    </div>
+
+                    <div>
+
+                      <strong>
+
+                        <?php echo htmlspecialchars($user['name']); ?>
+
+                      </strong>
+
+                      <br>
+
+                      <?php echo ucfirst($user['role']); ?>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              <?php } ?>
+
+            </div>
+
+          </div>
+
+          <br>
+
+          <div class="panel">
+
+            <h2>Quick Actions</h2>
+
+            <div class="quick-links">
+
+              <a href="manage_futsals.php">
+
+                Manage Futsals
+
+              </a>
+
+              <a href="manage_users.php">
+
+                Manage Users
+
+              </a>
+
+              <a href="manage_bookings.php">
+
+                Manage Bookings
+
+              </a>
+
+              <a href="reports.php">
+
+                View Reports
+
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
 
   </div>
+
 </body>
 
 </html>

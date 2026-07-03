@@ -251,25 +251,15 @@ LIMIT 5
                     <div>
 
                       <strong>
-
                         <?php echo htmlspecialchars($user['name']); ?>
-
                       </strong>
-
                       <br>
-
                       <?php echo ucfirst($user['role']); ?>
-
                     </div>
-
                   </div>
-
                 </div>
-
               <?php } ?>
-
             </div>
-
           </div>
 
           <br>

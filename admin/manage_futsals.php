@@ -164,13 +164,29 @@ LIMIT 5
 
               <td>
 
-                <button class="btn approve-btn">
+                <form action="update_futsal_status.php" method="POST">
 
-                  Approve
-                </button>
-                <button class="btn reject-btn">
-                  Reject
-                </button>
+                  <input type="hidden" name="futsalid"
+                    value="<?php echo $row['futsalid']; ?>">
+
+                  <button
+                    type="submit"
+                    name="action"
+                    value="approved"
+                    class="btn approve-btn">
+                    Approve
+                  </button>
+
+                  <button
+                    type="submit"
+                    name="action"
+                    value="rejected"
+                    class="btn reject-btn">
+                    Reject
+                  </button>
+
+                </form>
+
               </td>
             </tr>
           <?php } ?>

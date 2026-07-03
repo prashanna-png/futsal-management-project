@@ -124,13 +124,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       </div>
       <?php if (!empty($error)) { ?>
-        <div class="error-message">
-          <?php echo $error; ?>
+        <div class="alert error">
+          <strong>❌ Error!</strong>
+          <?php echo htmlspecialchars($error); ?>
         </div>
       <?php } ?>
+
       <?php if (!empty($success)) { ?>
-        <div class="error-message">
-          <?php echo $success; ?>
+        <div class="alert success">
+          <strong>✅ Success!</strong>
+          <?php echo htmlspecialchars($success); ?>
         </div>
       <?php } ?>
 

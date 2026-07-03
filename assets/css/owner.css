@@ -641,6 +641,32 @@ table tr:hover {
   }
 
 }
+/* ================= Alert Messages ================= */
+
+.alert{
+    width:100%;
+    padding:16px 20px;
+    margin-bottom:25px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:500;
+}
+
+.alert strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.alert.error{
+    background:#fdecec;
+    color:#b71c1c;
+}
+
+.alert.success{
+    background:#edf9f0;
+    color:#1b5e20;
+    border-color:#43a047;
+}
 
 /* ================= Profile ================= */
 

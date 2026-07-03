@@ -1,7 +1,15 @@
 <?php
 session_start();
 
+require_once '../config/auth.php';
 require_once '../config/db.php';
+
+require_login();
+
+if ($_SESSION['role'] != 'admin') {
+  header("Location: ../login.php");
+  exit();
+}
 
 $currentPage = 'dashboard';
 
@@ -178,7 +186,7 @@ LIMIT 5
                 <td>
 
                   <img
-                    src="../assets/uploads/<?php echo htmlspecialchars($row['image']); ?>"
+                    src="../uploads/<?php echo htmlspecialchars($row['image']); ?>"
                     width="80"
                     style="border-radius:8px;">
 

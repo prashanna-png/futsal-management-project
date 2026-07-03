@@ -40,7 +40,7 @@
 
   <div class="logout">
 
-    <a href="../auth/logout.php">
+    <a href="../logout.php">
       Logout
     </a>
 

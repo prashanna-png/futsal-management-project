@@ -9,29 +9,29 @@ CREATE TABLE users (
   role ENUM('customer', 'owner', 'staff', 'admin') NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-select * FROM users;
-SELECT * FROM futsal;
-select * from facility
-
--- FUTSAL COURTS
-CREATE TABLE futsal (
-  futsalid INT AUTO_INCREMENT PRIMARY KEY,
-  ownerid INT NOT NULL,
-  name VARCHAR(100) NOT NULL,
-  location VARCHAR(100) NOT NULL,
-  address TEXT,
-  description TEXT,
-  price_per_hour DECIMAL(10, 2) NOT NULL,
-  opening_time TIME NOT NULL,
-  closing_time TIME NOT NULL,
-  contact_number VARCHAR(15),
-  image VARCHAR(255),
-  status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (ownerid) REFERENCES users(userid) ON DELETE CASCADE
-);
-
+select *
+FROM users;
+SELECT *
+FROM futsal;
+select *
+from facility -- FUTSAL COURTS
+  CREATE TABLE futsal (
+    futsalid INT AUTO_INCREMENT PRIMARY KEY,
+    ownerid INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    location VARCHAR(100) NOT NULL,
+    address TEXT,
+    description TEXT,
+    price_per_hour DECIMAL(10, 2) NOT NULL,
+    opening_time TIME NOT NULL,
+    closing_time TIME NOT NULL,
+    contact_number VARCHAR(15),
+    image VARCHAR(255),
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (ownerid) REFERENCES users(userid) ON DELETE CASCADE
+  );
 -- FACILITIES
 CREATE TABLE facility (
   facilityid INT AUTO_INCREMENT PRIMARY KEY,
@@ -98,3 +98,7 @@ VALUES (
     '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
     'admin'
   );
+select *
+from users;
+update users set password = '$2y$10$N.wUeOnE4vbr2eY53EZC8eTCZQYNGNVJc53LhoDOt6psYhDzyeRlC'
+where email = 'admin@futsal.com';

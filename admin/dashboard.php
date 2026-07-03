@@ -13,25 +13,21 @@ if ($_SESSION['role'] != 'admin') {
 
 $currentPage = 'dashboard';
 
-/* Dashboard Statistics */
-
-// Total Users
 $result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users WHERE role='customer'");
 $totalUsers = mysqli_fetch_assoc($result)['total'];
 
-// Total Futsals
+
 $result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM futsal");
 $totalFutsals = mysqli_fetch_assoc($result)['total'];
 
-// Pending Futsals
+
 $result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM futsal WHERE status='pending'");
 $totalPending = mysqli_fetch_assoc($result)['total'];
 
-// Approved Futsals
+
 $result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM futsal WHERE status='approved'");
 $totalApproved = mysqli_fetch_assoc($result)['total'];
 
-// Recent Pending Futsals
 $pendingResult = mysqli_query($conn, "
 SELECT
 f.futsalid,

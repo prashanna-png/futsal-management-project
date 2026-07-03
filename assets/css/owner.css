@@ -170,12 +170,19 @@ body {
 
 .booking-info {
   color: #555;
-  line-height: 1.9;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
 }
 
 .booking-info strong {
   color: #111;
   font-size: 17px;
+}
+.item{
+  border:1px solid #ddd;
+  padding:10px;
+  border-radius:10px;
 }
 
 /* ================= Quick Actions ================= */

@@ -153,8 +153,6 @@ $result = mysqli_query($conn, $sql);
             }
             ?>
 
-            <hr>
-
           </div>
 
         </div>

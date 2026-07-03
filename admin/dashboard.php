@@ -43,7 +43,7 @@ ORDER BY f.created_at DESC
 LIMIT 5
 ");
 
-// Recent Users
+
 $userResult = mysqli_query($conn, "
 SELECT *
 FROM users

@@ -3,9 +3,6 @@ session_start();
 
 require_once '../config/db.php';
 
-
-
-
 $currentPage = 'dashboard';
 
 /* Dashboard Statistics */
@@ -181,7 +178,7 @@ LIMIT 5
                 <td>
 
                   <img
-                    src="../uploads/<?php echo htmlspecialchars($row['image']); ?>"
+                    src="../assets/uploads/<?php echo htmlspecialchars($row['image']); ?>"
                     width="80"
                     style="border-radius:8px;">
 

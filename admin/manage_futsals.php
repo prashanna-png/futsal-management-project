@@ -36,6 +36,32 @@ ORDER BY created_at DESC
 LIMIT 5
 ");
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+  $action = $_POST['action'];
+  $futsalid = $_POST['futsalid'];
+
+  if ($action == 'approve') {
+
+    $status = 'approved';
+  } elseif ($action == 'reject') {
+
+    $status = 'rejected';
+  }
+
+  $sql = "UPDATE futsal
+            SET status = '$status'
+            WHERE futsalid = '$futsalid'";
+
+  mysqli_query($conn, $sql);
+
+  header("Location: manage_futsals.php");
+  exit();
+}
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -164,7 +190,7 @@ LIMIT 5
 
               <td>
 
-                <form action="update_futsal_status.php" method="POST">
+                <form action="" method="POST">
 
                   <input type="hidden" name="futsalid"
                     value="<?php echo $row['futsalid']; ?>">
@@ -172,7 +198,7 @@ LIMIT 5
                   <button
                     type="submit"
                     name="action"
-                    value="approved"
+                    value="approve"
                     class="btn approve-btn">
                     Approve
                   </button>
@@ -180,7 +206,7 @@ LIMIT 5
                   <button
                     type="submit"
                     name="action"
-                    value="rejected"
+                    value="reject"
                     class="btn reject-btn">
                     Reject
                   </button>

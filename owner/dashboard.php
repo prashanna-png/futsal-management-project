@@ -22,7 +22,7 @@ $sql = "SELECT * FROM futsal WHERE ownerid='$ownerid' AND status='approved'";
 $result = mysqli_query($conn, $sql);
 $totalApproved = mysqli_num_rows($result);
 
-$sql = "SELECT * FROM futsal WHERE ownerid='$ownerid' AND status='reject'";
+$sql = "SELECT * FROM futsal WHERE ownerid='$ownerid' AND status='rejected'";
 $result = mysqli_query($conn, $sql);
 $totalReject = mysqli_num_rows($result);
 

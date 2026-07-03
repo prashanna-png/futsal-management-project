@@ -48,18 +48,18 @@ body{
     gap:15px;
 }
 
-.menu a{
-    text-decoration:none;
-    color:#fff;
-    padding:14px 18px;
-    border-radius:12px;
-    transition:.3s;
+.menu a {
+    color: white;
+    text-decoration: none;
+    padding: 15px 18px;
+    border-radius: 12px;
+    transition: .3s;
 }
 
 .menu a:hover,
-.menu a.active{
-    background:#fff;
-    color:#111;
+.menu a.active {
+    background: white;
+    color: black;
 }
 
 .logout{
@@ -150,7 +150,6 @@ body{
     grid-template-columns:2fr 1fr;
     gap:25px;
 }
-
 /* ================= Panels ================= */
 
 .panel{

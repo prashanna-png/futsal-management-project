@@ -1,4 +1,5 @@
 <aside class="sidebar">
+  <?php $currentPage = $currentPage ?? ''; ?>
 
   <div class="logo">
     Futsal<span>Hub</span>

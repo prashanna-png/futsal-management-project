@@ -16,7 +16,7 @@ $currentPage = 'dashboard';
 /* Dashboard Statistics */
 
 // Total Users
-$result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users");
+$result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users WHERE role='customer'");
 $totalUsers = mysqli_fetch_assoc($result)['total'];
 
 // Total Futsals
@@ -121,7 +121,7 @@ LIMIT 5
 
         <div class="card">
 
-          <h4>Total Users</h4>
+          <h4>Total Customer</h4>
 
           <h2><?php echo $totalUsers; ?></h2>
 
@@ -175,8 +175,6 @@ LIMIT 5
 
               <th>Status</th>
 
-              <th>Action</th>
-
             </tr>
 
             <?php while ($row = mysqli_fetch_assoc($pendingResult)) { ?>
@@ -186,7 +184,7 @@ LIMIT 5
                 <td>
 
                   <img
-                    src="../uploads/<?php echo htmlspecialchars($row['image']); ?>"
+                    src="../assets/uploads/<?php echo htmlspecialchars($row['image']); ?>"
                     width="80"
                     style="border-radius:8px;">
 
@@ -217,22 +215,6 @@ LIMIT 5
                     Pending
 
                   </span>
-
-                </td>
-
-                <td>
-
-                  <button class="btn approve-btn">
-
-                    Approve
-
-                  </button>
-
-                  <button class="btn reject-btn">
-
-                    Reject
-
-                  </button>
 
                 </td>
 

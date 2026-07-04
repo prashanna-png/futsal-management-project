@@ -28,6 +28,9 @@ $totalPending = mysqli_fetch_assoc($result)['total'];
 $result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM futsal WHERE status='approved'");
 $totalApproved = mysqli_fetch_assoc($result)['total'];
 
+$result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM futsal WHERE status='rejected'");
+$totalRejected = mysqli_fetch_assoc($result)['total'];
+
 $pendingResult = mysqli_query($conn, "
 SELECT
 f.futsalid,
@@ -144,6 +147,14 @@ LIMIT 5
           <h4>Approved</h4>
 
           <h2><?php echo $totalApproved; ?></h2>
+
+        </div>
+
+        <div class="card">
+
+          <h4>Rejected</h4>
+
+          <h2><?php echo $totalRejected; ?></h2>
 
         </div>
 

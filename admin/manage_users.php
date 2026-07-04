@@ -107,7 +107,7 @@ $allUsers = mysqli_fetch_assoc($result);
           while ($row = mysqli_fetch_assoc($result)) {
           ?>
             <tr>
-              <td class="avatar">
+              <td class="avatar" style="margin-top: 10px;">
                 <?php
                 echo strtoupper(substr($row['name'], 0, 1));
                 ?>
@@ -143,17 +143,17 @@ $allUsers = mysqli_fetch_assoc($result);
                   <button
                     type="submit"
                     name="action"
-                    value="approve"
+                    value="view"
                     class="btn approve-btn">
-                    Approve
+                    View
                   </button>
 
                   <button
                     type="submit"
                     name="action"
-                    value="reject"
+                    value="Delete"
                     class="btn reject-btn">
-                    Reject
+                    Delete
                   </button>
 
                 </form>

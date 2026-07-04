@@ -12,9 +12,9 @@
       Dashboard
     </a>
 
-    <a href="manage_futsals.php"
-      class="<?= ($currentPage == 'manageFutsals') ? 'active' : '' ?>">
-      Manage Futsals
+    <a href="pending_futsals.php"
+      class="<?= ($currentPage == 'pendingFutsals') ? 'active' : '' ?>">
+      Pending Futsals
     </a>
 
     <a href="manage_users.php"

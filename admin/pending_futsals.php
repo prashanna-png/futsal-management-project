@@ -12,7 +12,7 @@ if ($_SESSION['role'] != 'admin') {
   exit();
 }
 
-$currentPage = 'manageFutsals';
+$currentPage = 'pendingFutsals';
 
 $pendingResult = mysqli_query($conn, "
 SELECT
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   mysqli_query($conn, $sql);
 
-  header("Location: manage_futsals.php");
+  header("Location: pending_futsals.php");
   exit();
 }
 
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <meta charset="UTF-8">
 
-  <title>manage futsals</title>
+  <title>pending futsals</title>
 
   <link rel="stylesheet" href="../assets/css/admin.css">
 
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div>
 
-          <h1>Manage Futsals</h1>
+          <h1>Manage Pending Futsals</h1>
 
           <p>Review and approve futsals submitted by owners.</p>
 

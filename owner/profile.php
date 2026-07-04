@@ -166,16 +166,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="profile-form">
 
           <h3>Personal Information</h3>
+
           <?php if (!empty($error)): ?>
-            <div class="error-message">
+            <div class="error-message" id="error-success-msg">
               <?php echo $error; ?>
             </div>
           <?php endif; ?>
+
           <?php if (!empty($success)): ?>
             <div class="success-message">
               <?php echo $success; ?>
             </div>
           <?php endif; ?>
+
           <form action="" method="POST">
 
             <div class="row">
@@ -281,5 +284,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 
 </body>
+<script src="../assets/js/owner.js"></script>
 
 </html>

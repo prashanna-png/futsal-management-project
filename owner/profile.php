@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
           <?php endif; ?>
 
-          <form action="" method="POST">
+          <form action="" method="POST" novalidate>
 
             <div class="row">
 
@@ -270,9 +270,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               </div>
 
             </div>
-
-            <input type="submit" value="Update Profile" class="btn">
-
+            <button type="submit" class="btn">Update Profile</button>
           </form>
 
         </div>

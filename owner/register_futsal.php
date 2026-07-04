@@ -123,23 +123,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
       </div>
-      <?php if (!empty($error)) { ?>
-        <div class="alert error">
-          <strong>❌ Error!</strong>
-          <?php echo htmlspecialchars($error); ?>
+      <?php if (!empty($error)): ?>
+        <div class="error-message" id="error-success-msg">
+          <?php echo $error; ?>
         </div>
-      <?php } ?>
+      <?php endif; ?>
 
-      <?php if (!empty($success)) { ?>
-        <div class="alert success">
-          <strong>✅ Success!</strong>
-          <?php echo htmlspecialchars($success); ?>
+      <?php if (!empty($success)): ?>
+        <div class="success-message">
+          <?php echo $success; ?>
         </div>
-      <?php } ?>
+      <?php endif; ?>
 
       <div class="form-container">
 
-        <form action="" method="POST" enctype="multipart/form-data">
+        <form action="" method="POST" enctype="multipart/form-data" novalidate>
 
           <div class="form-group">
 

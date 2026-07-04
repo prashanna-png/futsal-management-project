@@ -307,7 +307,6 @@ table tr:hover {
   border-radius: 10px;
   cursor: pointer;
   text-decoration: none;
-  transition: .3s;
 }
 
 .btn:hover {
@@ -643,32 +642,8 @@ table tr:hover {
 }
 /* ================= Alert Messages ================= */
 
-.alert{
-    width:100%;
-    padding:16px 20px;
-    margin-bottom:25px;
-    border-radius:10px;
-    font-size:15px;
-    font-weight:500;
-}
-
-.alert strong{
-    display:block;
-    margin-bottom:5px;
-}
-
-.alert.error{
-    background:#fdecec;
-    color:#b71c1c;
-}
-
-.alert.success{
-    background:#edf9f0;
-    color:#1b5e20;
-    border-color:#43a047;
-}
 .error-message{
-  position:absolute;
+  position:fixed;
   top:0;
   right:0;
   margin:50px;
@@ -681,10 +656,10 @@ table tr:hover {
   padding:10px 15px;
   border-radius:5px;
   display: block;
-  animation: fadeInOut 5s ease-in-out;
+  animation: fadeInOut 3s ease-in-out;
 }
 .success-message{
-  position:absolute;
+  position:fixed;
   top:0;
   right:0;
   margin:50px;
@@ -697,13 +672,13 @@ table tr:hover {
   padding:10px 15px;
   border-radius:5px;
   display: block;
-  animation: fadeInOut 5s ease-in-out;
+  animation: fadeInOut 3s ease-in-out;
 
 }
 @keyframes fadeInOut {
   0% { opacity: 0; }
-  25% { opacity: 1; }
-  75% { opacity: 1; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
   100% { opacity: 0; }
 }
 

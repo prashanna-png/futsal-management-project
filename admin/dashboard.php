@@ -91,8 +91,7 @@ LIMIT 5
           <p>Manage your futsal management system.</p>
 
         </div>
-
-        <div class="admin-user">
+        <a href="./profile.php" class="admin-user">
 
           <div class="avatar">
 
@@ -109,8 +108,7 @@ LIMIT 5
             Administrator
 
           </div>
-
-        </div>
+        </a>
 
       </div>
 

@@ -17,6 +17,7 @@ $currentPage = 'manageUsers';
 $result = mysqli_query($conn, "SELECT * FROM users");
 $allUsers = mysqli_fetch_assoc($result);
 
+
 ?>
 
 <!DOCTYPE html>
@@ -135,7 +136,7 @@ $allUsers = mysqli_fetch_assoc($result);
 
               <td>
 
-                <form action="" method="POST">
+                <form action="./user_detail.php" method="POST">
 
                   <input type="hidden" name="futsalid"
                     value="">
@@ -146,14 +147,6 @@ $allUsers = mysqli_fetch_assoc($result);
                     value="view"
                     class="btn approve-btn">
                     View
-                  </button>
-
-                  <button
-                    type="submit"
-                    name="action"
-                    value="Delete"
-                    class="btn reject-btn">
-                    Delete
                   </button>
 
                 </form>

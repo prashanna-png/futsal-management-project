@@ -1,8 +1,18 @@
 <?php
 $currentPage = 'profile';
-session_start();
+global $conn;
+require_once '../config/db.php';
 require_once '../config/auth.php';
+
+session_start();
 require_login();
+
+$userid = $_SESSION['userid'];
+
+$sql = "SELECT * FROM users WHERE userid = '$userid'";
+$result = mysqli_query($conn, $sql);
+$user = mysqli_fetch_assoc($result);
+
 ?>
 
 <!DOCTYPE html>
@@ -51,11 +61,11 @@ require_login();
 
           <div class="profile-avatar">
 
-            <?php echo strtoupper(substr($_SESSION['name'], 0, 1)); ?>
+            <?php echo strtoupper(substr($user['name'], 0, 1)); ?>
 
           </div>
 
-          <h2><?php echo htmlspecialchars($_SESSION['name']); ?></h2>
+          <h2><?php echo htmlspecialchars($user['name']); ?></h2>
 
           <p>Owner</p>
 
@@ -76,7 +86,7 @@ require_login();
                 <input
                   type="text"
                   name="name"
-                  value="<?php echo htmlspecialchars($_SESSION['name']); ?>">
+                  value="<?php echo htmlspecialchars($user['name']); ?>">
 
               </div>
 
@@ -87,7 +97,7 @@ require_login();
                 <input
                   type="email"
                   name="email"
-                  value="owner@email.com">
+                  value="<?php echo htmlspecialchars($user['email']); ?>">
 
               </div>
 
@@ -102,7 +112,7 @@ require_login();
                 <input
                   type="text"
                   name="phone"
-                  value="9812345678">
+                  value="<?php echo htmlspecialchars($user['phone']); ?>">
 
               </div>
 

@@ -100,5 +100,6 @@ VALUES (
   );
 select *
 from users;
-update users set password = '$2y$10$N.wUeOnE4vbr2eY53EZC8eTCZQYNGNVJc53LhoDOt6psYhDzyeRlC'
+update users
+set password = '$2y$10$N.wUeOnE4vbr2eY53EZC8eTCZQYNGNVJc53LhoDOt6psYhDzyeRlC'
 where email = 'admin@futsal.com';

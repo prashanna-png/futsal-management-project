@@ -12,6 +12,62 @@ $userid = $_SESSION['userid'];
 $sql = "SELECT * FROM users WHERE userid = '$userid'";
 $result = mysqli_query($conn, $sql);
 $user = mysqli_fetch_assoc($result);
+$current_user = $user['userid'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $name = trim($_POST['name']);
+  $email = trim($_POST['email']);
+  $phone = trim($_POST['phone']);
+  $current_password = $_POST['current_password'];
+  $new_password = $_POST['new_password'];
+  $confirm_password = $_POST['confirm_password'];
+
+  if (!preg_match("/^[A-Za-z\s]+$/", $name)) {
+    $_SESSION['error'] = "Only letters are allowed in name";
+    header("Location: profile.php");
+    exit;
+  }
+  if (!(filter_var($email, FILTER_VALIDATE_EMAIL))) {
+    $_SESSION['error'] = 'Invalid error';
+    header('Location: profile.php');
+    exit;
+  }
+  if (strlen($phone) != 10 || !is_numeric($phone)) {
+    $_SESSION['error'] = 'Invalid Phone Number';
+    header('Location: profile.php');
+    exit;
+  }
+  if (!(password_verify($current_password, $user['password']))) {
+    $_SESSION['error'] = "Invalid Current Password.";
+    header('Location: profile.php');
+    exit;
+  } elseif (empty($new_password) || empty($confirm_password)) {
+    if ($new_password !== $confirm_password) {
+      $_SESSION['error'] = "New passwords do not match.";
+      header('Location: profile.php');
+      exit;
+    }
+  } else {
+    $sql = "SELECT userid from users where email='$email' AND userid!= '$current_user'";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+      $_SESSION['error'] = 'user with this email already exits';
+      header('Location: profile.php');
+      exit;
+    } else {
+      $password = password_hash($new_password, PASSWORD_DEFAULT);
+      $sql = "UPDATE users SET name='$name', email='$email', phone='$phone', password='$password' WHERE userid='$current_user'";
+      if (mysqli_query($conn, $sql)) {
+        $_SESSION['success'] = "Profile updated successfully.";
+        $_SESSION['name'] = $name;
+        header("Location: profile.php");
+        exit();
+      } else {
+        $_SESSION['error'] = "Failed to update profile.";
+      }
+    }
+  }
+}
 
 ?>
 
@@ -167,11 +223,7 @@ $user = mysqli_fetch_assoc($result);
 
             </div>
 
-            <button class="btn">
-
-              Update Profile
-
-            </button>
+            <input type="submit" value="Update Profile" class="btn">
 
           </form>
 

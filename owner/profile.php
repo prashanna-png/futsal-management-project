@@ -7,6 +7,11 @@ require_once '../config/auth.php';
 session_start();
 require_login();
 
+$error = $_SESSION['error'] ?? '';
+$success = $_SESSION['success'] ?? '';
+
+unset($_SESSION['error'], $_SESSION['success']);
+
 $userid = $_SESSION['userid'];
 
 $sql = "SELECT * FROM users WHERE userid = '$userid'";
@@ -36,17 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['error'] = 'Invalid Phone Number';
     header('Location: profile.php');
     exit;
-  }
-  if (!(password_verify($current_password, $user['password']))) {
-    $_SESSION['error'] = "Invalid Current Password.";
-    header('Location: profile.php');
-    exit;
-  } elseif (empty($new_password) || empty($confirm_password)) {
-    if ($new_password !== $confirm_password) {
-      $_SESSION['error'] = "New passwords do not match.";
-      header('Location: profile.php');
-      exit;
-    }
   } else {
     $sql = "SELECT userid from users where email='$email' AND userid!= '$current_user'";
     $result = mysqli_query($conn, $sql);
@@ -54,17 +48,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $_SESSION['error'] = 'user with this email already exits';
       header('Location: profile.php');
       exit;
+    }
+  }
+  if (!(password_verify($current_password, $user['password']))) {
+    $_SESSION['error'] = "Invalid Current Password.";
+    header('Location: profile.php');
+    exit;
+  }
+  if (empty($new_password) || empty($confirm_password)) {
+    $_SESSION['error'] = "Please enter the new password.";
+    header("Location: profile.php");
+    exit;
+  }
+  if ($new_password !== $confirm_password) {
+    $_SESSION['error'] = "New passwords do not match.";
+    header("Location: profile.php");
+    exit;
+  } else {
+    $password = password_hash($new_password, PASSWORD_DEFAULT);
+    $sql = "UPDATE users SET name='$name', email='$email', phone='$phone', password='$password' WHERE userid='$current_user'";
+    if (mysqli_query($conn, $sql)) {
+      $_SESSION['success'] = "Profile updated successfully.";
+      $_SESSION['name'] = $name;
+      $_SESSION['email'] = $email;
+      header("Location: profile.php");
+      exit();
     } else {
-      $password = password_hash($new_password, PASSWORD_DEFAULT);
-      $sql = "UPDATE users SET name='$name', email='$email', phone='$phone', password='$password' WHERE userid='$current_user'";
-      if (mysqli_query($conn, $sql)) {
-        $_SESSION['success'] = "Profile updated successfully.";
-        $_SESSION['name'] = $name;
-        header("Location: profile.php");
-        exit();
-      } else {
-        $_SESSION['error'] = "Failed to update profile.";
-      }
+      $_SESSION['error'] = "Failed to update profile.";
+      header("Location: profile.php");
+      exit;
     }
   }
 }
@@ -133,6 +145,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <?php if (!empty($error)): ?>
             <div class="error-message">
               <?php echo $error; ?>
+            </div>
+          <?php endif; ?>
+          <?php if (!empty($success)): ?>
+            <div class="success-message">
+              <?php echo $success; ?>
             </div>
           <?php endif; ?>
           <form action="" method="POST">

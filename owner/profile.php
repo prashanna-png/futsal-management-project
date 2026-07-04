@@ -284,6 +284,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 
 </body>
-<script src="../assets/js/owner.js"></script>
+<script src="../assets/js/main.js"></script>
 
 </html>

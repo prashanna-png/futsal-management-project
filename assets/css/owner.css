@@ -681,6 +681,7 @@ table tr:hover {
   padding:10px 15px;
   border-radius:5px;
   display: block;
+  animation: fadeInOut 5s ease-in-out;
 }
 .success-message{
   position:absolute;
@@ -696,6 +697,14 @@ table tr:hover {
   padding:10px 15px;
   border-radius:5px;
   display: block;
+  animation: fadeInOut 5s ease-in-out;
+
+}
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  25% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* ================= Profile ================= */

@@ -13,3 +13,9 @@ deleteButtons.forEach(button => {
 cancelBtn.addEventListener('click', () => {
     popupOverlay.style.display = 'none';
 });
+
+const message = document.getElementById('error-success-msg');
+
+setTimeout(() => {
+    message.style.display = 'none';
+}, 3000);

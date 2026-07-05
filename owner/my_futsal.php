@@ -20,7 +20,39 @@ $ownerid = $_SESSION['userid'];
 $sql = "SELECT * FROM futsal WHERE ownerid='$ownerid'";
 $result = mysqli_query($conn, $sql);
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $futsalid = $_POST['futsalid'];
+  $ownerid = $_SESSION['userid'];
 
+  // Debug: Check what's being deleted
+  error_log("Attempting to delete futsalid: $futsalid for ownerid: $ownerid");
+
+  $sql = "DELETE FROM futsal
+            WHERE futsalid='$futsalid'
+            AND ownerid='$ownerid'";
+
+  if (mysqli_query($conn, $sql)) {
+    // Check how many rows were affected
+    $affected_rows = mysqli_affected_rows($conn);
+    error_log("Rows affected: $affected_rows");
+
+    if ($affected_rows > 0) {
+      $_SESSION['success'] = "Futsal deleted successfully.";
+    } else {
+      $_SESSION['error'] = "Futsal not found or you don't have permission to delete it.";
+    }
+  } else {
+    $_SESSION['error'] = "Failed to delete futsal: " . mysqli_error($conn);
+  }
+  // Make sure futsalid is set and is numeric
+  if (!isset($_POST['futsalid']) || !is_numeric($_POST['futsalid'])) {
+    $_SESSION['error'] = "Invalid futsal ID.";
+    header("Location: my_futsal.php");
+    exit;
+  }
+  header("Location: my_futsal.php");
+  exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +97,17 @@ $result = mysqli_query($conn, $sql);
         </a>
 
       </div>
+      <?php if (!empty($error)): ?>
+        <div class="error-message" id="error-success-msg">
+          <?php echo $error; ?>
+        </div>
+      <?php endif; ?>
 
+      <?php if (!empty($success)): ?>
+        <div class="success-message" id="error-success-msg">
+          <?php echo $success; ?>
+        </div>
+      <?php endif; ?>
       <div class="futsal-grid">
         <?php
         if (mysqli_num_rows($result) > 0) {
@@ -95,8 +137,10 @@ $result = mysqli_query($conn, $sql);
                   <img src="../assets/icons/edit.png" alt="edit-icon" class="edit-img">
                   <h3>Edit</h3>
                 </button>
-                <button class="delete-btn">
-                  <img src="../assets//icons//delete.png" alt="" class="delete-img">
+                <button
+                  class="delete-btn"
+                  data-id="<?php echo $row['futsalid']; ?>">
+                  <img src="../assets/icons/delete.png" class="delete-img">
                 </button>
               </div>
             </div>
@@ -113,9 +157,13 @@ $result = mysqli_query($conn, $sql);
         <div class="delete-container" id="delete-ctn">
           <p>Are you Sure You Want To Delete?</p>
           <p>This Action Cannot Be Undone</p>
+
           <div class="cancel-delete">
             <button class="cancel-btn" id="cancel-btn">Cancel</button>
-            <button class="popup-delete-btn">Delete</button>
+            <form method="POST">
+              <input type="hidden" name="futsalid" id="deleteFutsalId">
+              <button type="submit" class="popup-delete-btn">Delete</button>
+            </form>
           </div>
         </div>
       </div>

@@ -533,11 +533,11 @@ label {
   justify-content:center;
   display:flex;
   gap:5px;
-  background: rgb(235, 235, 235);
   padding: 8px 0;
   border:none;
   color: #111;
   cursor: pointer;
+  background: rgb(235, 235, 235);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   align-items: center;
 }

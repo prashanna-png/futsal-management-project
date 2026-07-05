@@ -10,28 +10,26 @@ CREATE TABLE users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 select *
-FROM users;
-SELECT *
-FROM futsal;
-select *
-from facility -- FUTSAL COURTS
-  CREATE TABLE futsal (
-    futsalid INT AUTO_INCREMENT PRIMARY KEY,
-    ownerid INT NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    location VARCHAR(100) NOT NULL,
-    address TEXT,
-    description TEXT,
-    price_per_hour DECIMAL(10, 2) NOT NULL,
-    opening_time TIME NOT NULL,
-    closing_time TIME NOT NULL,
-    contact_number VARCHAR(15),
-    image VARCHAR(255),
-    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (ownerid) REFERENCES users(userid) ON DELETE CASCADE
-  );
+from futsal;
+
+-- FUTSAL COURTS
+CREATE TABLE futsal (
+  futsalid INT AUTO_INCREMENT PRIMARY KEY,
+  ownerid INT NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  location VARCHAR(100) NOT NULL,
+  address TEXT,
+  description TEXT,
+  price_per_hour DECIMAL(10, 2) NOT NULL,
+  opening_time TIME NOT NULL,
+  closing_time TIME NOT NULL,
+  contact_number VARCHAR(15),
+  image VARCHAR(255),
+  status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (ownerid) REFERENCES users(userid) ON DELETE CASCADE
+);
 -- FACILITIES
 CREATE TABLE facility (
   facilityid INT AUTO_INCREMENT PRIMARY KEY,

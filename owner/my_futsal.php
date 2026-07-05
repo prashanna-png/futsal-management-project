@@ -75,7 +75,7 @@ $result = mysqli_query($conn, $sql);
 
             <div class="futsal-card">
 
-              <img src="../assets/uploads/<?php echo htmlspecialchars($row['image']); ?>" alt="">
+              <img class="futsal-img" src="../assets/uploads/<?php echo htmlspecialchars($row['image']); ?>" alt="">
 
               <div class="futsal-info">
 
@@ -88,12 +88,18 @@ $result = mysqli_query($conn, $sql);
                 <span class="status <?php echo $row['status']; ?>">
                   <?php echo ucfirst($row['status']); ?>
                 </span>
-
-                
-
               </div>
 
-            </div> <!-- Close futsal-card here -->
+              <div class="buttons">
+                <button class="edit-btn">
+                  <img src="../assets/icons/edit.png" alt="edit-icon" class="edit-img">
+                  <h3>Edit</h3>
+                </button>
+                <button class="delete-btn">
+                  <img src="../assets//icons//delete.png" alt="" class="delete-img">
+                </button>
+              </div>
+            </div>
 
         <?php
           }

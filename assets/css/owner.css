@@ -485,9 +485,10 @@ label {
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+  padding-bottom: 10px;
 }
 
-.futsal-card img {
+.futsal-img {
   width: 100%;
   height: 220px;
   object-fit: cover;
@@ -515,8 +516,41 @@ label {
   background: rgb(231, 76, 60,0.5);
   color: #c0392b;
 }
+.edit-img, .delete-img{
+  width:30px;
+  height:30px;
+  font-size:16px;
+}
+.buttons{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  width:100%;
+  padding:10px 12px;
+}
+.edit-btn {
+  width :90%;
+  justify-content:center;
+  display:flex;
+  gap:5px;
+  background: rgb(235, 235, 235);
+  padding: 8px 0;
+  border:none;
+  color: #111;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  align-items: center;
+}
+.delete-btn{
+  border:none;
+  border-radius: 8px;
+  padding: 10px 13px;
+  cursor: pointer;
+  transition: .3s;
+  background: rgb(255, 102, 102);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 
-
+}
 
 
 /* ================= Alert Messages ================= */

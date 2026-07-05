@@ -89,10 +89,7 @@ $result = mysqli_query($conn, $sql);
                   <?php echo ucfirst($row['status']); ?>
                 </span>
 
-                <div class="card-buttons">
-                  <a href="#" class="edit-btn">Edit</a>
-                  <a href="#" class="delete-btn">Delete</a>
-                </div>
+                
 
               </div>
 

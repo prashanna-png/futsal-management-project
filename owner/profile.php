@@ -174,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <?php endif; ?>
 
           <?php if (!empty($success)): ?>
-            <div class="success-message">
+            <div class="success-message" id="error-success-msg">
               <?php echo $success; ?>
             </div>
           <?php endif; ?>

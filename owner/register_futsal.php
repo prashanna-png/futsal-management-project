@@ -130,128 +130,148 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <?php endif; ?>
 
       <?php if (!empty($success)): ?>
-        <div class="success-message">
+        <div class="success-message" id="error-success-msg">
           <?php echo $success; ?>
         </div>
       <?php endif; ?>
 
       <div class="form-container">
 
-        <form action="" method="POST" enctype="multipart/form-data" novalidate>
+        <form action="" method="POST" enctype="multipart/form-data" class="register-form" novalidate>
 
-          <div class="form-group">
-
-            <label>Futsal Name</label>
-            <input type="text" name="name" placeholder="Enter futsal name" required>
-
-          </div>
-
-          <div class="form-group">
-
-            <label>Location</label>
-            <input type="text" name="location" placeholder="Enter city/location" required>
-
-          </div>
-
-          <div class="form-group">
-
-            <label>Address</label>
-            <textarea name="address" placeholder="Enter complete address"></textarea>
-
-          </div>
-
-          <div class="form-group">
-
-            <label>Description</label>
-
-            <textarea name="description" placeholder="Describe your futsal"></textarea>
-
-          </div>
-
-          <div class="row">
-
+          <div class="left-column">
             <div class="form-group">
 
-              <label>Price Per Hour (Rs.)</label>
-
-              <input type="number" name="price_per_hour" placeholder="1500" required>
+              <label>Futsal Name</label>
+              <input type="text" name="name" placeholder="Enter futsal name" required>
 
             </div>
 
             <div class="form-group">
 
-              <label>Contact Number</label>
-
-              <input type="text" name="contact_number" placeholder="98XXXXXXXX" required>
-
-            </div>
-
-          </div>
-
-          <div class="row">
-
-            <div class="form-group">
-
-              <label>Opening Time</label>
-
-              <input type="time" name="opening_time" required>
+              <label>Location</label>
+              <input type="text" name="location" placeholder="Enter city/location" required>
 
             </div>
 
             <div class="form-group">
 
-              <label>Closing Time</label>
-
-              <input type="time" name="closing_time" required>
-
-            </div>
-
-          </div>
-
-          <div class="form-group">
-
-            <label>Upload Image</label>
-
-            <input type="file" name="image" accept="image/*">
-
-          </div>
-
-          <div class="form-group">
-
-            <label>Facilities</label>
-
-            <div class="facility-grid">
-
-              <label>
-                <input type="checkbox" name="facility[]" value="Parking">
-                Parking
-              </label>
-
-              <label>
-                <input type="checkbox" name="facility[]" value="WiFi">
-                WiFi
-              </label>
-
-              <label>
-                <input type="checkbox" name="facility[]" value="Shower">
-                Shower
-              </label>
-
-              <label>
-                <input type="checkbox" name="facility[]" value="Locker Room">
-                Locker Room
-              </label>
-
-              <label>
-                <input type="checkbox" name="facility[]" value="Cafeteria">
-                Cafeteria
-              </label>
+              <label>Address</label>
+              <textarea name="address" placeholder="Enter complete address"></textarea>
 
             </div>
 
+            <div class="form-group">
+
+              <label>Description</label>
+
+              <textarea name="description" placeholder="Describe your futsal"></textarea>
+
+            </div>
+          </div>
+          <div class="right-column">
+            <div class="row">
+
+              <div class="form-group">
+
+                <label>Price Per Hour (Rs.)</label>
+
+                <input type="number" name="price_per_hour" placeholder="1500" required>
+
+              </div>
+
+              <div class="form-group">
+
+                <label>Contact Number</label>
+
+                <input type="text" name="contact_number" placeholder="98XXXXXXXX" required>
+
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="form-group">
+
+                <label>Opening Time</label>
+
+                <input type="time" name="opening_time" required>
+
+              </div>
+
+              <div class="form-group">
+
+                <label>Closing Time</label>
+
+                <input type="time" name="closing_time" required>
+
+              </div>
+
+            </div>
+
+            <div class="form-group">
+
+              <label>Upload Image</label>
+
+              <input type="file" name="image" accept="image/*">
+
+            </div>
+
+            <div class="form-group">
+
+              <label>Facilities</label>
+
+              <div class="facility-grid">
+
+                <label>
+                  <input type="checkbox" name="facility[]" value="Parking">
+                  Parking
+                </label>
+
+                <label>
+                  <input type="checkbox" name="facility[]" value="WiFi">
+                  WiFi
+                </label>
+
+                <label>
+                  <input type="checkbox" name="facility[]" value="Shower">
+                  Shower
+                </label>
+
+                <label>
+                  <input type="checkbox" name="facility[]" value="Locker Room">
+                  Locker Room
+                </label>
+
+                <label>
+                  <input type="checkbox" name="facility[]" value="Cafeteria">
+                  Cafeteria
+                </label>
+
+              </div>
+
+            </div>
+            <div class="info-card">
+
+              <h3>Registration Information</h3>
+
+              <ul class="info-list">
+
+                <li>✔ Your futsal will be reviewed by the administrator.</li>
+
+                <li>✔ Review usually takes 24–48 hours.</li>
+
+                <li>✔ You cannot receive bookings until approved.</li>
+
+                <li>✔ You can edit your futsal before approval.</li>
+
+              </ul>
+
+            </div>
           </div>
 
-          <button type="submit" class="btn">
+          <button type="submit" class="register-btn">
 
             Register Futsal
 
@@ -266,5 +286,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 
 </body>
+<script src="../assets/js/main.js"></script>
 
 </html>

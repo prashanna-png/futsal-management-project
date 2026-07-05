@@ -109,10 +109,21 @@ $result = mysqli_query($conn, $sql);
         ?>
       </div>
 
+      <div class="popup-overlay" id="popup-overlay">
+        <div class="delete-container" id="delete-ctn">
+          <p>Are you Sure You Want To Delete?</p>
+          <p>This Action Cannot Be Undone</p>
+          <div class="cancel-delete">
+            <button class="cancel-btn" id="cancel-btn">Cancel</button>
+            <button class="popup-delete-btn">Delete</button>
+          </div>
+        </div>
+      </div>
+
     </main>
 
   </div>
-
+  <script src="../assets/js/owner.js"></script>
 </body>
 
 </html>

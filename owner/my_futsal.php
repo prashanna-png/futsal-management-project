@@ -32,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             AND ownerid='$ownerid'";
 
   if (mysqli_query($conn, $sql)) {
-    // Check how many rows were affected
     $affected_rows = mysqli_affected_rows($conn);
     error_log("Rows affected: $affected_rows");
 
@@ -45,11 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['error'] = "Failed to delete futsal: " . mysqli_error($conn);
   }
   // Make sure futsalid is set and is numeric
-  if (!isset($_POST['futsalid']) || !is_numeric($_POST['futsalid'])) {
-    $_SESSION['error'] = "Invalid futsal ID.";
-    header("Location: my_futsal.php");
-    exit;
-  }
+
   header("Location: my_futsal.php");
   exit;
 }

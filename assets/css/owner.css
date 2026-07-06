@@ -1,41 +1,32 @@
-/* ================= Google Font ================= */
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-/* ================= Reset ================= */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
   background: #f5f5f5;
 }
 
-/* ================= Layout ================= */
-
 .dashboard {
-  display: flex;        /* ← change grid to flex */
+  display: flex; /* ← change grid to flex */
   min-height: 100vh;
 }
 
-
-/* ================= Sidebar ================= */
-
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 260px;
-    height: 100vh;
-    background: #111;
-    color: white;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  background: #111;
+  color: white;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
 }
 
 .logo {
@@ -55,7 +46,7 @@ body {
   color: #fff;
   padding: 15px 18px;
   border-radius: 12px;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .menu a:hover,
@@ -68,18 +59,13 @@ body {
   margin-top: auto;
 }
 
-
-/* ================= Main ================= */
-
 .main {
-  flex: 1;              /* ← takes remaining space */
+  flex: 1;
   padding: 35px;
-  margin-left: 260px;   /* ← pushes past sidebar */
-  overflow-y: auto;     /* ← scroll instead of hidden */
+  margin-left: 260px;
+  overflow-y: auto;
   min-height: 100vh;
 }
-
-/* ================= Header ================= */
 
 .header {
   display: flex;
@@ -104,7 +90,7 @@ body {
   background: #fff;
   padding: 12px 20px;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 
 .avatar {
@@ -120,8 +106,6 @@ body {
   font-weight: 600;
 }
 
-/* ================= Statistics ================= */
-
 .cards {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -133,8 +117,8 @@ body {
   background: #fff;
   padding: 25px;
   border-radius: 18px;
-  box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
-  transition: .3s;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
 }
 
 .card:hover {
@@ -150,8 +134,6 @@ body {
   font-size: 34px;
 }
 
-/* ================= Middle Section ================= */
-
 .middle {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -164,7 +146,7 @@ body {
   background: #fff;
   padding: 25px;
   border-radius: 18px;
-  box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
 }
 
 .booking h3,
@@ -190,8 +172,6 @@ body {
   border-radius: 10px;
 }
 
-/* ================= Quick Actions ================= */
-
 .action-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -205,7 +185,7 @@ body {
   border-radius: 12px;
   text-align: center;
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
   font-weight: 500;
   text-decoration: none;
 }
@@ -215,21 +195,17 @@ body {
   transform: scale(1.03);
 }
 
-/* ================= Bottom ================= */
-
 .bottom {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 20px;
 }
 
-/* ================= Table ================= */
-
 .table {
   background: #fff;
   padding: 25px;
   border-radius: 18px;
-  box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
 }
 
 .table h3 {
@@ -257,8 +233,6 @@ table tr:hover {
   background: #f8f8f8;
 }
 
-/* ================= Status ================= */
-
 .status {
   display: inline-block;
   padding: 6px 14px;
@@ -283,13 +257,11 @@ table tr:hover {
   background: #e74c3c;
 }
 
-/* ================= Notice ================= */
-
 .notice {
   background: #fff;
   padding: 25px;
   border-radius: 18px;
-  box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
 }
 
 .notice h3 {
@@ -317,8 +289,6 @@ table tr:hover {
   line-height: 1.6;
 }
 
-/* ================= Buttons ================= */
-
 .btn {
   display: inline-block;
   background: #111;
@@ -333,8 +303,6 @@ table tr:hover {
 .btn:hover {
   background: #333;
 }
-
-/* ================= Forms ================= */
 
 input,
 textarea,
@@ -400,13 +368,11 @@ label {
   width: auto;
 }
 
-/* ================= Manage Bookings ================= */
-
 .table-container {
   background: #fff;
   padding: 30px;
   border-radius: 18px;
-  box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
 }
 
 .table-header {
@@ -432,7 +398,7 @@ label {
   color: #fff;
   font-size: 13px;
   margin-right: 6px;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .confirm {
@@ -459,15 +425,13 @@ label {
   background: #2980b9;
 }
 
-/* ================= My Futsals ================= */
-
 .btn-add {
   background: #111;
   color: #fff;
   text-decoration: none;
   padding: 14px 22px;
   border-radius: 10px;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .btn-add:hover {
@@ -484,9 +448,9 @@ label {
   background: #fff;
   border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
   padding-bottom: 10px;
-  transition: .3s;
+  transition: 0.3s;
 }
 .futsal-card:hover {
   transform: translateY(-2px);
@@ -512,67 +476,110 @@ label {
 }
 
 .approved {
-  background: rgb(46, 204, 113, 0.5);
+  background: rgba(46, 204, 113, 0.5);
   color: #13964a;
 }
 
 .rejected {
-  background: rgb(231, 76, 60,0.5);
+  background: rgba(231, 76, 60, 0.5);
   color: #c0392b;
 }
-.edit-img, .delete-img{
-  width:30px;
-  height:30px;
-  font-size:16px;
+
+.status-note {
+  margin: 10px 0 20px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+  border: 1px solid transparent;
 }
-.buttons{
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  width:100%;
-  padding:10px 12px;
+
+.status-note strong {
+  display: inline-block;
+  margin-bottom: 2px;
 }
-.edit-btn {
-  width :90%;
-  justify-content:center;
-  display:flex;
-  gap:5px;
+
+.status-note.approved {
+  background: rgba(46, 204, 113, 0.12);
+  border-color: rgba(46, 204, 113, 0.4);
+  color: #1a7f45;
+}
+
+.status-note.rejected {
+  background: rgba(231, 76, 60, 0.12);
+  border-color: rgba(231, 76, 60, 0.4);
+  color: #a8362a;
+}
+
+.status-note.pending {
+  background: rgba(243, 156, 18, 0.12);
+  border-color: rgba(243, 156, 18, 0.4);
+  color: #a86b0c;
+}
+.edit-img,
+.delete-img {
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+}
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 12px;
+}
+a.edit-btn {
+  width: 90%;
+  display: block;
+  text-decoration: none;
+}
+
+button.edit-btn {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  gap: 5px;
   padding: 8px 0;
-  border:none;
+  border: none;
+  border-radius: 8px;
   color: #111;
   cursor: pointer;
   background: rgb(235, 235, 235);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   align-items: center;
 }
-.delete-btn{
-  border:none;
+
+button.edit-btn:hover {
+  background: rgb(220, 220, 220);
+}
+.delete-btn {
+  border: none;
   border-radius: 8px;
   padding: 10px 13px;
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
   background: rgb(255, 102, 102);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
-.popup-overlay{
-    display: none;
+.popup-overlay {
+  display: none;
 
-    position: fixed;
-    inset: 0;
+  position: fixed;
+  inset: 0;
 
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
 
-    background: rgba(0,0,0,.5);
-} 
-.delete-container{
-  display:none;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:15px;
-  width:400px;
+  background: rgba(0, 0, 0, 0.5);
+}
+.delete-container {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  width: 400px;
   background: rgb(230, 230, 230);
   padding: 20px;
   border-radius: 12px;
@@ -581,38 +588,36 @@ label {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.delete-container p{
+.delete-container p {
   color: #111;
   font-weight: 500;
 }
-.cancel-delete{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:20px;
+.cancel-delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
-.cancel-btn{
-  border:none;
+.cancel-btn {
+  border: none;
   border-radius: 8px;
   padding: 10px 13px;
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
   background: rgb(235, 235, 235);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
-.popup-delete-btn{
-  border:none;
+.popup-delete-btn {
+  border: none;
   border-radius: 8px;
   padding: 10px 13px;
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
   background: rgb(255, 102, 102);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* ================= Alert Messages ================= */
-
-.error-message{
+.error-message {
   position: fixed;
   top: 0;
   right: 0;
@@ -642,13 +647,19 @@ label {
 }
 
 @keyframes fadeInOut {
-  0% { opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
-
-/* ================= Profile ================= */
 
 .profile-container {
   display: grid;
@@ -661,7 +672,7 @@ label {
   border-radius: 18px;
   padding: 35px;
   text-align: center;
-  box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
 }
 
 .profile-avatar {
@@ -690,7 +701,7 @@ label {
   background: #fff;
   padding: 35px;
   border-radius: 18px;
-  box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
 }
 
 .profile-form h3 {
@@ -732,14 +743,13 @@ label {
   gap: 20px;
 }
 
-/* ================= Register Futsal Form ================= */
-
 .form-container {
   background: #fff;
   border-radius: 18px;
   padding: 25px;
-  height: calc(100vh - 180px);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, .08);
+  min-height: calc(100vh - 180px);
+  overflow-y: auto;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 }
 
 .register-form {
@@ -806,10 +816,15 @@ label {
 .register-btn:hover {
   background: #333;
 }
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  color: #111;
+  font-weight: 500;
+}
 
-/* ================= Responsive ================= */
-
-@media(max-width:1100px) {
+@media (max-width: 1100px) {
   .cards {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -820,7 +835,7 @@ label {
   }
 }
 
-@media(max-width:900px) {
+@media (max-width: 900px) {
   .table-container {
     overflow-x: auto;
   }
@@ -838,11 +853,7 @@ label {
   }
 }
 
-@media(max-width:768px) {
-  .dashboard {
-    grid-template-columns: 1fr;
-  }
-
+@media (max-width: 768px) {
   .sidebar {
     display: none;
   }

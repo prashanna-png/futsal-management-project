@@ -11,7 +11,8 @@ CREATE TABLE users (
 );
 select *
 from futsal;
-
+select *
+from users;
 -- FUTSAL COURTS
 CREATE TABLE futsal (
   futsalid INT AUTO_INCREMENT PRIMARY KEY,

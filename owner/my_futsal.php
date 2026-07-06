@@ -128,12 +128,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               </div>
 
               <div class="buttons">
-                <a href="./edit_futsal.php" class="edit-btn">
-                  <button class="edit-btn">
-                    <img src="../assets/icons/edit.png" alt="edit-icon" class="edit-img">
-                    <h3>Edit</h3>
-                  </button>
-                </a>
+                <button class="edit-btn" onclick="location.href='edit_futsal.php?futsalid=<?php echo $row['futsalid']; ?>'">
+                  <img src="../assets/icons/edit.png" alt="edit-icon" class="edit-img">
+                  <h3>Edit</h3>
+                </button>
                 <button
                   class="delete-btn"
                   data-id="<?php echo $row['futsalid']; ?>">

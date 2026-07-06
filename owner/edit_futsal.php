@@ -1,3 +1,29 @@
+<?php
+session_start();
+global $conn;
+include '../config/auth.php';
+include '../config/db.php';
+
+require_login();
+
+if ($_SESSION['role'] !== 'owner') {
+  header('Location: ../login.php');
+  exit;
+}
+$error = $_SESSION['error'] ?? '';
+$success = $_SESSION['success'] ?? '';
+unset($_SESSION['error'], $_SESSION['success']);
+
+$ownerid = $_SESSION['userid'];
+$futsalid = $_GET['futsalid'];
+
+$sql = "SELECT * FROM futsal WHERE ownerid='$ownerid' AND futsalid='$futsalid'";
+$result = mysqli_query($conn, $sql);
+$futsal = mysqli_fetch_assoc($result);
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,12 +68,12 @@
 
             <div class="form-group">
               <label>Futsal Name</label>
-              <input type="text" name="name" value="Yala Futsal">
+              <input type="text" name="name" value="<?php echo $futsal['name'] ?>">
             </div>
 
             <div class="form-group">
               <label>Price Per Hour (Rs.)</label>
-              <input type="number" name="price_per_hour" value="900">
+              <input type="number" name="price_per_hour" value="<?php echo $futsal['price_per_hour'] ?>">
             </div>
 
           </div>
@@ -56,36 +82,38 @@
 
             <div class="form-group">
               <label>Location</label>
-              <input type="text" name="location" value="Lalitpur">
+              <input type="text" name="location" value="<?php echo $futsal['location'] ?>">
             </div>
 
             <div class="form-group">
               <label>Contact Number</label>
-              <input type="text" name="contact_number" value="98XXXXXXXX">
+              <input type="text" name="contact_number" value="<?php echo $futsal['contact_number'] ?>">
             </div>
 
           </div>
 
           <div class="form-group">
             <label>Address</label>
-            <input type="text" name="address" value="Sanepa, Lalitpur, Nepal">
+            <input type="text" name="address" value="<?php echo $futsal['address'] ?>">
           </div>
 
           <div class="form-group">
             <label>Description</label>
-            <textarea name="description" rows="5">Good quality turf, spacious ground and parking available.</textarea>
+            <textarea name="description" rows="5">
+              <?php echo $futsal['description'] ?>
+            </textarea>
           </div>
 
           <div class="row">
 
             <div class="form-group">
               <label>Opening Time</label>
-              <input type="time" name="opening_time" value="09:00">
+              <input type="time" name="opening_time" value="<?php echo $futsal['opening_time'] ?>">
             </div>
 
             <div class="form-group">
               <label>Closing Time</label>
-              <input type="time" name="closing_time" value="22:00">
+              <input type="time" name="closing_time" value="<?php echo $futsal['closing_time'] ?>">
             </div>
 
           </div>
@@ -96,7 +124,8 @@
 
             <div class="image-upload">
 
-              <img src="../assets/uploads/sample.jpg" alt="Current Image" class="preview-image">
+              <img src="../assets/uploads/<?php echo $futsal['image'] ?>" alt="Current Image" class="preview-image" width="130"
+                style="border-radius:8px;">
 
               <input type="file" name="image" accept="image/*">
 
@@ -124,47 +153,33 @@
                 <input type="checkbox" name="facility[]" value="WiFi" checked>
                 WiFi
               </label>
-
               <label>
                 <input type="checkbox" name="facility[]" value="Cafeteria" checked>
                 Cafeteria
               </label>
-
               <label>
                 <input type="checkbox" name="facility[]" value="Shower">
                 Shower
               </label>
-
             </div>
-
           </div>
-
           <div class="status-note approved">
             <strong>Current Status:</strong> Approved
             <br>
             Editing this futsal may require administrator approval again.
           </div>
-
           <div class="form-actions">
-
             <a href="my_futsal.php" class="cancel-btn">
               Cancel
             </a>
-
             <button type="submit" class="btn">
               Save Changes
             </button>
-
           </div>
-
         </form>
-
       </div>
-
     </main>
   </div>
-
-
 </body>
 
 </html>

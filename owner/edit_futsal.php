@@ -21,6 +21,10 @@ $sql = "SELECT * FROM futsal WHERE ownerid='$ownerid' AND futsalid='$futsalid'";
 $result = mysqli_query($conn, $sql);
 $futsal = mysqli_fetch_assoc($result);
 
+$sql = "SELECT * FROM facility WHERE futsalid='$futsalid'";
+$result = mysqli_query($conn, $sql);
+$facilities = [];
+
 
 ?>
 

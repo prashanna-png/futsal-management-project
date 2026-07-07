@@ -25,6 +25,50 @@ $sql = "SELECT * FROM facility WHERE futsalid='$futsalid'";
 $result = mysqli_query($conn, $sql);
 $facilities = [];
 
+while ($row = mysqli_fetch_assoc($result)) {
+  $facilities[] = $row['facility_name'];
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $name           = trim($_POST['name']);
+  $location       = trim($_POST['location']);
+  $address        = trim($_POST['address']);
+  $description    = trim($_POST['description']);
+  $price_per_hour = trim($_POST['price_per_hour']);
+  $contact_number = trim($_POST['contact_number']);
+  $opening_time   = $_POST['opening_time'];
+  $closing_time   = $_POST['closing_time'];
+  $facilities     = $_POST['facility'] ?? [];
+  $ownerid        = $_SESSION['userid'];
+
+  // Validation
+  if (empty($name) || empty($location) || empty($address) || empty($description) || empty($price_per_hour) || empty($contact_number) || empty($opening_time) || empty($closing_time)) {
+    $_SESSION['error'] = 'All fields are required.';
+  } elseif (!preg_match("/^[A-Za-z0-9\s]+$/", $name)) {
+    $_SESSION['error'] = 'Futsal name contains invalid characters.';
+  } elseif (!is_numeric($price_per_hour) || $price_per_hour <= 0) {
+    $_SESSION['error'] = 'Enter a valid price per hour.';
+  } elseif ($opening_time >= $closing_time) {
+    $_SESSION['error'] = 'Closing time must be after opening time.';
+  } elseif (!preg_match("/^[0-9]{10}$/", $contact_number)) {
+    $_SESSION['error'] = 'Please enter a valid 10-digit phone number.';
+  } elseif ($_FILES['image']['error'] !== 0) {
+    $_SESSION['error'] = 'Please upload a futsal image.';
+  } else {
+    $sql = "UPDATE futsal 
+              SET 
+                name='$name',
+                location = '$location',
+                address = '$address',
+                description = '$description',
+                price_per_hour = '$price_per_hour',
+                contact_number = '$contact_number',
+                opening_time ='$opening_time',
+                closing_time = '$closing_time',
+                
+                ";
+  }
+}
 
 ?>
 
@@ -63,9 +107,7 @@ $facilities = [];
         </div>
 
       </div>
-
       <div class="form-container">
-
         <form action="" method="POST" enctype="multipart/form-data">
 
           <div class="row">
@@ -144,42 +186,42 @@ $facilities = [];
             <div class="facility-grid">
 
               <label>
-                <input type="checkbox" name="facility[]" value="Parking" checked>
+                <input type="checkbox" value="Parking" name="facility[] <?= in_array("Parking", $facilities) ? "checked" : ""; ?>>
                 Parking
               </label>
 
               <label>
-                <input type="checkbox" name="facility[]" value="Locker Room" checked>
+                <input type=" checkbox" value="Locker Room" name="facility[] <?= in_array("Locker Room", $facilities) ? "checked" : "" ?>>
                 Locker Room
               </label>
 
               <label>
-                <input type="checkbox" name="facility[]" value="WiFi" checked>
+                <input type=" checkbox" value="WiFi" name="facility[] <?= in_array("WiFi", $facilities) ? "checked" : "" ?>>
                 WiFi
               </label>
               <label>
-                <input type="checkbox" name="facility[]" value="Cafeteria" checked>
+                <input type=" checkbox" value="Cafeteria" name="facility[] <?= in_array("Cafeteria", $facilities) ? "checked" : "" ?>>
                 Cafeteria
               </label>
               <label>
-                <input type="checkbox" name="facility[]" value="Shower">
+                <input type=" checkbox" value="Shower" name="facility[] <?= in_array("Shower", $facilities) ? "checked" : "" ?>>
                 Shower
               </label>
             </div>
           </div>
-          <div class="status-note approved">
-            <strong>Current Status:</strong> Approved
-            <br>
-            Editing this futsal may require administrator approval again.
-          </div>
-          <div class="form-actions">
-            <a href="my_futsal.php" class="cancel-btn">
-              Cancel
-            </a>
-            <button type="submit" class="btn">
-              Save Changes
-            </button>
-          </div>
+          <div class=" status-note <?php echo $futsal['status']  ?>">
+                <strong>Current Status:</strong> <?php echo $futsal['status'] ?>
+                <br>
+                Editing this futsal may require administrator approval again.
+            </div>
+            <div class="form-actions">
+              <a href="my_futsal.php" class="cancel-btn">
+                Cancel
+              </a>
+              <button type="submit" class="btn">
+                Save Changes
+              </button>
+            </div>
         </form>
       </div>
     </main>

@@ -38,9 +38,6 @@ CREATE TABLE facility (
   facility_name VARCHAR(50) NOT NULL,
   FOREIGN KEY (futsalid) REFERENCES futsal(futsalid) ON DELETE CASCADE
 );
-
-
-
 -- TIMESLOTS
 CREATE TABLE timeslot (
   slotid INT AUTO_INCREMENT PRIMARY KEY,

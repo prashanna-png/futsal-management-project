@@ -479,6 +479,14 @@ label {
   background: rgba(46, 204, 113, 0.5);
   color: #13964a;
 }
+.pending {
+  background: rgba(243, 156, 18, 0.5);
+  color: #a86b0c;
+}
+rejected {
+  background: rgba(231, 76, 60, 0.5);
+  color: #c0392b;
+}
 
 .rejected {
   background: rgba(231, 76, 60, 0.5);

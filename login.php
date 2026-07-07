@@ -9,34 +9,32 @@ $password = "";
 $error = $_SESSION['error'] ?? '';
 unset($_SESSION['error']);
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email = trim($_POST['email']);
   $password = $_POST['password'];
 
   if ($email === '' || $password === '') {
-      $_SESSION['error'] = "All fields are required";
-      header("Location: login.php");
-      exit;
-  }  
-  elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $_SESSION['error'] = "All fields are required";
+    header("Location: login.php");
+    exit;
+  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $_SESSION['error'] = "Invalid email format";
-      header("Location: login.php");
-      exit;
-  }
-  else{
+    header("Location: login.php");
+    exit;
+  } else {
     $sql = "SELECT * FROM users WHERE email='$email'";
     $result = mysqli_query($conn, $sql);
 
-    if (mysqli_num_rows($result) ==1) {
+    if (mysqli_num_rows($result) == 1) {
       $user = mysqli_fetch_assoc($result);
-      
-      if(password_verify($password,$user['password'])){
-        
+
+      if (password_verify($password, $user['password'])) {
+
         $_SESSION['userid'] = $user['userid'];
         $_SESSION['name'] = $user['name'];
         $_SESSION['role'] = $user['role'];
 
-        switch($user['role']){
+        switch ($user['role']) {
           case 'admin':
             header("Location: admin/dashboard.php");
             break;
@@ -51,12 +49,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             break;
         }
         exit;
-      }
-      else{
+      } else {
         $error = "Incorrect Password";
       }
-    }
-    else{
+    } else {
       $error = "User does not exist";
     }
   }
@@ -89,14 +85,21 @@ mysqli_close($conn);
     </div>
     <div class="right-pannel">
       <h1>Log In</h1>
-      <?php if(!empty($error)): ?>
-        <div class="error-message">
+      <?php if (!empty($error)): ?>
+        <div class="error-message" id="error-success-msg">
           <?php echo $error; ?>
         </div>
       <?php endif; ?>
+
+      <?php if (!empty($success)): ?>
+        <div class="success-message" id="error-success-msg">
+          <?php echo $success; ?>
+        </div>
+      <?php endif; ?>
+
       <form action="" method="POST">
         <input type="email" id="email" name="email" placeholder="Email">
-        
+
         <input type="password" id="password" name="password" placeholder="Password">
 
         <div class="mid-box">
@@ -113,4 +116,6 @@ mysqli_close($conn);
     </div>
   </div>
 </body>
+<script src="./assets/js/main.js"></script>
+
 </html>

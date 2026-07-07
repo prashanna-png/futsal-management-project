@@ -42,7 +42,11 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, var(--clr-neutral-900), var(--clr-neutral-800));
+  background: linear-gradient(
+    135deg,
+    var(--clr-neutral-900),
+    var(--clr-neutral-800)
+  );
   color: var(--clr-neutral-0);
   padding: 2rem;
   text-align: center;
@@ -68,7 +72,6 @@ body {
   max-width: 300px;
 }
 
-
 .right-pannel {
   flex: 1;
   align-items: center;
@@ -79,8 +82,6 @@ body {
   background-color: var(--clr-neutral-0);
   color: var(--clr-neutral-900);
 }
-
-
 
 form {
   width: 400px;
@@ -124,13 +125,32 @@ select:focus {
 }
 
 .error-message {
-  background-color: var(--clr-neutral-900);
-  color: var(--clr-red-500);
-  padding: 0.75rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  text-align: center;
-  font-size: 0.85rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 50px;
+  font-size: 18px;
+  color: #aa1100;
+  font-weight: 500;
+  background: #ff9494;
+  padding: 10px 15px;
+  border-radius: 5px;
+  display: block;
+  animation: fadeInOut 3s ease-in-out;
+}
+.success-message {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 50px;
+  font-size: 18px;
+  color: #1a7f1a;
+  font-weight: 500;
+  background: #b3ffb3;
+  padding: 10px 15px;
+  border-radius: 5px;
+  display: block;
+  animation: fadeInOut 3s ease-in-out;
 }
 
 input[type="submit"] {
@@ -161,8 +181,6 @@ p a {
   text-decoration: none;
   transition: 0.3s;
 }
-
-
 
 .mid-box {
   display: flex;

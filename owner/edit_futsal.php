@@ -186,42 +186,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="facility-grid">
 
               <label>
-                <input type="checkbox" value="Parking" name="facility[] <?= in_array("Parking", $facilities) ? "checked" : ""; ?>>
+                <input type="checkbox" value="Parking" <?= in_array("Parking", $facilities) ? "checked" : ""; ?>>
                 Parking
               </label>
 
               <label>
-                <input type=" checkbox" value="Locker Room" name="facility[] <?= in_array("Locker Room", $facilities) ? "checked" : "" ?>>
+                <input type="checkbox" value="Locker Room" <?= in_array("Locker Room", $facilities) ? "checked" : "" ?>>
                 Locker Room
               </label>
 
               <label>
-                <input type=" checkbox" value="WiFi" name="facility[] <?= in_array("WiFi", $facilities) ? "checked" : "" ?>>
+                <input type="checkbox" value="WiFi" <?= in_array("WiFi", $facilities) ? "checked" : "" ?>>
                 WiFi
               </label>
               <label>
-                <input type=" checkbox" value="Cafeteria" name="facility[] <?= in_array("Cafeteria", $facilities) ? "checked" : "" ?>>
+                <input type="checkbox" value="Cafeteria" <?= in_array("Cafeteria", $facilities) ? "checked" : "" ?>>
                 Cafeteria
               </label>
               <label>
-                <input type=" checkbox" value="Shower" name="facility[] <?= in_array("Shower", $facilities) ? "checked" : "" ?>>
+                <input type="checkbox" value="Shower" <?= in_array("Shower", $facilities) ? "checked" : "" ?>>
                 Shower
               </label>
             </div>
           </div>
-          <div class=" status-note <?php echo $futsal['status']  ?>">
-                <strong>Current Status:</strong> <?php echo $futsal['status'] ?>
-                <br>
-                Editing this futsal may require administrator approval again.
-            </div>
-            <div class="form-actions">
-              <a href="my_futsal.php" class="cancel-btn">
-                Cancel
-              </a>
-              <button type="submit" class="btn">
-                Save Changes
-              </button>
-            </div>
+          <div class="status-note <?php echo $futsal['status']  ?>">
+            <strong>Current Status:</strong> <?php echo $futsal['status'] ?>
+            <br>
+            Editing this futsal may require administrator approval again.
+          </div>
+          <div class="form-actions">
+            <a href="my_futsal.php" class="cancel-btn">
+              Cancel
+            </a>
+            <button type="submit" class="btn">
+              Save Changes
+            </button>
+          </div>
         </form>
       </div>
     </main>

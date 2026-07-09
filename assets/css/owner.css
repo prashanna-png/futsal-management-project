@@ -483,11 +483,6 @@ label {
   background: rgba(243, 156, 18, 0.5);
   color: #a86b0c;
 }
-rejected {
-  background: rgba(231, 76, 60, 0.5);
-  color: #c0392b;
-}
-
 .rejected {
   background: rgba(231, 76, 60, 0.5);
   color: #c0392b;
@@ -634,7 +629,7 @@ button.edit-btn:hover {
   color: #aa1100;
   font-weight: 500;
   background: #ff9494;
-  padding: 10px 15px;
+  padding: 20px 25px;
   border-radius: 5px;
   display: block;
   animation: fadeInOut 3s ease-in-out;
@@ -648,7 +643,7 @@ button.edit-btn:hover {
   color: #1a7f1a;
   font-weight: 500;
   background: #b3ffb3;
-  padding: 10px 15px;
+  padding: 20px 25px;
   border-radius: 5px;
   display: block;
   animation: fadeInOut 3s ease-in-out;

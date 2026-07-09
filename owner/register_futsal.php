@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
       // Handle image upload
       $allowed   = ['jpg', 'jpeg', 'png', 'webp'];
-      $ext       = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+      $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
 
       if (!in_array($ext, $allowed)) {
         $_SESSION['error'] = 'Only JPG, PNG and WEBP images are allowed.';

@@ -10,8 +10,10 @@ CREATE TABLE users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 select *
-from futsal;select *
 from futsal;
+
+select *
+from futsal WHERE ownerid = 2 AND futsalid = 14;
 select *
 from users;
 -- FUTSAL COURTS

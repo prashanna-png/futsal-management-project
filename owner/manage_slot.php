@@ -28,6 +28,18 @@ if (!$futsal) {
   exit;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $startingTime = $_POST['start_time'];
+  $endTime = $_POST['end_time'];
+
+  if (empty($startingTime) || empty($endTime)) {
+    $_SESSION['error'] = "must select both star time and end time";
+  } elseif ($startingTime >= $endTime) {
+    $_SESSION['error'] = 'end time must be after start time';
+  } else {
+  }
+}
+
 ?>
 
 <!DOCTYPE html>

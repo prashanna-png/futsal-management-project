@@ -173,6 +173,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div class="popup-overlay" id="popup-overlay">
         <div class="delete-container" id="delete-ctn">
+          <div class="delete-icon">
+            <img src="../assets/icons/delete.png" alt="">
+          </div>
           <p>Are you Sure You Want To Delete?</p>
           <p>This Action Cannot Be Undone</p>
 

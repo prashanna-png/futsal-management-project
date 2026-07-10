@@ -265,7 +265,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div class="form-group">
             <label>Description</label>
             <textarea name="description" rows="5">
-              <?php echo $futsal['description'] ?>
+              <?php echo trim($futsal['description']); ?>
             </textarea>
           </div>
 

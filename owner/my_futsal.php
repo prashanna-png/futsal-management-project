@@ -128,15 +128,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               </div>
 
               <div class="buttons">
-                <button class="edit-btn" onclick="location.href='edit_futsal.php?futsalid=<?php echo $row['futsalid']; ?>'">
-                  <img src="../assets/icons/edit.png" alt="edit-icon" class="edit-img">
-                  <h3>Edit</h3>
-                </button>
+
+                <div class="top-actions">
+
+                  <button
+                    class="action-btn edit-btn"
+                    onclick="location.href='edit_futsal.php?futsalid=<?php echo $row['futsalid']; ?>'">
+
+                    <img src="../assets/icons/edit.png" alt="">
+                    <span>Edit</span>
+
+                  </button>
+
+                  <button
+                    class="action-btn delete-btn"
+                    data-id="<?php echo $row['futsalid']; ?>">
+
+                    <img src="../assets/icons/delete.png" alt="">
+                    <span>Delete</span>
+
+                  </button>
+
+                </div>
+
                 <button
-                  class="delete-btn"
-                  data-id="<?php echo $row['futsalid']; ?>">
-                  <img src="../assets/icons/delete.png" class="delete-img">
+                  class="action-btn slot-btn"
+                  onclick="location.href='manage_slot.php?futsalid=<?php echo $row['futsalid']; ?>'">
+
+                  <img src="../assets/icons/time-management.png" alt="">
+                  <span>Manage Slots</span>
+
                 </button>
+
               </div>
             </div>
 

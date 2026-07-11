@@ -49,6 +49,9 @@ CREATE TABLE timeslot (
   end_time TIME NOT NULL,
   FOREIGN KEY (futsalid) REFERENCES futsal(futsalid) ON DELETE CASCADE
 );
+
+select * FROM timeslot;
+
 -- BOOKINGS
 CREATE TABLE booking (
   bookingid INT AUTO_INCREMENT PRIMARY KEY,

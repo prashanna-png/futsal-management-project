@@ -79,7 +79,7 @@ $result = mysqli_query($conn, $sql);
                 ?>
               </div>
 
-              <button>View Details</button>
+              <button onclick="location.href='view_futsal.php?futsalid=<?= $row['futsalid']; ?>'">View Details</button>
             </div>
         <?php
           }

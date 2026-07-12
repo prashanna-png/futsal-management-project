@@ -61,6 +61,8 @@ $sql = "SELECT * FROM timeslot WHERE futsalid='$futsalid'";
 
 $result = mysqli_query($conn, $sql);
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -164,7 +166,7 @@ $result = mysqli_query($conn, $sql);
 
               <div class="slot-actions">
 
-                <button class="delete-btn" onclick="Location.href='delete_slot.php?futsalid=<?php echo $row['slotid']; ?>'">
+                <button class="slot-delete-btn" onclick="location.href='delete_slot.php?futsalid=<?= $futsalid ?>&slotid=<?= $row['slotid'] ?>'">
                   🗑 Delete
                 </button>
 

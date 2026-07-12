@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $result = mysqli_query($conn, $checkSql);
     if (mysqli_num_rows($result) > 0) {
-      $_SESSION['error'] = "This time already exists";
+      $_SESSION['error'] = "This time slot already exists";
     } else {
       $sql = "INSERT INTO timeslot (futsalid, start_time , end_time) VALUES ('$futsalid','$startingTime', '$endTime')";
       if (mysqli_query($conn, $sql)) {
@@ -157,18 +157,14 @@ $result = mysqli_query($conn, $sql);
             <div class="slot-item">
 
               <span>
-                <?php echo $row['start_time'] ?>
+                <?php echo substr($row['start_time'], 0, 5); ?>
                 -
-                <?php echo $row['end_time'] ?>
+                <?php echo substr($row['end_time'], 0, 5); ?>
               </span>
 
               <div class="slot-actions">
 
-                <button class="edit-btn">
-                  ✏ Edit
-                </button>
-
-                <button class="delete-btn">
+                <button class="delete-btn" onclick="Location.href='delete_slot.php?futsalid=<?php echo $row['slotid']; ?>'">
                   🗑 Delete
                 </button>
 
@@ -187,6 +183,8 @@ $result = mysqli_query($conn, $sql);
 
     </main>
   </div>
+
+  <script src="../assets/js/main.js"></script>
 </body>
 
 </html>

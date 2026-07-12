@@ -11,11 +11,15 @@ CREATE TABLE users (
 );
 select *
 from futsal;
-
 select *
-from futsal WHERE ownerid = 2 AND futsalid = 14;
+from futsal
+WHERE ownerid = 2
+  AND futsalid = 14;
 select *
 from users;
+
+delete from users
+where role = 'owner';
 -- FUTSAL COURTS
 CREATE TABLE futsal (
   futsalid INT AUTO_INCREMENT PRIMARY KEY,
@@ -49,26 +53,28 @@ CREATE TABLE timeslot (
   end_time TIME NOT NULL,
   FOREIGN KEY (futsalid) REFERENCES futsal(futsalid) ON DELETE CASCADE
 );
-
-select * FROM timeslot;
-
+select *
+FROM timeslot;
+SELECT *
+FROM timeslot
+WHERE futsalid = 15; 
 -- BOOKINGS
-CREATE TABLE booking (
-  bookingid INT AUTO_INCREMENT PRIMARY KEY,
-  playerid INT NOT NULL,
-  futsalid INT NOT NULL,
-  staffid INT DEFAULT NULL,
-  booking_date DATE NOT NULL,
-  start_time TIME NOT NULL,
-  end_time TIME NOT NULL,
-  amount DECIMAL(10, 2) NOT NULL,
-  status ENUM('pending', 'confirmed', 'completed', 'cancelled') DEFAULT 'pending',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (playerid) REFERENCES users(userid) ON DELETE CASCADE,
-  FOREIGN KEY (futsalid) REFERENCES futsal(futsalid) ON DELETE CASCADE,
-  FOREIGN KEY (staffid) REFERENCES users(userid) ON DELETE
-  SET NULL
-);
+  CREATE TABLE booking (
+    bookingid INT AUTO_INCREMENT PRIMARY KEY,
+    playerid INT NOT NULL,
+    futsalid INT NOT NULL,
+    staffid INT DEFAULT NULL,
+    booking_date DATE NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    status ENUM('pending', 'confirmed', 'completed', 'cancelled') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (playerid) REFERENCES users(userid) ON DELETE CASCADE,
+    FOREIGN KEY (futsalid) REFERENCES futsal(futsalid) ON DELETE CASCADE,
+    FOREIGN KEY (staffid) REFERENCES users(userid) ON DELETE
+    SET NULL
+  );
 -- PAYMENTS
 CREATE TABLE payment (
   paymentid INT AUTO_INCREMENT PRIMARY KEY,

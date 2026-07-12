@@ -14,8 +14,7 @@ body {
 
 /* ================= Layout ================= */
 .dashboard {
-  display: grid;
-  grid-template-columns: 260px 1fr;
+  display: flex;
   min-height: 100vh;
 }
 
@@ -67,8 +66,10 @@ body {
 
 /* ================= Main ================= */
 .main {
+  flex: 1;
   padding: 35px;
   margin-left: 260px;
+  overflow-y: auto;
   min-height: 100vh;
 }
 

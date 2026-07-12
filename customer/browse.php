@@ -63,7 +63,6 @@ $result = mysqli_query($conn, $sql);
                 echo htmlentities($row['location']);
                 ?>
               </p>
-              <p>⭐⭐⭐⭐☆ (4.8)</p>
               <p>Rs. <?php
                       echo htmlentities($row['price_per_hour']);
                       ?> / hour</p>

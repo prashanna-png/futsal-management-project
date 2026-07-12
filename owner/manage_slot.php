@@ -174,8 +174,6 @@ $result = mysqli_query($conn, $sql);
 
             </div>
         <?php }
-        } else {
-          $_SESSION['error'] = 'no time slot available';
         }
 
         ?>

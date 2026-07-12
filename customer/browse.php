@@ -1,4 +1,6 @@
 <?php
+global $conn;
+
 require_once '../config/auth.php';
 require_once '../config/db.php';
 require_login();

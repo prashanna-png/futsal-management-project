@@ -112,7 +112,8 @@ $conctatRow = mysqli_fetch_assoc($contact);
             ?>
 
               <span class="facility">
-                ✓ <?php echo $facility['facility_name']; ?>
+                <img src="../assets/icons/<?php echo $facility['facility_name']; ?>.png" alt="" width="20px">
+                <?php echo $facility['facility_name']; ?>
               </span>
 
             <?php } ?>

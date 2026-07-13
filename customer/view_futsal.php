@@ -12,7 +12,21 @@ $sql = "SELECT * FROM futsal WHERE futsalid='$futsalid'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
+
+$slotSql = "SELECT * FROM timeslot WHERE futsalid='$futsalid' ORDER BY start_time";
+$slotResult = mysqli_query($conn, $slotSql);
+
+
+$facilitySql = "SELECT * FROM facility WHERE futsalid='$futsalid'";
+$facilityResult = mysqli_query($conn, $facilitySql);
+
+$userid = $_SESSION['userid'];
+$contactSql = "SELECT * FROM users WHERE userid='$userid'";
+$contact = mysqli_query($conn, $contactSql);
+$conctatRow = mysqli_fetch_assoc($contact);
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -94,9 +108,6 @@ $row = mysqli_fetch_assoc($result);
           <div class="facility-list">
 
             <?php
-            $facilitySql = "SELECT * FROM facility WHERE futsalid='$futsalid'";
-            $facilityResult = mysqli_query($conn, $facilitySql);
-
             while ($facility = mysqli_fetch_assoc($facilityResult)) {
             ?>
 
@@ -119,10 +130,6 @@ $row = mysqli_fetch_assoc($result);
 
             <?php
 
-            $slotSql = "SELECT * FROM timeslot WHERE futsalid='$futsalid' ORDER BY start_time";
-
-            $slotResult = mysqli_query($conn, $slotSql);
-
             while ($slot = mysqli_fetch_assoc($slotResult)) {
             ?>
 
@@ -139,6 +146,14 @@ $row = mysqli_fetch_assoc($result);
             <?php } ?>
 
           </div>
+
+        </div>
+
+        <div class="content-card">
+          <h3>Contacts:</h3>
+          <p><?= $row['contact_number'] ?></p>
+          <p><?= $row['address'] ?> ,<?= $row['location']  ?></p>
+          <p><?= $conctatRow['email'] ?></p>
 
         </div>
 

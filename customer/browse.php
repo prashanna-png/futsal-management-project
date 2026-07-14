@@ -40,10 +40,10 @@ $result = mysqli_query($conn, $sql);
       </div>
 
       <div class="search-box">
-        <input type="text" placeholder="Search futsal...">
+        <input type="text" name="search" placeholder="Search futsal...">
       </div>
 
-      <div class="futsal-grid">
+      <div class="futsal-grid" id="futsal-grids">
         <?php
         if (mysqli_num_rows($result) > 0) {
           while ($row = mysqli_fetch_assoc($result)) {
@@ -89,7 +89,8 @@ $result = mysqli_query($conn, $sql);
     </main>
 
   </div>
-
+  <script src="../assets/js/customer.js"></script>
 </body>
+
 
 </html>

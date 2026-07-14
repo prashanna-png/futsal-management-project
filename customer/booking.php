@@ -12,7 +12,8 @@ $sql = "SELECT * FROM futsal WHERE futsalid='$futsalid'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
-
+$sql = "SELECT * FROM timeslot WHERE futsalid='$futsalid'";
+$slotresult = mysqli_query($conn, $sql);
 
 ?>
 
@@ -108,56 +109,18 @@ $row = mysqli_fetch_assoc($result);
               <h3>Available Time Slots</h3>
 
               <div class="slot-grid">
+                <?php while ($slot = mysqli_fetch_array($slotresult)) {
+                ?>
+                  <label class="slot">
 
-                <label class="slot">
+                    <input
+                      type="radio"
+                      name="slotid">
 
-                  <input
-                    type="radio"
-                    name="slotid">
+                    <?= substr($slot['start_time'], 0, 5) ?> AM - <?= substr($slot['end_time'], 0, 5) ?> AM
 
-                  06:00 AM - 07:00 AM
-
-                </label>
-
-                <label class="slot">
-
-                  <input
-                    type="radio"
-                    name="slotid">
-
-                  07:00 AM - 08:00 AM
-
-                </label>
-
-                <label class="slot">
-
-                  <input
-                    type="radio"
-                    name="slotid">
-
-                  08:00 AM - 09:00 AM
-
-                </label>
-
-                <label class="slot">
-
-                  <input
-                    type="radio"
-                    name="slotid">
-
-                  09:00 AM - 10:00 AM
-
-                </label>
-
-                <label class="slot">
-
-                  <input
-                    type="radio"
-                    name="slotid">
-
-                  10:00 AM - 11:00 AM
-
-                </label>
+                  </label>
+                <?php } ?>
 
               </div>
 

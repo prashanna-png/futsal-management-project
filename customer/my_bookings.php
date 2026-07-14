@@ -1,7 +1,40 @@
 <?php
+global $conn;
+
 require_once '../config/auth.php';
+require_once '../config/db.php';
 require_login();
 $currentPage = 'bookings';
+
+$error   = $_SESSION['error'] ?? '';
+$success = $_SESSION['success'] ?? '';
+unset($_SESSION['error'], $_SESSION['success']);
+
+$playerid = $_SESSION['userid'];
+
+$sql = "
+SELECT
+    b.bookingid,
+    b.booking_date,
+    b.start_time,
+    b.end_time,
+    b.amount,
+    b.status,
+    f.name,
+    f.location,
+    f.image
+
+FROM booking b
+JOIN futsal f
+ON b.futsalid = f.futsalid
+
+WHERE b.playerid = '$playerid'
+
+ORDER BY b.booking_date DESC,
+         b.start_time ASC
+";
+$result = mysqli_query($conn, $sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -38,33 +71,45 @@ $currentPage = 'bookings';
         <table>
 
           <tr>
+            <th>Image</th>
             <th>Futsal</th>
+            <th>location</th>
             <th>Date</th>
             <th>Time</th>
             <th>Status</th>
             <th>Action</th>
           </tr>
+          <?php
+          while ($row = mysqli_fetch_assoc($result)) {
+          ?>
+            <tr>
+              <td>
+                <img src="../assets/uploads/<?= $row['image'] ?>" alt="" class="booking-image">
+              </td>
 
-          <tr>
-            <td>Goal Arena</td>
-            <td>25 June 2026</td>
-            <td>6 PM - 7 PM</td>
-            <td><span class="status">Confirmed</span></td>
-            <td>
-              <button>View</button>
-              <button>Cancel</button>
-            </td>
-          </tr>
+              <td><?= $row['name'] ?></td>
 
-          <tr>
-            <td>Elite Arena</td>
-            <td>28 June 2026</td>
-            <td>8 PM - 9 PM</td>
-            <td><span class="status">Pending</span></td>
-            <td>
-              <button>View</button>
-            </td>
-          </tr>
+              <td> <?= $row['location'] ?></td>
+
+              <td><?= $row['booking_date'] ?></td>
+              <td>
+                <?= date("g:i A", strtotime($row['start_time'])) ?>
+                -
+                <?= date("g:i A", strtotime($row['end_time'])) ?>
+              </td>
+
+              <td>
+                <span class="status"><?= $row['status'] ?></span>
+              </td>
+
+              <td class="action-buttons">
+                <button class="view-btn">View</button>
+                <button class="cancel-btn">Cancel</button>
+              </td>
+            </tr>
+          <?php
+          }
+          ?>
 
         </table>
 

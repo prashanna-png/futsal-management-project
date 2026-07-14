@@ -928,8 +928,7 @@ table tr:hover {
 }
 .action-buttons {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
   gap: 12px;
 }
 

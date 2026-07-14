@@ -38,6 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
   }
 
+  if ($booking_date < date('Y-m-d')) {
+    $_SESSION['error'] = 'You cannot book a past date.';
+  }
+
   $sql = "SELECT * FROM timeslot WHERE slotid='$slotid'";
   $result = mysqli_query($conn, $sql);
   $slot = mysqli_fetch_assoc($result);
@@ -182,12 +186,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 type="date"
                 name="booking_date"
                 id="booking_date"
+                min="<?php echo date('Y-m-d'); ?>"
                 required>
 
             </div>
 
 
-            <div class="card">
+            <div class=" card">
 
               <h3>Available Time Slots</h3>
 
@@ -292,7 +297,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </main>
 
   </div>
-  <script src="../assets//js//customer.js"></script>
+  <script src="../assets/js/customer.js"></script>
+  <script src="../assets/js/main.js"></script>
 </body>
 
 </html>

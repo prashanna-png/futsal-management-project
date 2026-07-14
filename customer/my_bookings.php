@@ -102,9 +102,20 @@ $result = mysqli_query($conn, $sql);
                 <span class="status"><?= $row['status'] ?></span>
               </td>
 
-              <td class="action-buttons">
-                <button class="view-btn">View</button>
-                <button class="cancel-btn">Cancel</button>
+              <td>
+                <div class="action-buttons">
+
+                  <button class="view-btn">
+                    <img src="../assets/icons/view.png" class="btn-icon" alt="">
+                    View
+                  </button>
+
+                  <button class="cancel-btn">
+                    <img src="../assets/icons/delete.png" class="btn-icon" alt="">
+                    Cancel
+                  </button>
+
+                </div>
               </td>
             </tr>
           <?php

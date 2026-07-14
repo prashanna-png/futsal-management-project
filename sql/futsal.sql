@@ -9,17 +9,6 @@ CREATE TABLE users (
   role ENUM('customer', 'owner', 'staff', 'admin') NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-select *
-from futsal;
-select *
-from futsal
-WHERE ownerid = 2
-  AND futsalid = 14;
-select *
-from users;
-
-delete from users
-where role = 'owner';
 -- FUTSAL COURTS
 CREATE TABLE futsal (
   futsalid INT AUTO_INCREMENT PRIMARY KEY,
@@ -54,11 +43,7 @@ CREATE TABLE timeslot (
   end_time TIME NOT NULL,
   FOREIGN KEY (futsalid) REFERENCES futsal(futsalid) ON DELETE CASCADE
 );
-select *
-FROM timeslot;
-SELECT *
-FROM timeslot
-WHERE futsalid = 15; 
+ 
 -- BOOKINGS
   CREATE TABLE booking (
     bookingid INT AUTO_INCREMENT PRIMARY KEY,

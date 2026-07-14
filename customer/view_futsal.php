@@ -69,13 +69,9 @@ $conctatRow = mysqli_fetch_assoc($contact);
                 -
                 <?php echo date("g:i A", strtotime($row['closing_time'])); ?>
               </span>
-
-              <span class="status <?php echo $row['status']; ?>">
-                <?php echo ucfirst($row['status']); ?>
-              </span>
             </div>
 
-            <button class="book-btn">
+            <button class="book-btn" onclick="location.href='booking.php?futsalid=<?= $row['futsalid'] ?>'">
               Book Now
             </button>
 

@@ -181,6 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <input
                 type="date"
                 name="booking_date"
+                id="booking_date"
                 required>
 
             </div>
@@ -198,10 +199,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input
                       type="radio"
                       name="slotid"
-                      value="<?= $slot['slotid'] ?>">
+                      value="<?= $slot['slotid']; ?>"
+
+                      data-time="
+                        <?= date('g:i A', strtotime($slot['start_time'])) ?> 
+                        - 
+                        <?= date('g:i A', strtotime($slot['end_time'])) ?>
+                        ">
 
                     <?= date("g:i A", strtotime($slot['start_time'])); ?>
+
                     -
+
                     <?= date("g:i A", strtotime($slot['end_time'])); ?>
 
                   </label>
@@ -234,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <span>Date</span>
 
-                <strong>Not Selected</strong>
+                <strong id="summary-date">Not Selected</strong>
 
               </div>
 
@@ -242,7 +251,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <span>Time Slot</span>
 
-                <strong>Not Selected</strong>
+                <strong id="summary-slot">Not Selected</strong>
 
               </div>
 
@@ -283,7 +292,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </main>
 
   </div>
-
+  <script src="../assets//js//customer.js"></script>
 </body>
 
 </html>

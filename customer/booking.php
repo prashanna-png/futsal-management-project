@@ -8,6 +8,10 @@ $currentPage = 'browse';
 
 $futsalid = $_GET['futsalid'];
 
+$error   = $_SESSION['error'] ?? '';
+$success = $_SESSION['success'] ?? '';
+unset($_SESSION['error'], $_SESSION['success']);
+
 $sql = "SELECT * FROM futsal WHERE futsalid='$futsalid'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
@@ -15,6 +19,74 @@ $row = mysqli_fetch_assoc($result);
 $sql = "SELECT * FROM timeslot WHERE futsalid='$futsalid'";
 $slotresult = mysqli_query($conn, $sql);
 
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+  $booking_date = $_POST['booking_date'];
+  $slotid = $_POST['slotid'];
+  $playerid = $_SESSION['userid'];
+
+  if (empty($_POST['booking_date'])) {
+    $_SESSION['error'] = "Please select a booking date.";
+    header("Location: " . $_SERVER['PHP_SELF'] . "?futsalid=" . $futsalid);
+    exit;
+  }
+
+  if (empty($_POST['slotid'])) {
+    $_SESSION['error'] = "Please select a time slot.";
+    header("Location: " . $_SERVER['PHP_SELF'] . "?futsalid=" . $futsalid);
+    exit;
+  }
+
+  $sql = "SELECT * FROM timeslot WHERE slotid='$slotid'";
+  $result = mysqli_query($conn, $sql);
+  $slot = mysqli_fetch_assoc($result);
+
+  $start_time = $slot['start_time'];
+  $end_time = $slot['end_time'];
+
+  $sql = "SELECT bookingid
+          FROM booking
+          WHERE futsalid='$futsalid'
+          AND booking_date='$booking_date'
+          AND start_time='$start_time'
+          AND end_time='$end_time'
+          AND status!='cancelled'";
+
+  $result = mysqli_query($conn, $sql);
+
+  if (mysqli_num_rows($result) > 0) {
+
+    $_SESSION['error'] = "This slot is already booked.";
+  } else {
+
+    $sql = "INSERT INTO booking (
+              playerid,
+              futsalid,
+              booking_date,
+              start_time,
+              end_time,
+              amount
+            )
+            VALUES (
+              '$playerid',
+              '$futsalid',
+              '$booking_date',
+              '$start_time',
+              '$end_time',
+              '{$row['price_per_hour']}'
+            )";
+
+    if (mysqli_query($conn, $sql)) {
+      $_SESSION['success'] = "Booking placed successfully.";
+    } else {
+      $_SESSION['error'] = "Failed to place booking.";
+    }
+  }
+
+  header("Location: " . $_SERVER['PHP_SELF'] . "?futsalid=" . $futsalid);
+  exit;
+}
 ?>
 
 
@@ -80,7 +152,17 @@ $slotresult = mysqli_query($conn, $sql);
 
       </div>
 
+      <?php if (!empty($error)): ?>
+        <div class="error-message" id="error-success-msg">
+          <?php echo $error; ?>
+        </div>
+      <?php endif; ?>
 
+      <?php if (!empty($success)): ?>
+        <div class="success-message" id="error-success-msg">
+          <?php echo $success; ?>
+        </div>
+      <?php endif; ?>
       <!-- Booking Form -->
 
       <form method="POST">
@@ -115,9 +197,12 @@ $slotresult = mysqli_query($conn, $sql);
 
                     <input
                       type="radio"
-                      name="slotid">
+                      name="slotid"
+                      value="<?= $slot['slotid'] ?>">
 
-                    <?= substr($slot['start_time'], 0, 5) ?> AM - <?= substr($slot['end_time'], 0, 5) ?> AM
+                    <?= date("g:i A", strtotime($slot['start_time'])); ?>
+                    -
+                    <?= date("g:i A", strtotime($slot['end_time'])); ?>
 
                   </label>
                 <?php } ?>

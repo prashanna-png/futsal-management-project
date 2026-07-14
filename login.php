@@ -6,8 +6,9 @@ require_once 'config/auth.php';
 $email = "";
 $password = "";
 
-$error = $_SESSION['error'] ?? '';
-unset($_SESSION['error']);
+$error   = $_SESSION['error'] ?? '';
+$success = $_SESSION['success'] ?? '';
+unset($_SESSION['error'], $_SESSION['success']);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email = trim($_POST['email']);
@@ -50,10 +51,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         exit;
       } else {
-        $error = "Incorrect Password";
+        $_SESSION['error'] = "Incorrect Password";
       }
     } else {
-      $error = "User does not exist";
+      $_SESSION['error'] = "User does not exist";
     }
   }
 }

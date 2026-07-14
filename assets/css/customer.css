@@ -316,6 +316,8 @@ table tr:hover {
 }
 
 .futsal-card {
+  display: flex;
+  flex-direction: column;
   background: #fff;
   border-radius: 18px;
   overflow: hidden;

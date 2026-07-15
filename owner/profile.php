@@ -94,7 +94,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       exit;
     }
 
-    // Check duplicate email
     $sql = "SELECT userid FROM users WHERE email='$email' AND userid!='$current_user'";
     $result = mysqli_query($conn, $sql);
 
@@ -104,7 +103,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       exit;
     }
 
-    // Verify current password (required for security when updating sensitive info)
     if (empty($current_password)) {
       $_SESSION['error'] = "Please enter your current password to update profile information.";
       header("Location: profile.php");

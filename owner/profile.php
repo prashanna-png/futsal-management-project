@@ -162,6 +162,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php include 'includes/sidebar.php'; ?>
 
     <main class="main">
+      <?php if (!empty($error)): ?>
+        <div class="error-message" id="error-success-msg">
+          <?php echo $error; ?>
+        </div>
+      <?php endif; ?>
+
+      <?php if (!empty($success)): ?>
+        <div class="success-message" id="error-success-msg">
+          <?php echo $success; ?>
+        </div>
+      <?php endif; ?>
 
       <div class="header">
 
@@ -195,18 +206,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
           <!-- Profile Update Form -->
           <h3>Personal Information</h3>
-
-          <?php if (!empty($error)): ?>
-            <div class="error-message" id="error-success-msg">
-              <?php echo $error; ?>
-            </div>
-          <?php endif; ?>
-
-          <?php if (!empty($success)): ?>
-            <div class="success-message" id="error-success-msg">
-              <?php echo $success; ?>
-            </div>
-          <?php endif; ?>
 
           <form action="" method="POST" novalidate>
             <input type="hidden" name="update_type" value="profile">

@@ -14,15 +14,40 @@ $bookingid = $_GET['bookingid'];
 $playerid = $_SESSION['userid'];
 
 $sql = "
-  SELECT 
+SELECT
     b.bookingid,
     b.booking_date,
     b.start_time,
     b.end_time,
-    
+    b.amount,
+    b.status,
+    b.created_at,
+
+    f.futsalid,
+    f.name,
+    f.location,
+    f.address,
+    f.image,
+    f.description,
+    f.price_per_hour
+
+FROM booking AS b
+JOIN futsal AS f
+ON b.futsalid = f.futsalid
+
+WHERE b.bookingid = '$bookingid'
+AND b.playerid = '{$_SESSION['userid']}'
+";
+$result = mysqli_query($conn, $sql);
+$booking = mysqli_fetch_assoc($result);
+
+$sql = "
+SELECT facility_name
+FROM facility
+WHERE futsalid = '{$booking['futsalid']}'
 ";
 
-
+$facilityResult = mysqli_query($conn, $sql);
 
 ?>
 
@@ -32,7 +57,7 @@ $sql = "
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Customer Booking</title>
+  <title>Booking Detail</title>
 
   <link rel="stylesheet" href="../assets/css/customer.css">
 
@@ -57,9 +82,10 @@ $sql = "
 
     <?php include 'includes/sidebar.php'; ?>
 
-    <main class="main">
+    <main class="main view-booking-page">
 
       <div class="header">
+
         <div>
           <h1>Booking Details</h1>
           <p>View complete information about your booking.</p>
@@ -68,30 +94,38 @@ $sql = "
         <a href="my_bookings.php" class="back-btn">
           ← Back to My Bookings
         </a>
+
       </div>
 
-      <div class="booking-detail-container">
+
+      <div class="view-booking-container">
 
         <!-- Left Side -->
 
-        <div class="booking-left">
+        <div class="view-booking-left">
 
-          <img src="../assets/uploads/<?php echo $booking['image']; ?>"
-            class="booking-image"
-            alt="Futsal">
+          <img
+            src="../assets/uploads/<?php echo $booking['image']; ?>"
+            class="view-booking-image"
+            alt="Futsal Image">
 
-          <div class="booking-card">
+          <div class="view-booking-card">
 
-            <h2><?php echo $booking['name']; ?></h2>
+            <h2><?php echo htmlspecialchars($booking['name']); ?></h2>
 
-            <p class="location">
-              📍 <?php echo $booking['address']; ?>,
-              <?php echo $booking['location']; ?>
+            <p class="view-booking-location">
+              📍
+              <?php echo htmlspecialchars($booking['address']); ?>,
+              <?php echo htmlspecialchars($booking['location']); ?>
             </p>
 
-            <span class="status <?php echo strtolower($details['status']); ?>">
-              <?php echo ucfirst($details['status']); ?>
+            <span class="view-booking-status <?php echo strtolower($booking['status']); ?>">
+              <?php echo ucfirst($booking['status']); ?>
             </span>
+
+            <p class="view-booking-description">
+              <?php echo htmlspecialchars($booking['description']); ?>
+            </p>
 
           </div>
 
@@ -100,68 +134,76 @@ $sql = "
 
         <!-- Right Side -->
 
-        <div class="booking-right">
+        <div class="view-booking-right">
 
-          <div class="detail-card">
+          <!-- Booking Information -->
+
+          <div class="view-booking-info-card">
 
             <h3>Booking Information</h3>
 
-            <div class="detail-row">
+            <div class="view-booking-row">
               <span>Booking ID</span>
-              <strong>#<?php echo $details['bookingid']; ?></strong>
+              <strong>#<?php echo $booking['bookingid']; ?></strong>
             </div>
 
-            <div class="detail-row">
+            <div class="view-booking-row">
               <span>Booking Date</span>
               <strong>
-                <?php echo date("d M Y", strtotime($details['booking_date'])); ?>
+                <?php echo date("d M Y", strtotime($booking['booking_date'])); ?>
               </strong>
             </div>
 
-            <div class="detail-row">
+            <div class="view-booking-row">
               <span>Time Slot</span>
               <strong>
-                <?php echo date("g:i A", strtotime($details['start_time'])); ?>
+                <?php echo date("g:i A", strtotime($booking['start_time'])); ?>
                 -
-                <?php echo date("g:i A", strtotime($details['end_time'])); ?>
+                <?php echo date("g:i A", strtotime($booking['end_time'])); ?>
               </strong>
             </div>
 
-            <div class="detail-row">
+            <div class="view-booking-row">
               <span>Duration</span>
               <strong>1 Hour</strong>
             </div>
 
-            <div class="detail-row">
+            <div class="view-booking-row">
               <span>Booked On</span>
               <strong>
-                <?php echo date("d M Y", strtotime($details['created_at'])); ?>
+                <?php echo date("d M Y", strtotime($booking['created_at'])); ?>
               </strong>
             </div>
 
-            <div class="detail-row">
-              <span>Amount</span>
-              <strong>Rs. <?php echo number_format($details['amount']); ?></strong>
+            <div class="view-booking-row">
+              <span>Price</span>
+              <strong>
+                Rs. <?php echo number_format($booking['amount']); ?>
+              </strong>
             </div>
 
-            <div class="detail-row">
-              <span>Payment</span>
-              <strong>Pending</strong>
+            <div class="view-booking-row">
+              <span>Payment Status</span>
+              <strong class="payment-pending">
+                Pending
+              </strong>
             </div>
 
           </div>
 
 
-          <div class="detail-card">
+          <!-- Facilities -->
+
+          <div class="view-booking-info-card">
 
             <h3>Facilities</h3>
 
-            <div class="facility-list">
+            <div class="view-facility-list">
 
               <?php while ($facility = mysqli_fetch_assoc($facilityResult)) { ?>
 
-                <span class="facility">
-                  <?php echo $facility['facility_name']; ?>
+                <span class="view-facility">
+                  <?php echo htmlspecialchars($facility['facility_name']); ?>
                 </span>
 
               <?php } ?>
@@ -171,7 +213,9 @@ $sql = "
           </div>
 
 
-          <div class="action-area">
+          <!-- Action -->
+
+          <div class="view-booking-action">
 
             <?php
             if (
@@ -180,8 +224,8 @@ $sql = "
             ) {
             ?>
 
-              <button class="cancel-btn">
-                Cancel Booking
+              <button class="view-booking-cancel-btn">
+                🗑 Cancel Booking
               </button>
 
             <?php } ?>

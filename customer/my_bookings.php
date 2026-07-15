@@ -24,8 +24,8 @@ SELECT
     f.location,
     f.image
 
-FROM booking b
-JOIN futsal f
+FROM booking AS b
+JOIN futsal AS f
 ON b.futsalid = f.futsalid
 
 WHERE b.playerid = '$playerid'

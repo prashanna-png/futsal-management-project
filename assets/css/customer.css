@@ -1054,24 +1054,32 @@ table tr:hover {
   text-transform: capitalize;
 }
 
-.view-booking-status.pending {
+.status {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status.pending {
   background: #fff3cd;
   color: #856404;
 }
 
-.view-booking-status.confirmed {
+.status.confirmed {
   background: #d4edda;
   color: #155724;
 }
 
-.view-booking-status.completed {
-  background: #d6f0ff;
-  color: #0b5d8f;
+.status.cancelled {
+  background: #f8d7da;
+  color: #721c24;
 }
 
-.view-booking-status.cancelled {
-  background: #ffe3e3;
-  color: #c62828;
+.status.completed {
+  background: #d1ecf1;
+  color: #0c5460;
 }
 
 /* RIGHT */
@@ -1194,4 +1202,86 @@ table tr:hover {
   .view-booking-cancel-btn {
     width: 100%;
   }
+}
+
+.popup-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.delete-container {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  width: 400px;
+  background: #e6e6e6;
+  padding: 30px 20px;
+  border-radius: 16px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.delete-icon {
+  background: #dc4646;
+  padding: 20px;
+  border-radius: 50%;
+}
+
+.delete-icon img {
+  width: 50px;
+  height: 50px;
+}
+
+.delete-container p {
+  color: #111;
+  font-weight: 500;
+  text-align: center;
+}
+
+.cancel-delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+.cancel-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  background: #ddd;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+}
+
+.cancel-btn:hover {
+  background: #ccc;
+}
+
+.popup-delete-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  background: #ff6666;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+}
+
+.popup-delete-btn:hover {
+  background: #e74c3c;
 }

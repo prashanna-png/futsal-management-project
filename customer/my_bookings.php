@@ -1,13 +1,14 @@
 <?php
 global $conn;
-
+session_start();
 require_once '../config/auth.php';
 require_once '../config/db.php';
 require_login();
 $currentPage = 'bookings';
 
-$error   = $_SESSION['error'] ?? '';
+$error = $_SESSION['error'] ?? '';
 $success = $_SESSION['success'] ?? '';
+
 unset($_SESSION['error'], $_SESSION['success']);
 
 $playerid = $_SESSION['userid'];
@@ -30,8 +31,14 @@ ON b.futsalid = f.futsalid
 
 WHERE b.playerid = '$playerid'
 
-ORDER BY b.booking_date DESC,
-         b.start_time ASC
+ORDER BY
+    CASE
+        WHEN b.status = 'pending' THEN 1
+        WHEN b.status = 'confirmed' THEN 2
+        WHEN b.status = 'completed' THEN 3
+        WHEN b.status = 'cancelled' THEN 4
+    END,
+    b.booking_date ASC
 ";
 $result = mysqli_query($conn, $sql);
 
@@ -59,6 +66,17 @@ $result = mysqli_query($conn, $sql);
     <?php include 'includes/sidebar.php'; ?>
 
     <main class="main">
+      <?php if (!empty($error)): ?>
+        <div class="error-message" id="error-success-msg">
+          <?php echo $error; ?>
+        </div>
+      <?php endif; ?>
+
+      <?php if (!empty($success)): ?>
+        <div class="success-message" id="error-success-msg">
+          <?php echo $success; ?>
+        </div>
+      <?php endif; ?>
       <div class="header">
         <div>
           <h1>My Bookings</h1>
@@ -96,7 +114,9 @@ $result = mysqli_query($conn, $sql);
               </td>
 
               <td>
-                <span class="status"><?= $row['status'] ?></span>
+                <span class="status <?= strtolower($row['status']) ?>">
+                  <?= ucfirst($row['status']) ?>
+                </span>
               </td>
 
               <td>
@@ -107,7 +127,7 @@ $result = mysqli_query($conn, $sql);
                     View
                   </button>
 
-                  <button class="cancel-btn">
+                  <button class="cancel-btn" onclick="location.href='cancel_booking.php?bookingid=<?= $row['bookingid']; ?>'">
                     <img src="../assets/icons/delete.png" class="btn-icon" alt="">
                     Cancel
                   </button>

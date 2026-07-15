@@ -49,6 +49,7 @@ WHERE futsalid = '{$booking['futsalid']}'
 
 $facilityResult = mysqli_query($conn, $sql);
 
+
 ?>
 
 <!DOCTYPE html>
@@ -224,7 +225,10 @@ $facilityResult = mysqli_query($conn, $sql);
             ) {
             ?>
 
-              <button class="view-booking-cancel-btn">
+              <button class="view-booking-cancel-btn"
+                onclick="
+              location.href=
+              'cancel_booking.php?bookingid=<?= $booking['bookingid']; ?>'">
                 🗑 Cancel Booking
               </button>
 
@@ -239,7 +243,7 @@ $facilityResult = mysqli_query($conn, $sql);
     </main>
 
   </div>
-
+  <script src="../assets/js/customer.js"></script>
 </body>
 
 </html>

@@ -72,10 +72,9 @@ $result = mysqli_query($conn, $sql);
 
           <tr>
             <th>Image</th>
-            <th>Futsal</th>
-            <th>location</th>
-            <th>Date</th>
-            <th>Time</th>
+            <th>Futsal Name</th>
+            <th>Booking Date</th>
+            <th>Time Slot</th>
             <th>Status</th>
             <th>Action</th>
           </tr>
@@ -89,9 +88,7 @@ $result = mysqli_query($conn, $sql);
 
               <td><?= $row['name'] ?></td>
 
-              <td> <?= $row['location'] ?></td>
-
-              <td><?= $row['booking_date'] ?></td>
+              <td><?= date("d M Y", strtotime($row['booking_date'])) ?></td>
               <td>
                 <?= date("g:i A", strtotime($row['start_time'])) ?>
                 -
@@ -105,7 +102,7 @@ $result = mysqli_query($conn, $sql);
               <td>
                 <div class="action-buttons">
 
-                  <button class="view-btn">
+                  <button class="view-btn" onclick="location.href='view_booking.php?bookingid=<?= $row['bookingid'] ?>'">
                     <img src="../assets/icons/view.png" class="btn-icon" alt="">
                     View
                   </button>

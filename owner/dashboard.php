@@ -29,6 +29,34 @@ $totalReject = mysqli_num_rows($result);
 
 $sql = "SELECT * FROM futsal WHERE ownerid='$ownerid'";
 $result = mysqli_query($conn, $sql);
+
+
+$sql = "
+SELECT 
+    b.booking_date,
+    b.start_time,
+    b.end_time,
+    b.status,
+    u.name AS customer_name,
+    f.name AS futsal_name
+
+FROM booking b
+JOIN users u
+    ON b.playerid = u.userid
+JOIN futsal f
+    ON b.futsalid = f.futsalid
+
+WHERE f.ownerid = '$ownerid'
+
+ORDER BY b.booking_date DESC,
+         b.start_time DESC
+
+LIMIT 3;
+";
+
+$bookingResult = mysqli_query($conn, $sql);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -108,12 +136,6 @@ $result = mysqli_query($conn, $sql);
           <h2>
             <?php echo htmlspecialchars($totalReject); ?>
           </h2>
-        </div>
-
-        <div class="card">
-          <h4>Total Earnings</h4>
-          <h2>Rs. 0</h2>
-          <p>This Month</p>
         </div>
 
       </div>
@@ -209,30 +231,36 @@ $result = mysqli_query($conn, $sql);
             </thead>
 
             <tbody>
+              <?php
+              if (mysqli_num_rows($bookingResult) > 0) {
+                while ($booking = mysqli_fetch_assoc($bookingResult)) {
 
-              <tr>
-                <td>Ram Sharma</td>
-                <td>Goal Arena</td>
-                <td>10 July</td>
-                <td>6 PM - 7 PM</td>
-                <td><span class="status">Confirmed</span></td>
-              </tr>
-
-              <tr>
-                <td>Sita Rai</td>
-                <td>Elite Arena</td>
-                <td>11 July</td>
-                <td>7 PM - 8 PM</td>
-                <td><span class="status">Pending</span></td>
-              </tr>
-
-              <tr>
-                <td>Hari KC</td>
-                <td>Goal Arena</td>
-                <td>12 July</td>
-                <td>8 PM - 9 PM</td>
-                <td><span class="status">Completed</span></td>
-              </tr>
+              ?>
+                  <tr>
+                    <td>
+                      <?= $booking['customer_name'] ?>
+                    </td>
+                    <td>
+                      <?= $booking['futsal_name'] ?>
+                    </td>
+                    <td>
+                      <?= date("d M Y", strtotime($booking['booking_date'])) ?>
+                    </td>
+                    <td>
+                      <?= date("g:i A", strtotime($booking['start_time'])); ?>
+                      -
+                      <?= date("g:i A", strtotime($booking['end_time'])); ?>
+                    </td>
+                    <td>
+                      <span class="status <?= strtolower($booking['status']) ?>">
+                        <?= ucfirst($booking['status']) ?>
+                      </span>
+                    </td>
+                  </tr>
+              <?php
+                }
+              }
+              ?>
 
             </tbody>
 

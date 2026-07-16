@@ -20,7 +20,6 @@ if (!$bookingid || !$action || !in_array($action, $allowedAction)) {
   exit;
 }
 
-// escape values before putting them in the query
 $bookingid_safe = mysqli_real_escape_string($conn, $bookingid);
 $ownerid_safe   = mysqli_real_escape_string($conn, $ownerid);
 

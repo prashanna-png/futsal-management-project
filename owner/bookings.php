@@ -178,7 +178,7 @@ $result = mysqli_query($conn, $sql);
                     <?php
                     } elseif ($row['status'] === 'completed') {
                     ?>
-                      <button class="btn-small">Completed✓</button>
+                      <p style="color: #666;">Game Completed</p>
                     <?php
                     } else {
                     ?>

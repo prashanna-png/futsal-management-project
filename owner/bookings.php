@@ -4,7 +4,15 @@ global $conn;
 require_once '../config/auth.php';
 require_once '../config/db.php';
 
+if ($_SESSION['role'] !== 'owner') {
+  header("Location: ../login.php");
+  exit();
+}
 require_login();
+
+$error   = $_SESSION['error'] ?? '';
+$success = $_SESSION['success'] ?? '';
+unset($_SESSION['error'], $_SESSION['success']);
 
 $currentPage = 'manageBooking';
 
@@ -17,6 +25,7 @@ $sql = "
     b.start_time,
     b.end_time,
     b.amount,
+    b.status,
      
     u.name AS customer_name,
     u.phone,
@@ -64,6 +73,18 @@ $result = mysqli_query($conn, $sql);
     <?php include 'includes/sidebar.php'; ?>
 
     <main class="main">
+      <?php if (!empty($error)): ?>
+        <div class="error-message" id="error-success-msg">
+          <?php echo $error; ?>
+        </div>
+      <?php endif; ?>
+
+      <?php if (!empty($success)): ?>
+        <div class="success-message" id="error-success-msg">
+          <?php echo $success; ?>
+        </div>
+      <?php endif; ?>
+
 
       <div class="header">
 
@@ -134,10 +155,37 @@ $result = mysqli_query($conn, $sql);
                     <?= date("g:i A", strtotime($row['end_time'])); ?>
                   </td>
 
-                  <td><span class="status pending">Pending</span></td>
                   <td>
-                    <button class="btn-small confirm">Confirm</button>
-                    <button class="btn-small cancel">Reject</button>
+                    <span class="status <?= strtolower($row['status']) ?>">
+                      <?= ucfirst($row['status']) ?>
+                    </span>
+                  </td>
+                  <td>
+                    <?php
+                    if ($row['status'] === 'pending') {
+                    ?>
+                      <button class="btn-small confirm" onclick="location.href='update_booking.php?bookingid=<?= $row['bookingid'] ?>&action=confirm'">
+                        Confirm
+                      </button>
+                      <button class="btn-small cancel" onclick="location.href='update_booking.php?bookingid=<?= $row['bookingid'] ?>&action=reject'">
+                        Reject
+                      </button>
+                    <?php
+                    } elseif ($row['status'] === 'confirmed') { ?>
+                      <button class="btn-small cancel" onclick="location.href='update_booking.php?bookingid=<?= $row['bookingid'] ?>&action=complete'">
+                        Complete Booking
+                      </button>
+                    <?php
+                    } elseif ($row['status'] === 'completed') {
+                    ?>
+                      <button class="btn-small">Completed✓</button>
+                    <?php
+                    } else {
+                    ?>
+                      <p style="color: #666;">this booking is cancelled</p>
+                    <?php } ?>
+
+
                   </td>
                 </tr>
             <?php

@@ -46,6 +46,32 @@ CREATE TABLE timeslot (
   end_time TIME NOT NULL,
   FOREIGN KEY (futsalid) REFERENCES futsal(futsalid) ON DELETE CASCADE
 );
+SELECT DISTINCT status
+FROM booking;
+
+DESCRIBE booking;
+-- or
+SHOW COLUMNS FROM booking LIKE 'status';
+
+UPDATE booking SET status = 'confirmed' WHERE status = 'approved';
+
+UPDATE booking
+SET status = 'confirmed'
+WHERE status = 'approved';
+
+-- Check current column type
+DESCRIBE booking;
+
+-- If status is ENUM, redefine it properly
+ALTER TABLE booking 
+MODIFY status ENUM('pending','confirmed','completed','cancelled') 
+NOT NULL DEFAULT 'pending';
+
+-- Fix any existing rows stuck with the wrong value
+UPDATE booking SET status = 'confirmed' WHERE status = 'approved';
+
+grep -n "INSERT INTO booking" customer/book.php
+
 -- BOOKINGS
 CREATE TABLE booking (
   bookingid INT AUTO_INCREMENT PRIMARY KEY,

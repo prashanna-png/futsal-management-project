@@ -167,6 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <h2>
             <?= $user['name']; ?>
           </h2>
+          <p><?= $user['role'] ?></p>
         </div>
         <div class="profile-form">
           <h3>Personal Information</h3>

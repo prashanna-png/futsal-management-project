@@ -1,7 +1,106 @@
 <?php
+session_start();
+global $conn;
 require_once '../config/auth.php';
+require_once '../config/db.php';
+
 require_login();
+
 $currentPage = 'dashboard';
+
+$playerid = $_SESSION['userid'];
+
+// Total Bookings
+$sql = "SELECT COUNT(*) AS total
+        FROM booking
+        WHERE playerid='$playerid'";
+$result = mysqli_query($conn, $sql);
+$total = mysqli_fetch_assoc($result);
+
+
+// Pending
+$sql = "SELECT COUNT(*) AS pending
+        FROM booking
+        WHERE playerid='$playerid'
+        AND status='pending'";
+$result = mysqli_query($conn, $sql);
+$pending = mysqli_fetch_assoc($result);
+
+
+// Confirmed
+$sql = "SELECT COUNT(*) AS confirmed
+        FROM booking
+        WHERE playerid='$playerid'
+        AND status='confirmed'";
+$result = mysqli_query($conn, $sql);
+$confirmed = mysqli_fetch_assoc($result);
+
+
+// Completed
+$sql = "SELECT COUNT(*) AS completed
+        FROM booking
+        WHERE playerid='$playerid'
+        AND status='completed'";
+$result = mysqli_query($conn, $sql);
+$completed = mysqli_fetch_assoc($result);
+
+
+$sql = "
+SELECT
+    b.bookingid,
+    b.booking_date,
+    b.start_time,
+    b.end_time,
+    b.status,
+    f.name
+
+FROM booking b
+
+JOIN futsal f
+ON b.futsalid = f.futsalid
+
+WHERE b.playerid='$playerid'
+
+ORDER BY b.created_at DESC
+
+LIMIT 5
+";
+
+$recentResult = mysqli_query($conn, $sql);
+
+$sql = "
+SELECT
+    b.bookingid,
+    b.booking_date,
+    b.start_time,
+    b.end_time,
+    b.status,
+
+    f.name,
+    f.location,
+    f.image
+
+FROM booking b
+
+JOIN futsal f
+ON b.futsalid=f.futsalid
+
+WHERE
+    b.playerid='$playerid'
+    AND b.status='confirmed'
+    AND CONCAT(b.booking_date,' ',b.start_time) >= NOW()
+
+ORDER BY
+    b.booking_date ASC,
+    b.start_time ASC
+
+LIMIT 1
+";
+
+$result = mysqli_query($conn, $sql);
+
+$nextBooking = mysqli_fetch_assoc($result);
+
 ?>
 
 <!DOCTYPE html>
@@ -30,122 +129,73 @@ $currentPage = 'dashboard';
       <div class="header">
 
         <div>
-
           <h1>
             Welcome Back,
-            <?php echo htmlspecialchars($_SESSION['name']); ?>
-            👋
+            <?= htmlspecialchars($_SESSION['name']); ?> 👋
           </h1>
 
           <p>
-            Here's what's happening with your account today.
+            Manage your bookings and discover new futsals.
           </p>
-
         </div>
 
-        <div class="user">
-
+        <div class="user" onclick="location.href='profile.php'">
           <div class="avatar">
-            <?php echo strtoupper(substr($_SESSION['name'], 0, 1)); ?>
+            <?= strtoupper(substr($_SESSION['name'], 0, 1)); ?>
           </div>
 
           <div>
-
-            <strong>
-              <?php echo htmlspecialchars($_SESSION['name']); ?>
-            </strong>
-
+            <strong><?= htmlspecialchars($_SESSION['name']); ?></strong>
             <br>
-
             Customer
-
           </div>
-
         </div>
 
       </div>
+
+
+      <!-- Statistics -->
 
       <section class="cards">
 
         <div class="card">
           <h4>Total Bookings</h4>
-          <h2>08</h2>
+          <h2><?= $total['total']; ?></h2>
         </div>
 
         <div class="card">
-          <h4>Upcoming Matches</h4>
-          <h2>02</h2>
+          <h4>Confirmed</h4>
+          <h2><?= $confirmed['confirmed']; ?></h2>
         </div>
 
         <div class="card">
-          <h4>Favorite Futsals</h4>
-          <h2>05</h2>
+          <h4>Pending</h4>
+          <h2><?= $pending['pending']; ?></h2>
         </div>
 
         <div class="card">
-          <h4>Total Spent</h4>
-          <h2>Rs. 12,450</h2>
+          <h4>Completed</h4>
+          <h2><?= $completed['completed']; ?></h2>
         </div>
 
       </section>
 
+
+      <!-- Main Content -->
 
       <section class="middle">
 
-        <div class="booking">
-
-          <h3>Upcoming Booking</h3>
-
-          <div class="booking-info">
-
-            <strong>Goal Arena Futsal</strong><br><br>
-
-            📅 Date : 25 May 2026 <br>
-            ⏰ Time : 6:00 PM - 7:00 PM <br>
-            📍 Location : Kathmandu <br>
-            ✔ Status : Confirmed
-
-          </div>
-
-        </div>
-
-
-        <div class="actions">
-
-          <h3>Quick Actions</h3>
-
-          <div class="action-grid">
-
-            <div class="action">
-              Browse Futsals
-            </div>
-
-            <div class="action">
-              New Booking
-            </div>
-
-            <div class="action">
-              My Bookings
-            </div>
-
-            <div class="action">
-              Edit Profile
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <section class="bottom">
+        <!-- Recent Bookings -->
 
         <div class="table">
 
-          <h3>Recent Bookings</h3>
+          <div class="section-header">
+            <h3>Recent Bookings</h3>
 
-          <br>
+            <a href="my_bookings.php" class="view-all">
+              View All
+            </a>
+          </div>
 
           <table>
 
@@ -162,26 +212,35 @@ $currentPage = 'dashboard';
 
             <tbody>
 
-              <tr>
-                <td>KickOff Arena</td>
-                <td>20 May</td>
-                <td>7 PM</td>
-                <td><span class="status">Completed</span></td>
-              </tr>
+              <?php while ($row = mysqli_fetch_assoc($recentResult)) { ?>
 
-              <tr>
-                <td>Goal Arena</td>
-                <td>23 May</td>
-                <td>6 PM</td>
-                <td><span class="status">Confirmed</span></td>
-              </tr>
+                <tr>
 
-              <tr>
-                <td>Elite Futsal</td>
-                <td>28 May</td>
-                <td>8 PM</td>
-                <td><span class="status">Pending</span></td>
-              </tr>
+                  <td>
+                    <?= htmlspecialchars($row['name']); ?>
+                  </td>
+
+                  <td>
+                    <?= date("d M Y", strtotime($row['booking_date'])); ?>
+                  </td>
+
+                  <td>
+                    <?= date("g:i A", strtotime($row['start_time'])); ?>
+                    -
+                    <?= date("g:i A", strtotime($row['end_time'])); ?>
+                  </td>
+
+                  <td>
+
+                    <span class="status <?= strtolower($row['status']); ?>">
+                      <?= ucfirst($row['status']); ?>
+                    </span>
+
+                  </td>
+
+                </tr>
+
+              <?php } ?>
 
             </tbody>
 
@@ -190,37 +249,30 @@ $currentPage = 'dashboard';
         </div>
 
 
-        <div class="notice">
 
-          <h3>Announcements</h3>
+        <!-- Quick Actions -->
 
-          <div class="notice-item">
+        <div class="actions">
 
-            <strong>🔥 Weekend Discount</strong>
+          <h3>Quick Actions</h3>
 
-            <p>
-              Book any futsal this weekend and receive a 20% discount.
-            </p>
+          <div class="action-grid">
 
-          </div>
+            <button class="action" onclick="location.href='browse.php'">
+              Browse Futsals
+            </button>
 
-          <div class="notice-item">
+            <button class="action" onclick="location.href='my_bookings.php'">
+              My Bookings
+            </button>
 
-            <strong>⚽ New Futsal Added</strong>
+            <button class="action" onclick="location.href='profile.php'">
+              Edit Profile
+            </button>
 
-            <p>
-              Elite Arena is now available for online booking.
-            </p>
-
-          </div>
-
-          <div class="notice-item">
-
-            <strong>🚧 Maintenance</strong>
-
-            <p>
-              Court 2 will remain closed tomorrow from 10 AM to 3 PM.
-            </p>
+            <button class="action" onclick="location.href='support.php'">
+              Support
+            </button>
 
           </div>
 
@@ -228,10 +280,75 @@ $currentPage = 'dashboard';
 
       </section>
 
-      <!-- Dashboard Content Ends -->
+
+
+      <!-- Upcoming Booking -->
+
+      <section class="bottom">
+
+        <div class="upcoming-booking">
+
+          <div class="section-header">
+
+            <h3>
+              Next Upcoming Booking
+            </h3>
+
+          </div>
+
+          <?php if (isset($nextBooking)) { ?>
+
+            <div class="booking-box">
+
+              <h2>
+                <?= htmlspecialchars($nextBooking['name']); ?>
+              </h2>
+
+              <p>
+                📍 <?= htmlspecialchars($nextBooking['location']); ?>
+              </p>
+
+              <p>
+                📅
+                <?= date("d M Y", strtotime($nextBooking['booking_date'])); ?>
+              </p>
+
+              <p>
+                🕒
+                <?= date("g:i A", strtotime($nextBooking['start_time'])); ?>
+                -
+                <?= date("g:i A", strtotime($nextBooking['end_time'])); ?>
+              </p>
+
+              <button onclick="location.href='browse.php?bookingid=<?= $nextBooking['bookingid']; ?>'">
+                View Booking
+              </button>
+
+            </div>
+
+          <?php } else { ?>
+
+            <div class="booking-box empty">
+
+              <h2>No Upcoming Booking</h2>
+
+              <p>
+                You don't have any upcoming bookings.
+              </p>
+
+              <button onclick="location.href='browse.php'">
+                Book Now
+              </button>
+
+            </div>
+
+          <?php } ?>
+
+        </div>
+
+      </section>
 
     </main>
-
   </div>
 
 </body>

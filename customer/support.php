@@ -39,11 +39,11 @@ $currentPage = 'support';
 
           <h3>Contact Information</h3>
 
-          <p>📞 +977-9800000000</p>
+          <p>📞 +977-9761849372</p>
 
-          <p>📧 support@futsalhub.com</p>
+          <p>📧 admin@futsal.com</p>
 
-          <p>📍 Kathmandu, Nepal</p>
+          <p>📍 lalitpur, Nepal</p>
 
         </div>
 

@@ -23,11 +23,6 @@
       My Bookings
     </a>
 
-    <a href="favorites.php"
-      class="<?= ($currentPage == 'favorites') ? 'active' : '' ?>">
-      Favorites
-    </a>
-
     <a href="profile.php"
       class="<?= ($currentPage == 'profile') ? 'active' : '' ?>">
       Profile

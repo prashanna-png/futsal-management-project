@@ -8,6 +8,35 @@ require_login();
 
 $currentPage = 'manageBooking';
 
+$ownerid = $_SESSION['userid'];
+
+$sql = "
+  SELECT 
+    b.bookingid,
+    b.booking_date,
+    b.start_time,
+    b.end_time,
+    b.amount,
+     
+    u.name AS customer_name,
+    u.phone,
+
+    f.name AS futsal_name
+
+    FROM booking b 
+    JOIN users u 
+    ON b.playerid = u.userid
+
+    JOIN futsal f
+    ON b.futsalid = f.futsalid
+
+    WHERE f.ownerid = '$ownerid'
+
+    ORDER BY b.booking_date ASC,
+             b.start_time ASC;
+";
+
+$result = mysqli_query($conn, $sql);
 
 
 ?>
@@ -67,10 +96,10 @@ $currentPage = 'manageBooking';
 
             <tr>
               <th>Customer</th>
+              <th>Phone no.</th>
               <th>Futsal</th>
               <th>Date</th>
               <th>Time</th>
-              <th>Amount</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -78,51 +107,43 @@ $currentPage = 'manageBooking';
           </thead>
 
           <tbody>
+            <?php
+            if (mysqli_num_rows($result) > 0) {
+              while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+                <tr>
+                  <td>
+                    <?= $row['customer_name'] ?>
+                  </td>
 
-            <tr>
-              <td>Ram Sharma</td>
-              <td>Goal Arena</td>
-              <td>12 July 2026</td>
-              <td>6 PM - 7 PM</td>
-              <td>Rs.1500</td>
-              <td><span class="status pending">Pending</span></td>
-              <td>
-                <button class="btn-small confirm">Confirm</button>
-                <button class="btn-small cancel">Reject</button>
-              </td>
-            </tr>
+                  <td>
+                    <?= $row['phone'] ?>
+                  </td>
 
-            <tr>
-              <td>Sita Rai</td>
-              <td>Elite Arena</td>
-              <td>13 July 2026</td>
-              <td>8 PM - 9 PM</td>
-              <td>Rs.1800</td>
-              <td><span class="status confirmed">Confirmed</span></td>
-              <td>
-                <button class="btn-small complete">Complete</button>
-              </td>
-            </tr>
+                  <td>
+                    <?= $row['futsal_name'] ?>
+                  </td>
 
-            <tr>
-              <td>Hari KC</td>
-              <td>Goal Arena</td>
-              <td>14 July 2026</td>
-              <td>5 PM - 6 PM</td>
-              <td>Rs.1500</td>
-              <td><span class="status completed">Completed</span></td>
-              <td>-</td>
-            </tr>
+                  <td>
+                    <?= date("d M Y", strtotime($row['booking_date'])) ?>
+                  </td>
 
-            <tr>
-              <td>Prabin Thapa</td>
-              <td>Futsal City</td>
-              <td>15 July 2026</td>
-              <td>7 PM - 8 PM</td>
-              <td>Rs.1700</td>
-              <td><span class="status cancelled">Cancelled</span></td>
-              <td>-</td>
-            </tr>
+                  <td>
+                    <?= date("g:i A", strtotime($row['start_time'])); ?>
+                    -
+                    <?= date("g:i A", strtotime($row['end_time'])); ?>
+                  </td>
+
+                  <td><span class="status pending">Pending</span></td>
+                  <td>
+                    <button class="btn-small confirm">Confirm</button>
+                    <button class="btn-small cancel">Reject</button>
+                  </td>
+                </tr>
+            <?php
+              }
+            }
+            ?>
 
           </tbody>
 

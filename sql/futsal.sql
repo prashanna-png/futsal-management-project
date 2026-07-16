@@ -10,7 +10,7 @@ CREATE TABLE users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 select *
-from booking;
+from users;
 -- FUTSAL COURTS
 CREATE TABLE futsal (
   futsalid INT AUTO_INCREMENT PRIMARY KEY,
@@ -66,9 +66,7 @@ CREATE TABLE booking (
 SELECT COUNT(*) AS pending
 from booking
 where playerid = 9
-  and status = 'pending' 
-  
-  -- PAYMENTS
+  and status = 'pending' -- PAYMENTS
   CREATE TABLE payment (
     paymentid INT AUTO_INCREMENT PRIMARY KEY,
     bookingid INT NOT NULL,
@@ -102,8 +100,13 @@ VALUES (
     '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
     'admin'
   );
-select *
-from users;
-update users
-set password = '$2y$10$N.wUeOnE4vbr2eY53EZC8eTCZQYNGNVJc53LhoDOt6psYhDzyeRlC'
-where email = 'admin@futsal.com';
+CREATE TABLE support_messages (
+  messageid INT AUTO_INCREMENT PRIMARY KEY,
+  userid INT,
+  subject VARCHAR(255) NOT NULL,
+  message TEXT NOT NULL,
+  is_read BOOLEAN DEFAULT FALSE,
+  sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (userid) REFERENCES users(userid) ON DELETE
+  SET NULL
+);

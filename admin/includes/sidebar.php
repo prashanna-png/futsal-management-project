@@ -37,6 +37,11 @@
       My Profile
     </a>
 
+    <a href="support_message.php"
+      class="<?= ($currentPage == 'support') ? 'active' : '' ?>">
+      Support Messages
+    </a>
+
   </nav>
 
   <div class="logout">

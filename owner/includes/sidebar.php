@@ -16,7 +16,7 @@
     <a href="register_futsal.php"
       class="<?= ($currentPage == 'addFutsal') ? 'active' : '' ?>">Add Futsal</a>
 
-    <a href="manage_bookings.php"
+    <a href="bookings.php"
       class="<?= ($currentPage == 'manageBooking') ? 'active' : '' ?>">Bookings</a>
 
     <a href="profile.php"

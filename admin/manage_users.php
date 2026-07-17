@@ -15,7 +15,6 @@ if ($_SESSION['role'] != 'admin') {
 $currentPage = 'manageUsers';
 
 $result = mysqli_query($conn, "SELECT * FROM users");
-$allUsers = mysqli_fetch_assoc($result);
 
 
 ?>

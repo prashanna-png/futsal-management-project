@@ -240,7 +240,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <span>Futsal</span>
 
-                <strong>Yala Futsal</strong>
+
+                <strong><?= $row['name'] ?></strong>
 
               </div>
 
@@ -274,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <span>Total</span>
 
-                <strong>Rs. 1000</strong>
+                <strong>Rs. <?= $row['price_per_hour'] ?></strong>
 
               </div>
 

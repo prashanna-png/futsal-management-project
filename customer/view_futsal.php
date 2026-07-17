@@ -20,9 +20,8 @@ $slotResult = mysqli_query($conn, $slotSql);
 $facilitySql = "SELECT * FROM facility WHERE futsalid='$futsalid'";
 $facilityResult = mysqli_query($conn, $facilitySql);
 
-$userid = $_SESSION['userid'];
-$contactSql = "SELECT * FROM users WHERE userid='$userid'";
-$contact = mysqli_query($conn, $contactSql);
+$ownerSql = "SELECT * FROM users WHERE userid='{$row['ownerid']}'";
+$contact = mysqli_query($conn, $ownerSql);
 $conctatRow = mysqli_fetch_assoc($contact);
 
 ?>
@@ -82,7 +81,8 @@ $conctatRow = mysqli_fetch_assoc($contact);
 
         <div class="content-card">
 
-          <h1><?php echo $row['name']; ?></h1>
+          <h1><?php echo htmlspecialchars($row['name']);
+              ?></h1>
 
           <p class="location">
             📍 <?php echo $row['location']; ?>

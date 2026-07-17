@@ -127,10 +127,12 @@ $result = mysqli_query($conn, $sql);
                     View
                   </button>
 
-                  <button class="cancel-btn" onclick="location.href='cancel_booking.php?bookingid=<?= $row['bookingid']; ?>'">
-                    <img src="../assets/icons/delete.png" class="btn-icon" alt="">
-                    Cancel
-                  </button>
+                  <?php if ($row['status'] === 'pending' || $row['status'] === 'confirmed'): ?>
+                    <button class="cancel-btn" onclick="location.href='cancel_booking.php?bookingid=<?= $row['bookingid']; ?>'">
+                      <img src="../assets/icons/delete.png" class="btn-icon" alt="">
+                      Cancel
+                    </button>
+                  <?php endif; ?>
 
                 </div>
               </td>

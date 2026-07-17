@@ -26,6 +26,16 @@ $sql = "SELECT
           ";
 $result = mysqli_query($conn, $sql);
 
+$countQuery = "
+SELECT
+    COUNT(*) AS total,
+    SUM(is_read = 0) AS unread,
+    SUM(is_read = 1) AS resolved
+FROM support_messages
+";
+
+$counts = mysqli_fetch_assoc(mysqli_query($conn, $countQuery));
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,7 +78,7 @@ $result = mysqli_query($conn, $sql);
             Total Message:
           </h4>
           <h2>
-            1
+            <?= $counts['total']; ?>
           </h2>
         </div>
 
@@ -77,7 +87,7 @@ $result = mysqli_query($conn, $sql);
             unread
           </h4>
           <h2>
-            4
+            <?= $counts['unread'] ?>
           </h2>
         </div>
 
@@ -86,18 +96,18 @@ $result = mysqli_query($conn, $sql);
             Resolved
           </h4>
           <h2>
-            3
+            <?= $counts['read'] ?>
           </h2>
         </div>
 
       </div>
 
       <div class="filter-tab">
-        <a href="">All</a>
-        <a href="">Customer</a>
-        <a href="">Owners</a>
-        <a href="">Unread</a>
-        <a href="">Resolved</a>
+        <a href="?filter=all">All</a>
+        <a href="?filter=customer">Customer</a>
+        <a href="?filter=owner">Owners</a>
+        <a href="?filter=unread">Unread</a>
+        <a href="?filter=resolved">Resolved</a>
       </div>
 
       <div class="search-box">
@@ -131,7 +141,7 @@ $result = mysqli_query($conn, $sql);
                   <?php } ?>
                   <td><?= date('d M Y, h:i A', strtotime($row['sent_at'])) ?></td>
                   <td>
-                    <button class="view-btn btn">
+                    <button class="view-btn btn" onclick="location.href='view_message.php?messageid=<?= $row['messageid'] ?>'">
                       View
                     </button>
                   </td>

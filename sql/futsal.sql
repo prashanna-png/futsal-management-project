@@ -105,3 +105,14 @@ CREATE TABLE support_messages (
   FOREIGN KEY (userid) REFERENCES users(userid) ON DELETE
   SET NULL
 );
+
+SELECT
+            u.name,
+            u.role,
+            u.phone,
+            u.email,
+            msg.*
+        FROM users u
+        JOIN support_messages msg
+            ON u.userid = msg.userid
+        ORDER BY msg.sent_at DESC;

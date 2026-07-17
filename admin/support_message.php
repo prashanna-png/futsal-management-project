@@ -11,16 +11,21 @@ if ($_SESSION['role'] !== 'admin') {
 
 $currentPage = 'support';
 
-// Mark as read when admin views
-mysqli_query($conn, "UPDATE support_messages SET is_read = TRUE");
+$userid = $_SESSION['userid'];
 
-// Get all messages
-$result = mysqli_query($conn, "
-    SELECT sm.*, u.name, u.email,u.role
-    FROM support_messages sm
-    JOIN users u ON sm.userid = u.userid
-    ORDER BY sm.sent_at DESC
-");
+$sql = "SELECT
+            u.name,
+            u.role,
+            u.phone,
+            u.email,
+            msg.*
+        FROM users u
+        JOIN support_messages msg
+            ON u.userid = msg.userid
+        ORDER BY msg.sent_at DESC
+          ";
+$result = mysqli_query($conn, $sql);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,36 +47,96 @@ $result = mysqli_query($conn, "
 
       <div class="header">
         <div>
-          <h1>Support Messages</h1>
-          <p>Messages sent by customers.</p>
+          <h1>Support Message</h1>
+          <p>Message Sent by Customers and Owners.</p>
         </div>
+        <a href="profile.php" class="admin-user">
+          <div class="avatar">
+            <?= strtoupper(substr($_SESSION['name'], 0, 1)); ?>
+          </div>
+          <div>
+            <strong><?= htmlspecialchars($_SESSION['name']); ?></strong>
+            <br>
+            Administrator
+          </div>
+        </a>
+      </div>
+
+      <div class="cards" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="card">
+          <h4>
+            Total Message:
+          </h4>
+          <h2>
+            1
+          </h2>
+        </div>
+
+        <div class="card">
+          <h4>
+            unread
+          </h4>
+          <h2>
+            4
+          </h2>
+        </div>
+
+        <div class="card">
+          <h4>
+            Resolved
+          </h4>
+          <h2>
+            3
+          </h2>
+        </div>
+
+      </div>
+
+      <div class="filter-tab">
+        <a href="">All</a>
+        <a href="">Customer</a>
+        <a href="">Owners</a>
+        <a href="">Unread</a>
+        <a href="">Resolved</a>
+      </div>
+
+      <div class="search-box">
+        <input type="text" placeholder="Search message ">
       </div>
 
       <div class="panel">
 
-        <table>
+        <table style="width:100%">
           <thead>
             <tr>
               <th>From</th>
               <th>Role</th>
-              <th>Email</th>
               <th>Subject</th>
-              <th>Message</th>
+              <th>Status</th>
               <th>Sent At</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             <?php if (mysqli_num_rows($result) > 0): ?>
-              <?php while ($row = mysqli_fetch_assoc($result)): ?>
+              <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                 <tr>
                   <td><?= htmlspecialchars($row['name']) ?></td>
                   <td><?= htmlspecialchars($row['role']) ?></td>
-                  <td><?= htmlspecialchars($row['email']) ?></td>
                   <td><?= htmlspecialchars($row['subject']) ?></td>
-                  <td><?= htmlspecialchars($row['message']) ?></td>
+                  <?php if ((int)$row['is_read'] === 0) { ?>
+                    <td>Unread</td>
+                  <?php } else { ?>
+                    <td>Read</td>
+                  <?php } ?>
                   <td><?= date('d M Y, h:i A', strtotime($row['sent_at'])) ?></td>
+                  <td>
+                    <button class="view-btn btn">
+                      View
+                    </button>
+                  </td>
                 </tr>
-              <?php endwhile; ?>
+              <?php } ?>
             <?php else: ?>
               <tr>
                 <td colspan="5" style="text-align:center; padding:30px; color:#666;">

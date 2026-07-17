@@ -9,8 +9,7 @@ CREATE TABLE users (
   role ENUM('customer', 'owner', 'staff', 'admin') NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-select *
-from users;
+
 -- FUTSAL COURTS
 CREATE TABLE futsal (
   futsalid INT AUTO_INCREMENT PRIMARY KEY,
@@ -36,8 +35,6 @@ CREATE TABLE facility (
   facility_name VARCHAR(50) NOT NULL,
   FOREIGN KEY (futsalid) REFERENCES futsal(futsalid) ON DELETE CASCADE
 );
-select *
-from booking;
 -- TIMESLOTS
 CREATE TABLE timeslot (
   slotid INT AUTO_INCREMENT PRIMARY KEY,
@@ -46,31 +43,6 @@ CREATE TABLE timeslot (
   end_time TIME NOT NULL,
   FOREIGN KEY (futsalid) REFERENCES futsal(futsalid) ON DELETE CASCADE
 );
-SELECT DISTINCT status
-FROM booking;
-
-DESCRIBE booking;
--- or
-SHOW COLUMNS FROM booking LIKE 'status';
-
-UPDATE booking SET status = 'confirmed' WHERE status = 'approved';
-
-UPDATE booking
-SET status = 'confirmed'
-WHERE status = 'approved';
-
--- Check current column type
-DESCRIBE booking;
-
--- If status is ENUM, redefine it properly
-ALTER TABLE booking 
-MODIFY status ENUM('pending','confirmed','completed','cancelled') 
-NOT NULL DEFAULT 'pending';
-
--- Fix any existing rows stuck with the wrong value
-UPDATE booking SET status = 'confirmed' WHERE status = 'approved';
-
-grep -n "INSERT INTO booking" customer/book.php
 
 -- BOOKINGS
 CREATE TABLE booking (
@@ -89,10 +61,7 @@ CREATE TABLE booking (
   FOREIGN KEY (staffid) REFERENCES users(userid) ON DELETE
   SET NULL
 );
-SELECT COUNT(*) AS pending
-from booking
-where playerid = 9
-  and status = 'pending' -- PAYMENTS
+-- PAYMENTS
   CREATE TABLE payment (
     paymentid INT AUTO_INCREMENT PRIMARY KEY,
     bookingid INT NOT NULL,
@@ -122,7 +91,7 @@ INSERT INTO users (name, email, phone, password, role)
 VALUES (
     'Admin',
     'admin@futsal.com',
-    '9800000000',
+    '9742428800',
     '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
     'admin'
   );

@@ -1,17 +1,6 @@
 <?php
 
 global $conn;
-/*
-  =====================================================
-  admin/manage_bookings.php
-  
-  PURPOSE:
-  Admin can view ALL bookings across every futsal
-  on the platform. Unlike owner/bookings.php which
-  only shows bookings for that owner's courts, admin
-  sees everything.
-  =====================================================
-*/
 
 session_start();
 
@@ -20,8 +9,6 @@ require_once '../config/db.php';
 
 require_login();
 
-// Only admin can access this page
-// If someone else tries to visit, send them back to login
 if ($_SESSION['role'] != 'admin') {
   header("Location: ../login.php");
   exit();
@@ -33,25 +20,8 @@ $error   = $_SESSION['error'] ?? '';
 $success = $_SESSION['success'] ?? '';
 unset($_SESSION['error'], $_SESSION['success']);
 
-/*
-  =====================================================
-  FILTER LOGIC
-  
-  We get the filter value from the URL using $_GET.
-  Example URLs:
-    manage_bookings.php              → shows all
-    manage_bookings.php?filter=pending   → pending only
-    manage_bookings.php?filter=confirmed → confirmed only
-  
-  $_GET['filter'] ?? 'all' means:
-    if ?filter= exists in URL, use it
-    otherwise default to 'all'
-  =====================================================
-*/
 $filter = $_GET['filter'] ?? 'all';
 
-// Build the WHERE clause based on filter
-// We start with empty string (no filter = show all)
 $where = "";
 
 if ($filter === 'pending') {
@@ -64,30 +34,6 @@ if ($filter === 'pending') {
   $where = "WHERE b.status = 'cancelled'";
 }
 
-/*
-  =====================================================
-  MAIN BOOKINGS QUERY
-  
-  This is a JOIN query — it connects 3 tables:
-    booking  → has the booking details
-    users    → has the customer's name and phone
-    futsal   → has the futsal name and location
-  
-  JOIN means: "combine rows from multiple tables
-  where the IDs match"
-  
-  b.playerid = u.userid means:
-    match booking's playerid with users table's userid
-  
-  b.futsalid = f.futsalid means:
-    match booking's futsalid with futsal table's futsalid
-  
-  We alias tables with short names:
-    b = booking
-    u = users
-    f = futsal
-  =====================================================
-*/
 $result = mysqli_query($conn, "
   SELECT
     b.bookingid,
@@ -108,19 +54,6 @@ $result = mysqli_query($conn, "
   ORDER BY b.created_at DESC
 ");
 
-/*
-  =====================================================
-  COUNT QUERY FOR STAT CARDS
-  
-  SUM(condition) is a MySQL trick:
-    - When condition is TRUE, MySQL treats it as 1
-    - When FALSE, treats it as 0
-    - SUM adds them all up = total count for that status
-  
-  This is more efficient than running 4 separate
-  COUNT queries.
-  =====================================================
-*/
 $counts = mysqli_fetch_assoc(mysqli_query($conn, "
   SELECT
     COUNT(*)                        AS total,
@@ -155,7 +88,6 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
 
     <main class="main">
 
-      <!-- Alert Messages -->
       <?php if (!empty($error)): ?>
         <div class="error-message"><?= htmlspecialchars($error) ?></div>
       <?php endif; ?>
@@ -164,7 +96,6 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
         <div class="success-message"><?= htmlspecialchars($success) ?></div>
       <?php endif; ?>
 
-      <!-- Header -->
       <div class="header">
         <div>
           <h1>Manage Bookings</h1>
@@ -182,24 +113,6 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
         </a>
       </div>
 
-      <!--
-        =====================================================
-        STAT CARDS
-
-        We show 5 cards:
-          1. Total bookings
-          2. Pending
-          3. Confirmed
-          4. Completed
-          5. Total Revenue
-
-        $counts['total'] uses the COUNT(*) result
-        from our query above.
-
-        number_format() adds commas to large numbers:
-          45000 → 45,000
-        =====================================================
-      -->
       <div class="cards" style="grid-template-columns: repeat(5, 1fr);">
 
         <div class="card">
@@ -234,17 +147,6 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
 
       </div>
 
-      <!--
-        =====================================================
-        FILTER TABS
-
-        These are just links with ?filter=value in the URL.
-        PHP reads that value above and builds the WHERE clause.
-
-        The active class highlights the current filter.
-        We compare $filter (from $_GET) with each tab's value.
-        =====================================================
-      -->
       <div class="filter-tabs">
         <a href="?filter=all" class="<?= $filter === 'all'       ? 'active' : '' ?>">
           All (<?= $counts['total'] ?>)
@@ -263,14 +165,8 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
         </a>
       </div>
 
-      <!-- Bookings Table -->
       <div class="panel" style="margin-top: 20px;">
 
-        <!--
-          Search box — filters table rows using JavaScript.
-          No page reload needed, works instantly as you type.
-          The JS code at the bottom handles this.
-        -->
         <div class="search-box">
           <input
             type="text"
@@ -293,33 +189,11 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
           </thead>
           <tbody>
 
-            <!--
-              =====================================================
-              DISPLAY BOOKINGS
-
-              mysqli_num_rows() checks if query returned any rows.
-              If 0 rows → show empty state message.
-              If rows exist → loop through with while().
-
-              Inside the loop:
-                $row = one booking record as associative array
-                $row['customer_name'] = from JOIN with users table
-                $row['futsal_name']   = from JOIN with futsal table
-
-              date('d M Y', strtotime($row['booking_date']))
-                converts '2026-07-17' to '17 Jul 2026'
-
-              strtolower($row['status']) gives us the CSS class
-                'pending' → class="status pending" → orange badge
-                'confirmed' → class="status confirmed" → green badge
-              =====================================================
-            -->
             <?php if (mysqli_num_rows($result) > 0): ?>
               <?php $i = 1;
               while ($row = mysqli_fetch_assoc($result)): ?>
                 <tr>
 
-                  <!-- Row number — $i starts at 1, increments each loop -->
                   <td><?= $i++ ?></td>
 
                   <td>
@@ -345,20 +219,12 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
                   <td>Rs. <?= number_format($row['amount']) ?></td>
 
                   <td>
-                    <!--
-                      strtolower() makes status lowercase
-                      so it matches CSS class names:
-                        'Pending' → 'pending' → .status.pending { orange }
-                      ucfirst() capitalizes first letter for display:
-                        'pending' → 'Pending'
-                    -->
                     <span class="status <?= strtolower($row['status']) ?>">
                       <?= ucfirst($row['status']) ?>
                     </span>
                   </td>
 
                   <td>
-                    <!-- Show when booking was created -->
                     <?= date('d M Y', strtotime($row['created_at'])) ?>
                   </td>
 
@@ -366,7 +232,6 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
               <?php endwhile; ?>
 
             <?php else: ?>
-              <!-- Empty state — shown when no bookings match the filter -->
               <tr>
                 <td colspan="8" style="text-align:center; padding:40px; color:#666;">
                   <?php if ($filter !== 'all'): ?>
@@ -386,8 +251,6 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
     </main>
 
   </div>
-
-
 
 </body>
 

@@ -22,6 +22,9 @@
     <a href="profile.php"
       class="<?= ($currentPage == 'profile') ? 'active' : '' ?>">Profile</a>
 
+    <a href="support.php"
+      class="<?= ($currentPage == 'support') ? 'active' : '' ?>">Support</a>
+
   </nav>
 
   <div class="logout menu">

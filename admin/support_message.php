@@ -1,4 +1,5 @@
 <?php
+session_start();
 global $conn;
 require_once '../config/db.php';
 require_once '../config/auth.php';
@@ -11,19 +12,23 @@ if ($_SESSION['role'] !== 'admin') {
 
 $currentPage = 'support';
 
-$userid = $_SESSION['userid'];
-
 $filter = $_GET['filter'] ?? 'all';
 $where = "";
 
+// ✅ Fixed filter logic
 if ($filter === 'customer') {
-  $where = "WHERE u.role='customer'";
+  $where = "WHERE u.role = 'customer'";
 } elseif ($filter === 'owner') {
-  $where = "WHERE u.role='owner'";
+  $where = "WHERE u.role = 'owner'";
 } elseif ($filter === 'unread') {
-  $where = "WHERE msg.is_read= 0";
+  $where = "WHERE msg.is_read = 0";
 } elseif ($filter === 'read') {
-  $where = "WHERE msg.is_read=1";
+  $where = "WHERE msg.is_read = 1";
+} elseif ($filter === 'resolved') {
+  // If you have a separate 'resolved' status
+  $where = "WHERE msg.is_solved = 1";
+} elseif ($filter === 'all') {
+  $where = ""; // No filter
 }
 
 $sql = "SELECT
@@ -33,25 +38,23 @@ $sql = "SELECT
             u.email,
             msg.*
         FROM users u
-        JOIN support_messages msg
-            ON u.userid = msg.userid
-            $where
-        ORDER BY msg.sent_at DESC
-          ";
+        JOIN support_messages msg ON u.userid = msg.userid
+        $where
+        ORDER BY msg.sent_at DESC";
+
 $result = mysqli_query($conn, $sql);
 
+// ✅ Fixed count query to include solved
 $countQuery = "
 SELECT
     COUNT(*) AS total,
     SUM(is_read = 0) AS unread,
-    SUM(is_read = 1) AS resolved
+    SUM(is_read = 1) AS read_count,
+    SUM(is_solved = 1) AS resolved
 FROM support_messages
 ";
 
 $counts = mysqli_fetch_assoc(mysqli_query($conn, $countQuery));
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -91,40 +94,27 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, $countQuery));
 
       <div class="cards" style="grid-template-columns: repeat(3, 1fr);">
         <div class="card">
-          <h4>
-            Total Message:
-          </h4>
-          <h2>
-            <?= $counts['total']; ?>
-          </h2>
+          <h4>Total Messages</h4>
+          <h2><?= $counts['total'] ?? 0 ?></h2>
         </div>
 
         <div class="card">
-          <h4>
-            unread
-          </h4>
-          <h2>
-            <?= $counts['unread'] ?>
-          </h2>
+          <h4>Unread</h4>
+          <h2><?= $counts['unread'] ?? 0 ?></h2>
         </div>
 
         <div class="card">
-          <h4>
-            Resolved
-          </h4>
-          <h2>
-            <?= $counts['read'] ?>
-          </h2>
+          <h4>Solved</h4>
+          <h2><?= $counts['resolved'] ?? 0 ?></h2>
         </div>
-
       </div>
-
-      <div class="filter-tab">
+      <div class="filter-tabs">
         <a href="?filter=all" class="<?= $filter === 'all' ? 'active' : '' ?>">All</a>
-        <a href="?filter=customer" class="<? $filter === 'customers' ? 'active' : '' ?>">Customer</a>
-        <a href="?filter=owner" class="<? $filter === 'owners' ? 'active' : '' ?>">Owners</a>
-        <a href="?filter=unread" class="<? $filter === 'solved' ? 'active' : '' ?>">Unread</a>
-        <a href="?filter=resolved" class="<? $filter === 'solver' ? 'active' : '' ?>">Solved</a>
+        <a href="?filter=customer" class="<?= $filter === 'customer' ? 'active' : '' ?>">Customer</a>
+        <a href="?filter=owner" class="<?= $filter === 'owner' ? 'active' : '' ?>">Owners</a>
+        <a href="?filter=unread" class="<?= $filter === 'unread' ? 'active' : '' ?>">Unread</a>
+        <a href="?filter=read" class="<?= $filter === 'read' ? 'active' : '' ?>">Read</a>
+        <a href="?filter=resolved" class="<?= $filter === 'resolved' ? 'active' : '' ?>">Solved</a>
       </div>
 
       <div class="search-box">
@@ -152,9 +142,11 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, $countQuery));
                   <td><?= htmlspecialchars($row['role']) ?></td>
                   <td><?= htmlspecialchars($row['subject']) ?></td>
                   <td>
-                    <?php if ($row['is_solved']): ?>
+                    <?php
+                    // Check if is_solved exists in your table
+                    if (isset($row['is_solved']) && $row['is_solved'] == 1): ?>
                       <span class="status completed">Solved</span>
-                    <?php elseif ($row['is_read']): ?>
+                    <?php elseif ($row['is_read'] == 1): ?>
                       <span class="status confirmed">Read</span>
                     <?php else: ?>
                       <span class="status pending">Unread</span>
@@ -170,7 +162,7 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, $countQuery));
               <?php } ?>
             <?php else: ?>
               <tr>
-                <td colspan="5" style="text-align:center; padding:30px; color:#666;">
+                <td colspan="6" style="text-align:center; padding:30px; color:#666;">
                   No messages yet.
                 </td>
               </tr>

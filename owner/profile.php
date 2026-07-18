@@ -1,11 +1,12 @@
 <?php
+
+session_start();
 $currentPage = 'profile';
 global $conn;
 
 require_once '../config/db.php';
 require_once '../config/auth.php';
 
-session_start();
 require_login();
 
 $error = $_SESSION['error'] ?? '';

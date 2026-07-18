@@ -4,6 +4,8 @@ global $conn;
 include '../config/auth.php';
 include '../config/db.php';
 
+$currentPage = 'myFutsal';
+
 require_login();
 
 if ($_SESSION['role'] !== 'owner') {

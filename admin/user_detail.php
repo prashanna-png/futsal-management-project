@@ -21,6 +21,23 @@ if (!isset($_GET['userid'])) {
 
 $userid = $_GET['userid'];
 
+// Initialize variables to avoid undefined variable warnings.
+$futsalResult = null;
+$futsalCounts = [
+  'total' => 0,
+  'approved' => 0,
+  'pending' => 0,
+  'rejected' => 0,
+];
+$bookingResult = null;
+$bookingStats = [
+  'total_bookings' => 0,
+  'completed' => 0,
+  'cancelled' => 0,
+  'total_spent' => 0,
+  'total_revenue' => 0,
+];
+
 // Get user details
 $userResult = mysqli_query($conn, "
   SELECT * FROM users WHERE userid = '$userid'

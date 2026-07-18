@@ -105,14 +105,7 @@ CREATE TABLE support_messages (
   FOREIGN KEY (userid) REFERENCES users(userid) ON DELETE
   SET NULL
 );
+UPDATE support_messages SET is_read = 0 WHERE messageid = 1;
 
-SELECT
-            u.name,
-            u.role,
-            u.phone,
-            u.email,
-            msg.*
-        FROM users u
-        JOIN support_messages msg
-            ON u.userid = msg.userid
-        ORDER BY msg.sent_at DESC;
+ALTER TABLE support_messages
+ADD COLUMN is_solved BOOLEAN DEFAULT FALSE;

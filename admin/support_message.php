@@ -134,11 +134,15 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, $countQuery));
                   <td><?= htmlspecialchars($row['name']) ?></td>
                   <td><?= htmlspecialchars($row['role']) ?></td>
                   <td><?= htmlspecialchars($row['subject']) ?></td>
-                  <?php if ((int)$row['is_read'] === 0) { ?>
-                    <td>Unread</td>
-                  <?php } else { ?>
-                    <td>Read</td>
-                  <?php } ?>
+                  <td>
+                    <?php if ($row['is_solved']): ?>
+                      <span class="status completed">Solved</span>
+                    <?php elseif ($row['is_read']): ?>
+                      <span class="status confirmed">Read</span>
+                    <?php else: ?>
+                      <span class="status pending">Unread</span>
+                    <?php endif; ?>
+                  </td>
                   <td><?= date('d M Y, h:i A', strtotime($row['sent_at'])) ?></td>
                   <td>
                     <button class="view-btn btn" onclick="location.href='view_message.php?messageid=<?= $row['messageid'] ?>'">

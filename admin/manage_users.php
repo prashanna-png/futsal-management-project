@@ -211,20 +211,21 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
                   <td><?= date('d M Y', strtotime($row['created_at'])); ?></td>
 
                   <td>
+                    <!-- View button — links to user_detail.php -->
+                    <a href="user_detail.php?userid=<?= $row['userid'] ?>"
+                      class="btn view-btn"
+                      style="margin-right:8px;">
+                      View
+                    </a>
+
                     <?php if ($row['userid'] != $_SESSION['userid']): ?>
-                      <form method="POST"
-                        onsubmit="return confirm('Are you sure you want to delete <?= htmlspecialchars($row['name']) ?>?')">
+                      <form method="POST" style="display:inline;"
+                        onsubmit="return confirm('Delete <?= htmlspecialchars($row['name']) ?>?')">
                         <input type="hidden" name="userid" value="<?= $row['userid'] ?>">
-                        <button
-                          type="submit"
-                          name="action"
-                          value="delete"
-                          class="btn reject-btn">
+                        <button type="submit" name="action" value="delete" class="btn reject-btn">
                           Delete
                         </button>
                       </form>
-                    <?php else: ?>
-                      <span style="color:#999; font-size:13px;">You</span>
                     <?php endif; ?>
                   </td>
                 </tr>

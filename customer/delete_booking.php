@@ -15,15 +15,16 @@ unset($_SESSION['error'], $_SESSION['success']);
 
 $currentPage = 'bookings';
 
-$bookingid = $_GET['bookingid'];
-$playerid = $_SESSION['userid'];
 
 if (!isset($_GET['bookingid'])) {
-  $_SESSION['error'] = "Invalid booking.";
-  header("Location: my_bookings.php");
-  exit;
+    $_SESSION['error'] = "Invalid booking.";
+    header("Location: my_bookings.php");
+    exit;
 }
 
+
+$bookingid = $_GET['bookingid'];
+$playerid = $_SESSION['userid'];
 
 $sql = "DELETE FROM booking
         WHERE bookingid='$bookingid'
@@ -36,7 +37,6 @@ if (mysqli_query($conn, $sql)) {
     } else {
         $_SESSION['error'] = "Booking not found.";
     }
-
 } else {
     $_SESSION['error'] = "Failed to remove booking.";
 }

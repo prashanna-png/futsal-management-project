@@ -1,4 +1,5 @@
 <?php
+session_start();
 global $conn;
 
 require_once '../config/auth.php';
@@ -40,7 +41,10 @@ AND b.playerid = '{$_SESSION['userid']}'
 ";
 $result = mysqli_query($conn, $sql);
 $booking = mysqli_fetch_assoc($result);
-
+if (!$booking) {
+  header("Location: my_bookings.php");
+  exit();
+}
 $sql = "
 SELECT facility_name
 FROM facility

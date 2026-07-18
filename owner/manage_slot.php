@@ -19,7 +19,6 @@ unset($_SESSION['error'], $_SESSION['success']);
 $ownerid = $_SESSION['userid'];
 $futsalid = $_GET['futsalid'];
 
-// Fetch futsal details
 $sql = "SELECT * FROM futsal WHERE ownerid='$ownerid' AND futsalid='$futsalid'";
 $result = mysqli_query($conn, $sql);
 $futsal = mysqli_fetch_assoc($result);

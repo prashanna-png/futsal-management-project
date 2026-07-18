@@ -24,23 +24,19 @@ $current_user = $user['userid'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-  // Check if it's a password change request
   $update_type = $_POST['update_type'] ?? 'profile';
 
   if ($update_type === 'password') {
-    // Handle password change only
     $current_password = $_POST['current_password'];
     $new_password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
 
-    // Verify current password
     if (!password_verify($current_password, $user['password'])) {
       $_SESSION['error'] = "Invalid current password.";
       header("Location: profile.php");
       exit;
     }
 
-    // Validate new password
     if (empty($new_password) || empty($confirm_password)) {
       $_SESSION['error'] = "Please enter the new password.";
       header("Location: profile.php");
@@ -53,10 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       exit;
     }
 
-    // Hash new password
     $password = password_hash($new_password, PASSWORD_DEFAULT);
 
-    // Update only password
     $sql = "UPDATE users SET password='$password' WHERE userid='$current_user'";
 
     if (mysqli_query($conn, $sql)) {
@@ -68,27 +62,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: profile.php");
     exit;
   } else {
-    // Handle profile update (name, email, phone) - requires password verification
     $name = trim($_POST['name']);
     $email = trim($_POST['email']);
     $phone = trim($_POST['phone']);
     $current_password = $_POST['current_password'];
 
-    // Name validation
     if (!preg_match("/^[A-Za-z\s]+$/", $name)) {
       $_SESSION['error'] = "Only letters are allowed in name.";
       header("Location: profile.php");
       exit;
     }
 
-    // Email validation
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $_SESSION['error'] = "Invalid email address.";
       header("Location: profile.php");
       exit;
     }
 
-    // Phone validation
     if (!preg_match("/^[0-9]{10}$/", $phone)) {
       $_SESSION['error'] = "Invalid phone number.";
       header("Location: profile.php");
@@ -116,7 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       exit;
     }
 
-    // Update profile information (without changing password)
     $sql = "UPDATE users 
             SET name='$name', email='$email', phone='$phone' 
             WHERE userid='$current_user'";
@@ -203,7 +192,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="profile-form">
 
-          <!-- Profile Update Form -->
           <h3>Personal Information</h3>
 
           <form action="" method="POST" novalidate>
@@ -261,7 +249,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             </div>
 
-            <!-- Password required for profile update -->
             <div class="form-group">
               <label>Current Password <span style="color: red;">*</span></label>
               <input
@@ -276,7 +263,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
           <hr style="margin: 30px 0;">
 
-          <!-- Password Change Form -->
           <h3>Change Password</h3>
 
           <form action="" method="POST" novalidate>

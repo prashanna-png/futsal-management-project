@@ -105,8 +105,6 @@ $facilityResult = mysqli_query($conn, $sql);
 
       <div class="view-booking-container">
 
-        <!-- Left Side -->
-
         <div class="view-booking-left">
 
           <img
@@ -136,12 +134,7 @@ $facilityResult = mysqli_query($conn, $sql);
 
         </div>
 
-
-        <!-- Right Side -->
-
         <div class="view-booking-right">
-
-          <!-- Booking Information -->
 
           <div class="view-booking-info-card">
 
@@ -196,9 +189,6 @@ $facilityResult = mysqli_query($conn, $sql);
 
           </div>
 
-
-          <!-- Facilities -->
-
           <div class="view-booking-info-card">
 
             <h3>Facilities</h3>
@@ -216,10 +206,7 @@ $facilityResult = mysqli_query($conn, $sql);
             </div>
 
           </div>
-
-
-          <!-- Action -->
-
+          
           <div class="view-booking-action">
 
             <?php

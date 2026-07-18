@@ -37,9 +37,6 @@ if (mysqli_num_rows($result) == 0) {
 
 $booking = mysqli_fetch_assoc($result);
 
-// Debug line - uncomment to check what status is actually stored
-// echo "Current status: " . $booking['status']; exit;
-
 if ($booking['status'] === 'pending') {
 
   if ($action !== 'confirm' && $action !== 'reject') {

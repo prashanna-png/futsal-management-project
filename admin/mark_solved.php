@@ -17,7 +17,6 @@ if (!$messageid) {
   exit();
 }
 
-// Mark both is_read and is_solved as true
 $sql = "UPDATE support_messages
         SET is_read = 1, is_solved = 1
         WHERE messageid = '$messageid'";

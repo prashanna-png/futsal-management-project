@@ -10,7 +10,6 @@ $currentPage = 'dashboard';
 
 $playerid = $_SESSION['userid'];
 
-// Total Bookings
 $sql = "SELECT COUNT(*) AS total
         FROM booking
         WHERE playerid='$playerid'";
@@ -18,7 +17,6 @@ $result = mysqli_query($conn, $sql);
 $total = mysqli_fetch_assoc($result);
 
 
-// Pending
 $sql = "SELECT COUNT(*) AS pending
         FROM booking
         WHERE playerid='$playerid'
@@ -27,7 +25,6 @@ $result = mysqli_query($conn, $sql);
 $pending = mysqli_fetch_assoc($result);
 
 
-// Confirmed
 $sql = "SELECT COUNT(*) AS confirmed
         FROM booking
         WHERE playerid='$playerid'
@@ -35,8 +32,6 @@ $sql = "SELECT COUNT(*) AS confirmed
 $result = mysqli_query($conn, $sql);
 $confirmed = mysqli_fetch_assoc($result);
 
-
-// Completed
 $sql = "SELECT COUNT(*) AS completed
         FROM booking
         WHERE playerid='$playerid'
@@ -153,9 +148,6 @@ $nextBooking = mysqli_fetch_assoc($result);
 
       </div>
 
-
-      <!-- Statistics -->
-
       <section class="cards">
 
         <div class="card">
@@ -180,12 +172,7 @@ $nextBooking = mysqli_fetch_assoc($result);
 
       </section>
 
-
-      <!-- Main Content -->
-
       <section class="middle">
-
-        <!-- Recent Bookings -->
 
         <div class="table">
 
@@ -248,10 +235,6 @@ $nextBooking = mysqli_fetch_assoc($result);
 
         </div>
 
-
-
-        <!-- Quick Actions -->
-
         <div class="actions">
 
           <h3>Quick Actions</h3>
@@ -279,10 +262,6 @@ $nextBooking = mysqli_fetch_assoc($result);
         </div>
 
       </section>
-
-
-
-      <!-- Upcoming Booking -->
 
       <section class="bottom">
 

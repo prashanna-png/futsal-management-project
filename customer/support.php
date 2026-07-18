@@ -74,7 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div class="support-container">
 
-        <!-- Left: Contact Info -->
         <div class="contact-info">
 
           <h3>Contact Information</h3>
@@ -96,7 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         </div>
 
-        <!-- Right: Message Form -->
         <div class="support-form">
 
           <h3>Send Message</h3>

@@ -14,27 +14,26 @@ if ($_SESSION['role'] != 'admin') {
 
 $currentPage = 'dashboard';
 
-// Total Customers
 $result     = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users WHERE role='customer'");
 $totalUsers = mysqli_fetch_assoc($result)['total'];
 
-// Total Owners
+
 $result      = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users WHERE role='owner'");
 $totalOwners = mysqli_fetch_assoc($result)['total'];
 
-// Total Futsals
+
 $result       = mysqli_query($conn, "SELECT COUNT(*) AS total FROM futsal");
 $totalFutsals = mysqli_fetch_assoc($result)['total'];
 
-// Pending Futsals
+
 $result       = mysqli_query($conn, "SELECT COUNT(*) AS total FROM futsal WHERE status='pending'");
 $totalPending = mysqli_fetch_assoc($result)['total'];
 
-// Total Bookings
+
 $result        = mysqli_query($conn, "SELECT COUNT(*) AS total FROM booking");
 $totalBookings = mysqli_fetch_assoc($result)['total'];
 
-// Recent Pending Futsals
+
 $pendingResult = mysqli_query($conn, "
   SELECT
     f.futsalid,
@@ -49,14 +48,13 @@ $pendingResult = mysqli_query($conn, "
   LIMIT 5
 ");
 
-// Recent Users
+
 $userResult = mysqli_query($conn, "
   SELECT * FROM users
   ORDER BY created_at DESC
   LIMIT 5
 ");
 
-// Recent Bookings
 $bookingResult = mysqli_query($conn, "
   SELECT
     b.bookingid,
@@ -95,7 +93,6 @@ $bookingResult = mysqli_query($conn, "
 
     <main class="main">
 
-      <!-- Header -->
       <div class="header">
         <div>
           <h1>Welcome Back, <?= htmlspecialchars($_SESSION['name']); ?> 👋</h1>
@@ -114,7 +111,6 @@ $bookingResult = mysqli_query($conn, "
         </a>
       </div>
 
-      <!-- Stat Cards -->
       <div class="cards">
 
         <div class="card">
@@ -149,10 +145,8 @@ $bookingResult = mysqli_query($conn, "
 
       </div>
 
-      <!-- Middle Section -->
       <div class="content">
 
-        <!-- Pending Futsals -->
         <div class="panel">
 
           <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -249,11 +243,8 @@ $bookingResult = mysqli_query($conn, "
 
         </div>
 
-
-        <!-- Right Side -->
         <div style="display:flex; flex-direction:column; gap:20px;">
 
-          <!-- Recent Users -->
           <div class="panel">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
               <h2>Recent Users</h2>
@@ -282,7 +273,6 @@ $bookingResult = mysqli_query($conn, "
             </div>
           </div>
 
-          <!-- Quick Actions -->
           <div class="panel">
             <h2 style="margin-bottom:20px;">Quick Actions</h2>
             <div class="quick-links">
@@ -298,7 +288,6 @@ $bookingResult = mysqli_query($conn, "
 
       </div>
 
-      <!-- Recent Bookings -->
 
     </main>
 

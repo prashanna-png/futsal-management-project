@@ -13,7 +13,6 @@ if ($_SESSION['role'] !== 'admin') {
 
 $currentPage = 'manageUsers';
 
-// Check if userid exists in URL
 if (!isset($_GET['userid'])) {
   header("Location: manage_users.php");
   exit();
@@ -21,7 +20,6 @@ if (!isset($_GET['userid'])) {
 
 $userid = $_GET['userid'];
 
-// Initialize variables to avoid undefined variable warnings.
 $futsalResult = null;
 $futsalCounts = [
   'total' => 0,
@@ -38,29 +36,23 @@ $bookingStats = [
   'total_revenue' => 0,
 ];
 
-// Get user details
 $userResult = mysqli_query($conn, "
   SELECT * FROM users WHERE userid = '$userid'
 ");
 $user = mysqli_fetch_assoc($userResult);
 
-// If user not found redirect back
 if (!$user) {
   header("Location: manage_users.php");
   exit();
 }
 
-// Get different data based on role
 if ($user['role'] === 'owner') {
-
-  // Get owner's futsals
   $futsalResult = mysqli_query($conn, "
     SELECT * FROM futsal
     WHERE ownerid = '$userid'
     ORDER BY created_at DESC
   ");
 
-  // Get futsal counts
   $futsalCounts = mysqli_fetch_assoc(mysqli_query($conn, "
     SELECT
       COUNT(*)                    AS total,
@@ -71,7 +63,6 @@ if ($user['role'] === 'owner') {
     WHERE ownerid = '$userid'
   "));
 
-  // Get total bookings across owner's futsals
   $bookingStats = mysqli_fetch_assoc(mysqli_query($conn, "
     SELECT
       COUNT(b.bookingid)          AS total_bookings,
@@ -83,7 +74,6 @@ if ($user['role'] === 'owner') {
   "));
 } elseif ($user['role'] === 'customer') {
 
-  // Get customer's bookings
   $bookingResult = mysqli_query($conn, "
     SELECT
       b.*,
@@ -96,7 +86,6 @@ if ($user['role'] === 'owner') {
     LIMIT 10
   ");
 
-  // Get booking stats
   $bookingStats = mysqli_fetch_assoc(mysqli_query($conn, "
     SELECT
       COUNT(*)                    AS total_bookings,
@@ -130,7 +119,6 @@ if ($user['role'] === 'owner') {
 
     <main class="main">
 
-      <!-- Header -->
       <div class="header">
         <div>
           <h1>User Details</h1>
@@ -139,10 +127,8 @@ if ($user['role'] === 'owner') {
         <a href="manage_users.php" class="back-btn">← Back to Users</a>
       </div>
 
-      <!-- Top Section: Profile + Info -->
       <div class="user-detail-container">
 
-        <!-- Left: Avatar Card -->
         <div class="panel" style="text-align:center; padding:35px;">
 
           <div class="profile-avatar" style="margin: 0 auto 20px;">
@@ -161,7 +147,6 @@ if ($user['role'] === 'owner') {
 
         </div>
 
-        <!-- Right: Personal Info -->
         <div class="panel">
 
           <h2 style="margin-bottom:20px;">Personal Information</h2>
@@ -205,9 +190,7 @@ if ($user['role'] === 'owner') {
       </div>
 
       <?php if ($user['role'] === 'owner'): ?>
-        <!-- ===================== OWNER VIEW ===================== -->
 
-        <!-- Owner Stats -->
         <div class="cards" style="grid-template-columns: repeat(4,1fr); margin-top:25px;">
           <div class="card">
             <h4>Total Futsals</h4>
@@ -227,7 +210,6 @@ if ($user['role'] === 'owner') {
           </div>
         </div>
 
-        <!-- Owner's Futsals Table -->
         <div class="panel" style="margin-top:25px;">
 
           <h2 style="margin-bottom:20px;">Registered Futsals</h2>
@@ -277,9 +259,7 @@ if ($user['role'] === 'owner') {
         </div>
 
       <?php elseif ($user['role'] === 'customer'): ?>
-        <!-- ===================== CUSTOMER VIEW ===================== -->
 
-        <!-- Customer Stats -->
         <div class="cards" style="grid-template-columns: repeat(4,1fr); margin-top:25px;">
           <div class="card">
             <h4>Total Bookings</h4>
@@ -299,7 +279,6 @@ if ($user['role'] === 'owner') {
           </div>
         </div>
 
-        <!-- Customer's Bookings Table -->
         <div class="panel" style="margin-top:25px;">
 
           <h2 style="margin-bottom:20px;">Booking History</h2>
@@ -350,7 +329,6 @@ if ($user['role'] === 'owner') {
         </div>
 
       <?php else: ?>
-        <!-- ===================== STAFF / ADMIN VIEW ===================== -->
         <div class="panel" style="margin-top:25px; text-align:center; padding:40px;">
           <p style="color:#666; font-size:15px;">
             No additional data to show for <?= ucfirst($user['role']) ?> accounts.
@@ -359,7 +337,6 @@ if ($user['role'] === 'owner') {
 
       <?php endif; ?>
 
-      <!-- Delete Action -->
       <?php if ($user['userid'] != $_SESSION['userid']): ?>
         <div style="margin-top:25px;">
           <form method="POST" action="manage_users.php"

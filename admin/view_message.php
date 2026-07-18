@@ -82,7 +82,6 @@ unset($_SESSION['error'], $_SESSION['success']);
 
       <div class="view-message-container">
 
-        <!-- Card 1: Sender Info LEFT -->
         <div class="view-message-card">
 
           <h2>Sender Information</h2>
@@ -133,7 +132,6 @@ unset($_SESSION['error'], $_SESSION['success']);
 
         </div>
 
-        <!-- Card 2: Message Details RIGHT -->
         <div class="view-message-card">
 
           <h2>Message Details</h2>
@@ -150,7 +148,6 @@ unset($_SESSION['error'], $_SESSION['success']);
 
         </div>
 
-        <!-- Action Buttons FULL WIDTH -->
         <div class="view-message-actions">
 
           <?php if (!$details['is_read'] && !$details['is_solved']): ?>

@@ -10,7 +10,6 @@ if ($_SESSION['role'] != 'admin') {
   exit();
 }
 
-// Read from POST not GET
 $messageid = $_POST['messageid'] ?? null;
 
 if (!$messageid) {
@@ -22,7 +21,6 @@ $sql = "UPDATE support_messages SET is_read = 1 WHERE messageid = '$messageid'";
 
 if (mysqli_query($conn, $sql)) {
   $_SESSION['success'] = 'Message marked as read.';
-  // Redirect back to same message with messageid
   header("Location: view_message.php?messageid=$messageid");
 } else {
   $_SESSION['error'] = 'Failed to update message.';

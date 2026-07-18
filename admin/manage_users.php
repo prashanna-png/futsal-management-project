@@ -18,7 +18,6 @@ $error   = $_SESSION['error'] ?? '';
 $success = $_SESSION['success'] ?? '';
 unset($_SESSION['error'], $_SESSION['success']);
 
-// Handle delete user
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $action = $_POST['action'] ?? '';
   $userid = $_POST['userid'] ?? '';
@@ -29,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
   }
 
-  // Prevent admin from deleting themselves
   if ($userid == $_SESSION['userid']) {
     $_SESSION['error'] = 'You cannot delete your own account.';
     header("Location: manage_users.php");
@@ -49,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   exit();
 }
 
-// Get filter
 $filter = $_GET['filter'] ?? 'all';
 
 if ($filter === 'customer') {
@@ -64,14 +61,12 @@ if ($filter === 'customer') {
   $where = "";
 }
 
-// Get users
 $result = mysqli_query($conn, "
   SELECT * FROM users
   $where
   ORDER BY created_at DESC
 ");
 
-// Count each role
 $counts = mysqli_fetch_assoc(mysqli_query($conn, "
   SELECT
     COUNT(*) AS total,
@@ -110,7 +105,6 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
         <div class="success-message"><?= htmlspecialchars($success) ?></div>
       <?php endif; ?>
 
-      <!-- Header -->
       <div class="header">
         <div>
           <h1>Manage Users</h1>
@@ -128,7 +122,6 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
         </a>
       </div>
 
-      <!-- Stat Cards -->
       <div class="cards" style="grid-template-columns: repeat(4, 1fr);">
 
         <div class="card">
@@ -157,7 +150,6 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
 
       </div>
 
-      <!-- Filter Tabs -->
       <div class="filter-tabs">
         <a href="?filter=all" class="<?= $filter === 'all'      ? 'active' : '' ?>">All</a>
         <a href="?filter=customer" class="<?= $filter === 'customer' ? 'active' : '' ?>">Customers</a>
@@ -166,10 +158,8 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
         <a href="?filter=admin" class="<?= $filter === 'admin'    ? 'active' : '' ?>">Admins</a>
       </div>
 
-      <!-- Users Table -->
       <div class="panel" style="margin-top: 20px;">
 
-        <!-- Search Box -->
         <div class="search-box">
           <input type="text" id="searchInput" placeholder="Search by name or email...">
         </div>
@@ -211,7 +201,6 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
                   <td><?= date('d M Y', strtotime($row['created_at'])); ?></td>
 
                   <td>
-                    <!-- View button — links to user_detail.php -->
                     <a href="user_detail.php?userid=<?= $row['userid'] ?>"
                       class="btn view-btn"
                       style="margin-right:8px;">

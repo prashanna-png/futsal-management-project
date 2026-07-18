@@ -133,7 +133,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
 
 
-      <!-- Futsal Information -->
 
       <div class="booking-top">
 
@@ -168,14 +167,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <?php echo $success; ?>
         </div>
       <?php endif; ?>
-      <!-- Booking Form -->
 
       <form method="POST">
 
         <div class="booking-grid">
-
-
-          <!-- Left Side -->
 
           <div class="booking-left">
 
@@ -227,9 +222,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
           </div>
-
-
-          <!-- Right Side -->
 
           <div class="booking-right">
 

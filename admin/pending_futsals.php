@@ -18,7 +18,6 @@ $error   = $_SESSION['error'] ?? '';
 $success = $_SESSION['success'] ?? '';
 unset($_SESSION['error'], $_SESSION['success']);
 
-// Handle approve/reject
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $action   = $_POST['action'] ?? '';
   $futsalid = $_POST['futsalid'] ?? '';
@@ -43,10 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   exit();
 }
 
-// Get filter from URL
 $filter = $_GET['filter'] ?? 'all';
 
-// Build query based on filter
 if ($filter === 'pending') {
   $where = "WHERE f.status = 'pending'";
 } elseif ($filter === 'approved') {
@@ -75,7 +72,6 @@ $result = mysqli_query($conn, "
   ORDER BY f.created_at DESC
 ");
 
-// Count each status
 $counts = mysqli_fetch_assoc(mysqli_query($conn, "
   SELECT
     SUM(status = 'pending')  AS pending,
@@ -113,7 +109,6 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
         <div class="success-message"><?= htmlspecialchars($success) ?></div>
       <?php endif; ?>
 
-      <!-- Header -->
       <div class="header">
         <div>
           <h1>Manage Futsals</h1>
@@ -131,7 +126,6 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
         </a>
       </div>
 
-      <!-- Stat Cards -->
       <div class="cards" style="grid-template-columns: repeat(3, 1fr);">
 
         <div class="card">
@@ -154,7 +148,6 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
 
       </div>
 
-      <!-- Filter Tabs -->
       <div class="filter-tabs">
         <a href="?filter=all" class="<?= $filter === 'all'      ? 'active' : '' ?>">All</a>
         <a href="?filter=pending" class="<?= $filter === 'pending'  ? 'active' : '' ?>">Pending</a>
@@ -162,7 +155,6 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, "
         <a href="?filter=rejected" class="<?= $filter === 'rejected' ? 'active' : '' ?>">Rejected</a>
       </div>
 
-      <!-- Futsals Table -->
       <div class="panel" style="margin-top: 20px;">
 
         <table>

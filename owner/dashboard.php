@@ -82,8 +82,6 @@ $bookingResult = mysqli_query($conn, $sql);
 
     <main class="main">
 
-      <!-- Header -->
-
       <div class="header">
 
         <div>
@@ -105,8 +103,6 @@ $bookingResult = mysqli_query($conn, $sql);
         </div>
 
       </div>
-
-      <!-- Statistics -->
 
       <div class="cards">
 
@@ -139,8 +135,6 @@ $bookingResult = mysqli_query($conn, $sql);
         </div>
 
       </div>
-
-      <!-- Middle Section -->
 
       <div class="middle">
 
@@ -207,8 +201,6 @@ $bookingResult = mysqli_query($conn, $sql);
         </div>
 
       </div>
-
-      <!-- Bottom Section -->
 
       <div class="bottom">
 

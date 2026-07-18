@@ -17,7 +17,6 @@ unset($_SESSION['error'], $_SESSION['success']);
 $ownerid = $_SESSION['userid'];
 $futsalid = $_GET['futsalid'];
 
-// Fetch futsal details
 $sql = "SELECT * FROM futsal WHERE ownerid='$ownerid' AND futsalid='$futsalid'";
 $result = mysqli_query($conn, $sql);
 $futsal = mysqli_fetch_assoc($result);
@@ -28,7 +27,6 @@ if (!$futsal) {
   exit;
 }
 
-// Fetch facilities
 $sql = "SELECT * FROM facility WHERE futsalid='$futsalid'";
 $result = mysqli_query($conn, $sql);
 $facilities = [];
@@ -49,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $facility_data  = $_POST['facility'] ?? [];
   $ownerid        = $_SESSION['userid'];
 
-  // Validation
   if (empty($name) || empty($location) || empty($address) || empty($description) || empty($price_per_hour) || empty($contact_number) || empty($opening_time) || empty($closing_time)) {
     $_SESSION['error'] = 'All fields are required.';
     header('Location: edit_futsal.php?futsalid=' . $futsalid);
@@ -71,14 +68,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: edit_futsal.php?futsalid=' . $futsalid);
     exit;
   } else {
-    // Start with existing image
     $image_name = $futsal['image'];
 
-    // Handle image upload
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
       $upload_dir = '../assets/uploads/';
 
-      // Check if uploads directory exists, if not create it
       if (!file_exists($upload_dir)) {
         mkdir($upload_dir, 0777, true);
       }
@@ -87,13 +81,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $file_size = $_FILES['image']['size'];
       $file_tmp = $_FILES['image']['tmp_name'];
 
-      // Get file extension
       $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
-      // Allowed extensions
       $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
-      // Allowed MIME types for security
       $allowed_mime_types = [
         'image/jpeg',
         'image/png',
@@ -101,21 +92,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'image/webp'
       ];
 
-      // Validate file using MIME type
       $finfo = finfo_open(FILEINFO_MIME_TYPE);
       $mime_type = finfo_file($finfo, $file_tmp);
       finfo_close($finfo);
 
       if (in_array($file_ext, $allowed_extensions) && in_array($mime_type, $allowed_mime_types)) {
-        // Check file size (5MB max)
         if ($file_size <= 5000000) {
-          // Generate unique filename to prevent conflicts
           $new_file_name = uniqid('futsal_') . '.' . $file_ext;
           $destination = $upload_dir . $new_file_name;
 
-          // Upload file
           if (move_uploaded_file($file_tmp, $destination)) {
-            // Delete old image if exists and is not default
             if ($image_name && $image_name != 'default.jpg' && file_exists($upload_dir . $image_name)) {
               unlink($upload_dir . $image_name);
             }
@@ -137,9 +123,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
       }
     }
-    // If no new image uploaded, keep the existing image
-
-    // Update futsal details
     $sql = "UPDATE futsal 
             SET 
                 name = '$name',
@@ -155,12 +138,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             WHERE futsalid = '$futsalid' AND ownerid = '$ownerid'";
 
     if (mysqli_query($conn, $sql)) {
-      // Update facilities
-      // First, delete existing facilities
       $delete_sql = "DELETE FROM facility WHERE futsalid = '$futsalid'";
       mysqli_query($conn, $delete_sql);
 
-      // Then insert new facilities
       if (!empty($facility_data)) {
         foreach ($facility_data as $facility_name) {
           $facility_name = mysqli_real_escape_string($conn, $facility_name);

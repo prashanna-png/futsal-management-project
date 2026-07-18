@@ -15,7 +15,6 @@ $currentPage = 'support';
 $filter = $_GET['filter'] ?? 'all';
 $where = "";
 
-// ✅ Fixed filter logic
 if ($filter === 'customer') {
   $where = "WHERE u.role = 'customer'";
 } elseif ($filter === 'owner') {
@@ -25,10 +24,9 @@ if ($filter === 'customer') {
 } elseif ($filter === 'read') {
   $where = "WHERE msg.is_read = 1";
 } elseif ($filter === 'resolved') {
-  // If you have a separate 'resolved' status
   $where = "WHERE msg.is_solved = 1";
 } elseif ($filter === 'all') {
-  $where = ""; // No filter
+  $where = "";  
 }
 
 $sql = "SELECT
@@ -44,7 +42,6 @@ $sql = "SELECT
 
 $result = mysqli_query($conn, $sql);
 
-// ✅ Fixed count query to include solved
 $countQuery = "
 SELECT
     COUNT(*) AS total,
@@ -143,7 +140,6 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, $countQuery));
                   <td><?= htmlspecialchars($row['subject']) ?></td>
                   <td>
                     <?php
-                    // Check if is_solved exists in your table
                     if (isset($row['is_solved']) && $row['is_solved'] == 1): ?>
                       <span class="status completed">Solved</span>
                     <?php elseif ($row['is_read'] == 1): ?>

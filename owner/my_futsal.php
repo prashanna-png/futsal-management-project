@@ -24,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $futsalid = $_POST['futsalid'];
   $ownerid = $_SESSION['userid'];
 
-  // Debug: Check what's being deleted
   error_log("Attempting to delete futsalid: $futsalid for ownerid: $ownerid");
 
   $sql = "DELETE FROM futsal
@@ -43,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } else {
     $_SESSION['error'] = "Failed to delete futsal: " . mysqli_error($conn);
   }
-  // Make sure futsalid is set and is numeric
 
   header("Location: my_futsal.php");
   exit;

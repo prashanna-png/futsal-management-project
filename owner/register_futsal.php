@@ -28,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $facilities     = $_POST['facility'] ?? [];
   $ownerid        = $_SESSION['userid'];
 
-  // Validation
   if (empty($name) || empty($location) || empty($address) || empty($description) || empty($price_per_hour) || empty($contact_number) || empty($opening_time) || empty($closing_time)) {
     $_SESSION['error'] = 'All fields are required.';
   } elseif (!preg_match("/^[A-Za-z0-9\s]+$/", $name)) {
@@ -42,14 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } elseif ($_FILES['image']['error'] !== 0) {
     $_SESSION['error'] = 'Please upload a futsal image.';
   } else {
-    // Check duplicate
     $checkSql = "SELECT futsalid FROM futsal WHERE name='$name' AND location='$location'";
     $result   = mysqli_query($conn, $checkSql);
 
     if (mysqli_num_rows($result) > 0) {
       $_SESSION['error'] = 'A futsal with this name already exists in this location.';
     } else {
-      // Handle image upload
       $allowed   = ['jpg', 'jpeg', 'png', 'webp'];
       $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
 
@@ -60,17 +57,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $target    = "../assets/uploads/" . $imageName;
         move_uploaded_file($_FILES['image']['tmp_name'], $target);
 
-        // Insert fselect * from futsal;utsal into database
         $sql = "INSERT INTO futsal 
                         (ownerid, name, location, address, description, price_per_hour, opening_time, closing_time, contact_number, image)
                         VALUES
                         ('$ownerid', '$name', '$location', '$address', '$description', '$price_per_hour', '$opening_time', '$closing_time', '$contact_number', '$imageName')";
 
         if (mysqli_query($conn, $sql)) {
-          // Get the new futsal id
           $futsalid = mysqli_insert_id($conn);
 
-          // Save facilities if any selected
           if (!empty($facilities)) {
             foreach ($facilities as $facility) {
               $facSql = "INSERT INTO facility (futsalid, facility_name) 

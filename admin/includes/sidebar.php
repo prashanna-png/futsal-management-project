@@ -27,11 +27,6 @@
       Manage Bookings
     </a>
 
-    <a href="reports.php"
-      class="<?= ($currentPage == 'reports') ? 'active' : '' ?>">
-      Reports
-    </a>
-
     <a href="profile.php"
       class="<?= ($currentPage == 'profile') ? 'active' : '' ?>">
       My Profile

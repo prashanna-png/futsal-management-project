@@ -9,7 +9,6 @@ CREATE TABLE users (
   role ENUM('customer', 'owner', 'staff', 'admin') NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
 -- FUTSAL COURTS
 CREATE TABLE futsal (
   futsalid INT AUTO_INCREMENT PRIMARY KEY,
@@ -43,7 +42,6 @@ CREATE TABLE timeslot (
   end_time TIME NOT NULL,
   FOREIGN KEY (futsalid) REFERENCES futsal(futsalid) ON DELETE CASCADE
 );
-
 -- BOOKINGS
 CREATE TABLE booking (
   bookingid INT AUTO_INCREMENT PRIMARY KEY,
@@ -62,16 +60,16 @@ CREATE TABLE booking (
   SET NULL
 );
 -- PAYMENTS
-  CREATE TABLE payment (
-    paymentid INT AUTO_INCREMENT PRIMARY KEY,
-    bookingid INT NOT NULL,
-    amount DECIMAL(10, 2) NOT NULL,
-    method ENUM('cash', 'esewa', 'khalti', 'card') DEFAULT 'cash',
-    transaction_id VARCHAR(100),
-    status ENUM('pending', 'completed', 'failed') DEFAULT 'pending',
-    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (bookingid) REFERENCES booking(bookingid) ON DELETE CASCADE
-  );
+CREATE TABLE payment (
+  paymentid INT AUTO_INCREMENT PRIMARY KEY,
+  bookingid INT NOT NULL,
+  amount DECIMAL(10, 2) NOT NULL,
+  method ENUM('cash', 'esewa', 'khalti', 'card') DEFAULT 'cash',
+  transaction_id VARCHAR(100),
+  status ENUM('pending', 'completed', 'failed') DEFAULT 'pending',
+  payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (bookingid) REFERENCES booking(bookingid) ON DELETE CASCADE
+);
 -- REVIEWS
 CREATE TABLE review (
   reviewid INT AUTO_INCREMENT PRIMARY KEY,
@@ -105,7 +103,10 @@ CREATE TABLE support_messages (
   FOREIGN KEY (userid) REFERENCES users(userid) ON DELETE
   SET NULL
 );
-UPDATE support_messages SET is_read = 0 WHERE messageid = 1;
-
-ALTER TABLE support_messages
-ADD COLUMN is_solved BOOLEAN DEFAULT FALSE;
+UPDATE support_messages
+SET is_read = 0
+WHERE messageid = 1;
+select *
+FROM support_messages;
+delete from support_messages
+where messageid = 2;

@@ -204,7 +204,7 @@ table tr:hover {
 }
 
 .pending {
-  background: #f39c12;
+  background: #b57b1e;
 }
 .approved {
   background: #2ecc71;
@@ -546,7 +546,6 @@ textarea {
   border-radius: 18px;
   padding: 30px;
   overflow: hidden;
-  /* ❌ Remove this: width: auto; */
   box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
   min-width: 0; /* Prevent overflow */
   word-wrap: break-word; /* Break long words */
@@ -660,8 +659,8 @@ textarea {
 }
 
 .status.pending {
-  background: #fff3cd;
-  color: #856404;
+  background: #cda932;
+  color: #f6f6f4;
 }
 
 .status.read {

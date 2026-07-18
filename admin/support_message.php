@@ -13,6 +13,19 @@ $currentPage = 'support';
 
 $userid = $_SESSION['userid'];
 
+$filter = $_GET['filter'] ?? 'all';
+$where = "";
+
+if ($filter === 'customer') {
+  $where = "WHERE u.role='customer'";
+} elseif ($filter === 'owner') {
+  $where = "WHERE u.role='owner'";
+} elseif ($filter === 'unread') {
+  $where = "WHERE msg.is_read= 0";
+} elseif ($filter === 'read') {
+  $where = "WHERE msg.is_read=1";
+}
+
 $sql = "SELECT
             u.name,
             u.role,
@@ -22,6 +35,7 @@ $sql = "SELECT
         FROM users u
         JOIN support_messages msg
             ON u.userid = msg.userid
+            $where
         ORDER BY msg.sent_at DESC
           ";
 $result = mysqli_query($conn, $sql);
@@ -35,6 +49,9 @@ FROM support_messages
 ";
 
 $counts = mysqli_fetch_assoc(mysqli_query($conn, $countQuery));
+
+
+
 
 ?>
 <!DOCTYPE html>
@@ -103,11 +120,11 @@ $counts = mysqli_fetch_assoc(mysqli_query($conn, $countQuery));
       </div>
 
       <div class="filter-tab">
-        <a href="?filter=all">All</a>
-        <a href="?filter=customer">Customer</a>
-        <a href="?filter=owner">Owners</a>
-        <a href="?filter=unread">Unread</a>
-        <a href="?filter=resolved">Resolved</a>
+        <a href="?filter=all" class="<?= $filter === 'all' ? 'active' : '' ?>">All</a>
+        <a href="?filter=customer" class="<? $filter === 'customers' ? 'active' : '' ?>">Customer</a>
+        <a href="?filter=owner" class="<? $filter === 'owners' ? 'active' : '' ?>">Owners</a>
+        <a href="?filter=unread" class="<? $filter === 'solved' ? 'active' : '' ?>">Unread</a>
+        <a href="?filter=resolved" class="<? $filter === 'solver' ? 'active' : '' ?>">Solved</a>
       </div>
 
       <div class="search-box">

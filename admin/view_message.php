@@ -12,7 +12,6 @@ if ($_SESSION['role'] != 'admin') {
 
 $currentPage = 'support';
 
-// Check if messageid exists in URL
 if (!isset($_GET['messageid'])) {
   header("Location: support_message.php");
   exit();
@@ -34,11 +33,14 @@ $sql = "SELECT
 $result  = mysqli_query($conn, $sql);
 $details = mysqli_fetch_assoc($result);
 
-// If no message found, redirect back
 if (!$details) {
-  header("Location: support.php");
+  header("Location: support_message.php");
   exit();
 }
+
+$error   = $_SESSION['error'] ?? '';
+$success = $_SESSION['success'] ?? '';
+unset($_SESSION['error'], $_SESSION['success']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +52,8 @@ if (!$details) {
   <link rel="stylesheet" href="../assets/css/admin.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
@@ -60,6 +63,14 @@ if (!$details) {
     <?php include 'includes/sidebar.php'; ?>
 
     <main class="main">
+
+      <?php if (!empty($error)): ?>
+        <div class="error-message"><?= htmlspecialchars($error) ?></div>
+      <?php endif; ?>
+
+      <?php if (!empty($success)): ?>
+        <div class="success-message"><?= htmlspecialchars($success) ?></div>
+      <?php endif; ?>
 
       <div class="header">
         <div>
@@ -99,21 +110,23 @@ if (!$details) {
 
             <div class="info-row">
               <span>Phone</span>
-              <wstrong><?= htmlspecialchars($details['phone']) ?></wstrong>
+              <strong><?= htmlspecialchars($details['phone']) ?></strong>
             </div>
 
             <div class="info-row">
               <span>Sent On</span>
-              <strong>
-                <?= date('d M Y, h:i A', strtotime($details['sent_at'])) ?>
-              </strong>
+              <strong><?= date('d M Y, h:i A', strtotime($details['sent_at'])) ?></strong>
             </div>
 
             <div class="info-row">
               <span>Status</span>
-              <span class="status <?= $details['is_read'] ? 'approved' : 'pending' ?>">
-                <?= $details['is_read'] ? 'Read' : 'Unread' ?>
-              </span>
+              <?php if ($details['is_solved']): ?>
+                <span class="status completed" style="color: white;">Solved</span>
+              <?php elseif ($details['is_read']): ?>
+                <span class="status confirmed" style="color: white;">Read</span>
+              <?php else: ?>
+                <span class="status pending" style="color: white;">Unread</span>
+              <?php endif; ?>
             </div>
 
           </div>
@@ -140,7 +153,6 @@ if (!$details) {
         <!-- Action Buttons FULL WIDTH -->
         <div class="view-message-actions">
 
-          <!-- Mark as Read — show only if unread -->
           <?php if (!$details['is_read'] && !$details['is_solved']): ?>
             <form method="POST" action="mark_resolved.php">
               <input type="hidden" name="messageid" value="<?= $details['messageid'] ?>">
@@ -148,36 +160,17 @@ if (!$details) {
             </form>
           <?php endif; ?>
 
-          <!-- Mark as Solved — show only if read but not yet solved -->
           <?php if ($details['is_read'] && !$details['is_solved']): ?>
             <form method="POST" action="mark_solved.php">
               <input type="hidden" name="messageid" value="<?= $details['messageid'] ?>">
-              <button type="submit" class="btn" style="background:#2ecc71;">
-                ✅ Mark as Solved
-              </button>
+              <button type="submit" class="btn solved-btn">✅ Mark as Solved</button>
             </form>
           <?php endif; ?>
 
-          <!-- Already solved — just show label, no button -->
           <?php if ($details['is_solved']): ?>
-            <span style="
-      background: #eafaf1;
-      color: #27ae60;
-      padding: 13px 20px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
-    ">
-              ✅ This issue has been resolved
-            </span>
+            <span class="resolved-label">✅ This issue has been resolved</span>
           <?php endif; ?>
 
-          <!-- Delete — always show -->
-          <form method="POST" action="delete_message.php"
-            onsubmit="return confirm('Are you sure you want to delete this message?')">
-            <input type="hidden" name="message_id" value="<?= $details['messageid'] ?>">
-            <button type="submit" class="delete-btn">🗑 Delete Message</button>
-          </form>
 
         </div>
 

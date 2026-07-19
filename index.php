@@ -27,11 +27,11 @@
     </div>
 
     <div class="right-section">
-      <button class="btn signin-btn">
+      <button class="btn signin-btn" onclick="location.href='register.php'">
         Sign Up
       </button>
 
-      <button class="btn login-btn">
+      <button class="btn login-btn" onclick="location.href='login.php'">
         Login
       </button>
     </div>

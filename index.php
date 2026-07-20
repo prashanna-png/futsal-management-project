@@ -14,7 +14,7 @@
   <nav class="nav-bar">
 
     <div class="left-section">
-      <img src="./assets/logo/F (1).png" alt="FutZo Logo">
+      <img src="./assets/logo/main-logo.png" alt="FutZo Logo">
       <span>FutZo</span>
     </div>
 
@@ -42,11 +42,6 @@
     <section class="hero" id="home">
 
       <div class="left-side">
-
-        <span class="tag">
-          ⚽ Nepal's Smart Futsal Management Platform
-        </span>
-
         <h1>
           Run Your Futsal Arena<br>
           Like a <span>Champion.</span>
@@ -97,6 +92,29 @@
           alt="Futsal Players">
 
       </div>
+
+    </section>
+
+    <section class="stats">
+      <div>
+        <h1>50+</h1>
+        <p>Registered Arenas</p>
+      </div>
+      <div>
+        <h1>1,200+</h1>
+        <p>Bookings Managed</p>
+      </div>
+      <div>
+        <h1>300+</h1>
+        <p>Happy Players</p>
+      </div>
+      <div>
+        <h1>99%</h1>
+        <p>Uptime</p>
+      </div>
+    </section>
+
+    <section class="features" id="features">
 
     </section>
 

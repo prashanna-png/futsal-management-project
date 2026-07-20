@@ -56,6 +56,13 @@ body {
   color: #444;
   transition: 0.3s;
 }
+.center-section a:hover {
+  color: #ff5325;
+}
+.center-section a.active {
+  color: #ff5325;
+  font-weight: 700;
+}
 
 .center-section a:hover {
   color: #ff5325;

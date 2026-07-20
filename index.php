@@ -19,11 +19,11 @@
     </div>
 
     <div class="center-section">
-      <a href="#home">Home</a>
-      <a href="#features">Features</a>
-      <a href="#how-it-works">How It Works</a>
-      <a href="#benefits">Benefits</a>
-      <a href="#faq">FAQ</a>
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#how-it-works" class="nav-link">How It Works</a>
+      <a href="#benefits" class="nav-link">Benefits</a>
+      <a href="#faq" class="nav-link">FAQ</a>
     </div>
 
     <div class="right-section">
@@ -330,7 +330,7 @@
     </section>
 
   </main>
-
+<script src="../assets/js/landing-page.js"></script>
 </body>
 
 </html>

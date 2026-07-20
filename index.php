@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FutZo - Futsal Management System</title>
-
+  <link rel="shortcut icon" href="./assets//logo//main-logo.png" type="image/x-icon">
+  <title>FutZo</title>
   <link rel="stylesheet" href="./assets/css/landing-page.css">
 </head>
 
@@ -22,7 +22,7 @@
       <a href="#home">Home</a>
       <a href="#features">Features</a>
       <a href="#how-it-works">How It Works</a>
-      <a href="#pricing">Pricing</a>
+      <a href="#benefits">Benefits</a>
       <a href="#faq">FAQ</a>
     </div>
 
@@ -154,7 +154,7 @@
         </div>
       </div>
     </section>
-    
+
     <section class="how-it-works" id="how-it-works">
 
       <div class="left-content">
@@ -245,6 +245,84 @@
             </p>
           </div>
 
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="why-futzo" id="benefits">
+
+      <div class="benefits-left">
+
+        <span class="section-title">WHY FUTZO?</span>
+
+        <h2>
+          Why Choose
+          <span>FutZo</span>
+        </h2>
+
+        <p>
+          FutZo is built to simplify futsal management for owners while
+          providing a smooth booking experience for players. Save time,
+          reduce manual work, and grow your business with one powerful
+          platform.
+        </p>
+
+        <a href="register.php" class="btn login-btn">
+          Get Started
+        </a>
+
+      </div>
+
+      <div class="benefits-right">
+
+        <div class="benefit-card">
+          <h3>⚡ Faster Bookings</h3>
+          <p>
+            Customers can reserve courts online within minutes,
+            eliminating phone calls and manual scheduling.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <h3>📅 Organized Scheduling</h3>
+          <p>
+            Easily manage court availability and prevent
+            overlapping bookings with smart time slots.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <h3>📊 Business Insights</h3>
+          <p>
+            View booking statistics and monitor your
+            futsal's performance from one dashboard.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <h3>🔒 Secure Management</h3>
+          <p>
+            Role-based access keeps customer,
+            owner, staff, and admin data secure.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <h3>📱 Responsive Design</h3>
+          <p>
+            Manage your futsal or make bookings
+            from desktop, tablet, or mobile devices.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <h3>🤝 Better Customer Experience</h3>
+          <p>
+            Provide instant booking confirmations,
+            clear schedules, and a hassle-free experience.
+          </p>
         </div>
 
       </div>

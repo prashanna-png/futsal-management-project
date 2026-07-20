@@ -17,24 +17,25 @@ body {
   background: #f5f5f5;
   color: #303030;
   font-family: agrandir, sans-serif;
-  padding: 0px 100px;
 }
 
 .nav-bar {
   width: 100%;
-  height: 90px;
+  height: 80px;
   padding: 0 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #ddd;
+  background: white;
+  position: fixed;
+  padding: 0 250px;
 }
 
 .left-section {
   display: flex;
   align-items: center;
   gap: 10px;
-
   color: #ff5325;
   font-size: 1.7rem;
   font-weight: bold;
@@ -94,15 +95,12 @@ body {
 }
 
 .hero {
-  min-height: calc(100vh - 90px);
-
+  min-height: 100dvh;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   gap: 80px;
-
-  padding: 0 100px;
+  padding: 0 250px;
 }
 
 .left-side,
@@ -178,6 +176,7 @@ body {
   justify-content: center;
   gap: 150px;
   padding: 40px;
+  background: #eeeeee;
 }
 .stats div {
   display: flex;
@@ -191,10 +190,11 @@ body {
   color: #ea471c;
 }
 .features {
-  padding: 120px 0px;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 100px 250px;
 }
 .heading {
   margin-bottom: 20px;
@@ -240,5 +240,100 @@ body {
 .card p {
   color: #666;
   line-height: 1.8;
+  font-size: 1rem;
+}
+.how-it-works {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 80px;
+  padding: 70px 250px;
+  background: #eeeeee;
+}
+
+.left-content,
+.right-content {
+  flex: 1;
+}
+
+.section-title {
+  color: #ea471c;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.left-content h2 {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+.left-content p {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.8;
+  max-width: 500px;
+  margin-bottom: 40px;
+}
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.right-content {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.step-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 22px;
+  padding: 30px;
+  display: flex;
+  gap: 25px;
+  transition: 0.3s;
+  cursor: default;
+}
+
+.step-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  border-color: #ff5325;
+}
+
+.step-number {
+  color: #ff5325;
+  font-size: 2rem;
+  font-weight: 700;
+  min-width: 60px;
+}
+
+.step-info h3 {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.step-info p {
+  color: #666;
+  line-height: 1.7;
   font-size: 1rem;
 }

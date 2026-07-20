@@ -154,6 +154,102 @@
         </div>
       </div>
     </section>
+    
+    <section class="how-it-works" id="how-it-works">
+
+      <div class="left-content">
+
+        <span class="section-title">HOW IT WORKS</span>
+
+        <h2>
+          Manage your futsal arena
+          <br>
+          in three simple steps
+        </h2>
+
+        <p>
+          FutZo helps you simplify bookings, manage your courts,
+          and grow your business without complicated software.
+        </p>
+
+        <div class="benefits">
+
+          <div class="benefit">
+            ✔ Easy setup
+          </div>
+
+          <div class="benefit">
+            ✔ Online booking
+          </div>
+
+          <div class="benefit">
+            ✔ Secure management
+          </div>
+
+          <div class="benefit">
+            ✔ 24/7 accessibility
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="right-content">
+
+        <div class="step-card">
+
+          <div class="step-number">
+            01
+          </div>
+
+          <div class="step-info">
+            <h3>Register Your Arena</h3>
+
+            <p>
+              Create an owner account, add your futsal,
+              upload facilities, pricing, and operating hours.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="step-card">
+
+          <div class="step-number">
+            02
+          </div>
+
+          <div class="step-info">
+            <h3>Manage Bookings</h3>
+
+            <p>
+              Create available time slots and receive booking
+              requests from customers in real time.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="step-card">
+
+          <div class="step-number">
+            03
+          </div>
+
+          <div class="step-info">
+            <h3>Grow Your Business</h3>
+
+            <p>
+              Track bookings, manage customers,
+              monitor revenue, and keep your courts busy.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
 
   </main>
 

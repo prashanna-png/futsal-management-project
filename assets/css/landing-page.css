@@ -24,11 +24,9 @@ body {
   width: 100%;
   height: 90px;
   padding: 0 100px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   border-bottom: 1px solid #ddd;
 }
 
@@ -191,4 +189,56 @@ body {
 }
 .stats h1 {
   color: #ea471c;
+}
+.features {
+  padding: 120px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.heading {
+  margin-bottom: 20px;
+  color: #ea471c;
+  font-size: 1.2rem;
+}
+.features span {
+  font-size: 2.7rem;
+}
+.desc {
+  color: #959595;
+  font-size: 1.2rem;
+}
+.cards {
+  padding: 90px 40px 0px 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 60px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 20px;
+  padding: 35px;
+  text-align: left;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  border-color: #ff5325;
+}
+
+.card h1 {
+  font-size: 1.4rem;
+  margin-bottom: 18px;
+  color: #303030;
+}
+
+.card p {
+  color: #666;
+  line-height: 1.8;
+  font-size: 1rem;
 }

@@ -43,8 +43,8 @@
 
       <div class="left-side">
         <h1>
-          Run Your Futsal Arena<br>
-          Like a <span>Champion.</span>
+          Run Your Futsal Arena Like <br>
+          a <span>Champion.</span>
         </h1>
 
         <p>
@@ -115,7 +115,44 @@
     </section>
 
     <section class="features" id="features">
+      <p class="heading">EVERY THING IN ONE PLACE</p>
+      <span>The Complete Toolkit</span>
+      <span>For Futsal Operator</span>
+      <p class="desc" style="margin-top: 30px;">From the first bookingto the championship final, PitchPro handles</p>
+      <p class="desc">the operations so your arena runs at full capacity</p>
 
+      <div class="cards">
+
+        <div class="card">
+          <h1>Smart Court Management</h1>
+          <p>Manage multiple futsal courts, update pricing, facilities, opening hours, and court information from one dashboard.</p>
+        </div>
+
+        <div class="card">
+          <h1>Online Booking</h1>
+          <p>Customers can browse available courts, choose time slots, and confirm bookings instantly with a few clicks.</p>
+        </div>
+
+        <div class="card">
+          <h1>Time Slot Scheduling</h1>
+          <p>Create and manage available time slots, avoid double bookings, and keep your schedule organized.</p>
+        </div>
+
+        <div class="card">
+          <h1>Customer Management</h1>
+          <p>View customer details, booking history, and manage booking requests efficiently.</p>
+        </div>
+
+        <div class="card">
+          <h1>Analytics Dashboard</h1>
+          <p>Monitor bookings, revenue, pending requests, and court performance through an easy-to-read dashboard.</p>
+        </div>
+
+        <div class="card">
+          <h1>ASecure Role-Based System</h1>
+          <p>Separate dashboards and permissions for Customers, Owners, Staff, and Administrators to keep your system organized and secure.</p>
+        </div>
+      </div>
     </section>
 
   </main>

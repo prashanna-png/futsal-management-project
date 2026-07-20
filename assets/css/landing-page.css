@@ -175,6 +175,18 @@ body {
   max-width: 650px;
   border-radius: 25px;
   box-shadow: 10px 25px 60px rgba(0, 0, 0, 0.62);
+  animation: img-ani 5s ease-in-out infinite;
+}
+@keyframes img-ani {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 .stats {
   display: flex;

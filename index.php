@@ -329,8 +329,94 @@
 
     </section>
 
+    <section class="faq" id="faq">
+      <h1>FAQ</h1>
+      <p>Questions, Answere</p>
+
+      <div class="questions">
+        
+        <div class="question" id="question">
+          <p>How do I book a futsal court?</p>
+          <p class="plus">
+            <img src="./assets//icons///plus.png" alt="plus" width="20px">
+          </p>
+
+          <p class="answer">
+            Browse available futsal arenas, choose your preferred date and time slot, and confirm your booking. The futsal owner will review and confirm your request.
+          </p>
+        </div>
+
+
+        <div class="question">
+          <p>Can I cancel my booking?</p>
+          <p class="plus">
+            <img src="./assets//icons///plus.png" alt="plus" width="20px">
+          </p>
+
+          <p class="answer">
+            Yes. You can cancel your booking before it has been confirmed by the futsal owner. Cancellation policies may vary depending on the arena.
+          </p>
+        </div>
+
+        <div class="question">
+          <p>How do I register my futsal arena?</p>
+          <p class="plus">
+            <img src="./assets//icons///plus.png" alt="plus" width="20px">
+          </p>
+
+          <p class="answer">
+            Create an owner account, submit your futsal details, and wait for admin approval. Once approved, you can start adding time slots and accepting bookings.
+          </p>
+        </div>
+
+        <div class="question">
+          <p>Can I manage multiple futsal arenas?</p>
+          <p class="plus">
+            <img src="./assets//icons///plus.png" alt="plus" width="20px">
+          </p>
+
+          <p class="answer">
+            Yes. Owners can register and manage multiple futsal arenas from a single account.
+          </p>
+        </div>
+
+        <div class="question">
+          <p>How are booking requests handled?</p>
+          <p class="plus">
+            <img src="./assets//icons///plus.png" alt="plus" width="20px">
+          </p>
+
+          <p class="answer">
+            When a customer books a time slot, the owner receives the request and can confirm, reject, or mark the booking as completed after the match.
+          </p>
+        </div>
+
+        <div class="question">
+          <p>Can I cancel my booking?</p>
+          <p class="plus">
+            <img src="./assets//icons///plus.png" alt="plus" width="20px">
+          </p>
+
+          <p class="answer">
+            Yes. You can cancel your booking before it has been confirmed by the futsal owner. Cancellation policies may vary depending on the arena.
+          </p>
+        </div>
+
+        <div class="question">
+          <p>Is my personal information secure?</p>
+          <p class="plus">
+            <img src="./assets//icons///plus.png" alt="plus" width="20px">
+          </p>
+
+          <p class="answer">
+            Yes. FutZo uses role-based authentication and secure account management to protect user information and system access.
+          </p>
+        </div>
+      </div>
+    </section>
+
   </main>
-<script src="../assets/js/landing-page.js"></script>
+  <script src="../assets/js/landing-page.js"></script>
 </body>
 
 </html>

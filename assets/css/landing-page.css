@@ -242,7 +242,7 @@ body {
   padding: 35px;
   text-align: left;
   transition: 0.3s ease;
-  cursor: pointer;
+  cursor: default;
 }
 
 .card:hover {
@@ -411,6 +411,7 @@ body {
   border-radius: 18px;
   padding: 30px;
   transition: 0.3s ease;
+  cursor: default;
 }
 
 .benefit-card:hover {
@@ -432,6 +433,55 @@ body {
   font-size: 0.98rem;
 }
 
+.faq {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 250px;
+}
+.faq h1 {
+  color: #ff5325;
+}
+.faq p {
+  margin-top: 10px;
+  font-size: 1.8rem;
+}
+.questions {
+  margin-top: 90px;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.question {
+  background: #fff;
+  padding: 10px 20px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  border: #e6e6e6 1px solid;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+}
+.question p {
+  font-size: 1.2rem;
+  padding: 10px;
+}
+.plus {
+  position: absolute;
+  right: 20px;
+  font-size: 2.7rem;
+}
+
+.answer {
+  display: none;
+  border-top: #e6e6e6 1px solid;
+  color: #666;
+}
+
+/*Responsive:*/
 @media (max-width: 992px) {
   .why-futzo {
     flex-direction: column;

@@ -75,7 +75,7 @@ mysqli_close($conn);
   <div class="container">
     <div class="left-pannel">
       <div class="logo">
-        ⚽ FutsalHub
+        ⚽ FutZo
       </div>
       <div class="side-text">
         <h2>Welcome Back</h2>

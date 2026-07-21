@@ -83,9 +83,9 @@ mysqli_close($conn);
   <div class="container">
     <div class="left-pannel">
       <div class="logo">
-        ⚽ FutsalHub
+        ⚽ FutZo
       </div>
-      <div class="side text">
+      <div class="side-text">
         <h2>Join the Community</h2>
         <p>
           Book futsal grounds, manage teams,
@@ -100,24 +100,26 @@ mysqli_close($conn);
           <?php echo $error; ?>
         </div>
       <?php endif; ?>
+
       <form action="" method="POST">
-        <div class="name">
+        <div class="form-row">
           <input type="text" id="name" name="name" placeholder="Name" required>
+          <input type="text" name="phone" placeholder="Phone Number" required>
         </div>
 
-        <input type="text" name="phone" placeholder="Phone Number" required>
-        <select name="role" placeholder="Select Role" required>
+        <select name="role" required>
           <option value="" disabled selected>Select Role</option>
           <option value="customer">Player</option>
           <option value="owner">Futsal Owner</option>
           <option value="staff">Staff</option>
         </select>
 
-        <input type="email" id="email" name="email" placeholder="Email">
+        <input type="email" id="email" name="email" placeholder="Email" required>
 
-        <input type="password" id="password" name="password" placeholder="Password">
-
-        <input type="password" id="confirm" name="confirm_password" placeholder="Conform Password">
+        <div class="form-row">
+          <input type="password" id="password" name="password" placeholder="Password" required>
+          <input type="password" id="confirm" name="confirm_password" placeholder="Confirm Password" required>
+        </div>
 
         <input type="submit" value="Register">
       </form>

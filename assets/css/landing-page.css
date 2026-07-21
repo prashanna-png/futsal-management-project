@@ -56,16 +56,14 @@ body {
   color: #444;
   transition: 0.3s;
 }
-.center-section a:hover {
-  color: #ff5325;
-}
-.center-section a.active {
-  color: #ff5325;
-  font-weight: 700;
-}
 
 .center-section a:hover {
   color: #ff5325;
+}
+
+.center-section a.active {
+  color: #ff5325;
+  font-weight: 700;
 }
 
 .right-section {
@@ -115,8 +113,9 @@ body {
 .right-side {
   flex: 1;
 }
+
 .left-side h1 {
-  font-size: clamp(3rem, 6vw, 4.8rem);
+  font-size: clamp(2.2rem, 6vw, 4.8rem);
   line-height: 1.1;
   margin-bottom: 25px;
 }
@@ -127,20 +126,17 @@ body {
 
 .left-side p {
   color: #666;
-
-  font-size: 1.1rem;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
   line-height: 1.8;
-
   max-width: 550px;
-
   margin-bottom: 40px;
 }
 
 .hero-buttons {
   display: flex;
   gap: 18px;
-
   margin-bottom: 50px;
+  flex-wrap: wrap;
 }
 
 .hero-buttons .btn {
@@ -177,6 +173,7 @@ body {
   box-shadow: 10px 25px 60px rgba(0, 0, 0, 0.62);
   animation: img-ani 5s ease-in-out infinite;
 }
+
 @keyframes img-ani {
   0% {
     transform: translateY(0);
@@ -188,6 +185,7 @@ body {
     transform: translateY(0);
   }
 }
+
 .stats {
   display: flex;
   justify-content: center;
@@ -197,17 +195,21 @@ body {
   flex-wrap: wrap;
   text-align: center;
 }
+
 .stats div {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .stats p {
   color: #959595;
 }
+
 .stats h1 {
   color: #ea471c;
 }
+
 .features {
   min-height: 100dvh;
   display: flex;
@@ -215,18 +217,24 @@ body {
   align-items: center;
   padding: 100px 250px;
 }
+
 .heading {
   margin-bottom: 20px;
   color: #ea471c;
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
 }
+
 .features span {
-  font-size: 2.7rem;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  text-align: center;
 }
+
 .desc {
   color: #959595;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  text-align: center;
 }
+
 .cards {
   width: 100%;
   padding: 90px 40px 0px 40px;
@@ -262,13 +270,13 @@ body {
   line-height: 1.8;
   font-size: 1rem;
 }
+
 .how-it-works {
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 80px;
-  padding: 40px 250px;
+  padding: 200px 250px;
   background: #eeeeee;
 }
 
@@ -287,14 +295,14 @@ body {
 }
 
 .left-content h2 {
-  font-size: 3rem;
+  font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.2;
   margin-bottom: 25px;
   color: #222;
 }
 
 .left-content p {
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 2vw, 1.1rem);
   color: #666;
   line-height: 1.8;
   max-width: 500px;
@@ -347,7 +355,7 @@ body {
 }
 
 .step-info h3 {
-  font-size: 1.4rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
   margin-bottom: 12px;
   color: #222;
 }
@@ -355,11 +363,10 @@ body {
 .step-info p {
   color: #666;
   line-height: 1.7;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
 .why-futzo {
-  height: 100dvh;
   padding: 120px 250px;
   display: flex;
   justify-content: center;
@@ -382,7 +389,7 @@ body {
 }
 
 .benefits-left h2 {
-  font-size: 3rem;
+  font-size: clamp(2rem, 4vw, 3rem);
   margin: 20px 0;
   color: #303030;
 }
@@ -393,7 +400,7 @@ body {
 
 .benefits-left p {
   color: #666;
-  font-size: 1.05rem;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
   line-height: 1.8;
   margin-bottom: 35px;
   max-width: 520px;
@@ -422,7 +429,7 @@ body {
 }
 
 .benefit-card h3 {
-  font-size: 1.3rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
   color: #303030;
   margin-bottom: 15px;
 }
@@ -430,7 +437,7 @@ body {
 .benefit-card p {
   color: #666;
   line-height: 1.7;
-  font-size: 0.98rem;
+  font-size: clamp(0.9rem, 2vw, 0.98rem);
 }
 
 .faq {
@@ -440,38 +447,51 @@ body {
   justify-content: center;
   padding: 100px 250px;
 }
+
 .faq h1 {
   color: #ff5325;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
 }
-.faq p {
+
+.faq > p {
   margin-top: 10px;
-  font-size: 1.8rem;
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  text-align: center;
 }
+
 .questions {
   margin-top: 40px;
   padding: 20px 10px;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  width: 100%;
+  max-width: 800px;
 }
+
 .question {
   background: #fff;
   padding: 10px 20px 10px 10px;
   display: flex;
   flex-direction: column;
-  width: 800px;
+  width: 100%;
   border: #e6e6e6 1px solid;
   border-radius: 10px;
   cursor: pointer;
   position: relative;
 }
-.question p {
-  font-size: 1.2rem;
+
+.question > p {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   padding: 10px;
+  padding-right: 50px;
 }
+
 .plus {
   position: absolute;
   right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 2.7rem;
 }
 
@@ -485,6 +505,7 @@ body {
 .plus img {
   transition: transform 0.3s ease;
 }
+
 .question.active .plus img {
   transform: rotate(180deg);
 }
@@ -492,11 +513,12 @@ body {
 .answer span {
   display: block;
   padding: 10px;
+  font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
 .cta {
   background: #fff;
-  padding: 90px 0;
+  padding: 90px 250px;
 }
 
 .cta-content {
@@ -504,13 +526,14 @@ body {
   text-align: center;
   background: linear-gradient(135deg, #f8805e, #ef4f23);
   border-radius: 30px;
-  width: 70%;
+  width: 100%;
+  max-width: 900px;
   margin: 0 auto;
 }
 
 .cta .section-title {
   display: inline-block;
-  font-size: 0.9rem;
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -519,7 +542,7 @@ body {
 }
 
 .cta h2 {
-  font-size: 3rem;
+  font-size: clamp(1.8rem, 5vw, 3rem);
   line-height: 1.2;
   margin-bottom: 25px;
 }
@@ -529,7 +552,7 @@ body {
 }
 
 .cta p {
-  font-size: 1.05rem;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
   line-height: 1.8;
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 40px;
@@ -539,6 +562,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .cta .login-btn {
@@ -561,7 +585,7 @@ body {
 }
 
 .footer {
-  padding: 80px 70px 30px;
+  padding: 80px 250px 30px;
   background: #1d1d1d;
   color: #d9d9d9;
 }
@@ -571,10 +595,12 @@ body {
   justify-content: space-between;
   gap: 60px;
   margin-bottom: 50px;
+  flex-wrap: wrap;
 }
 
 .footer-about {
   flex: 2;
+  min-width: 280px;
 }
 
 .footer-logo {
@@ -597,9 +623,10 @@ body {
   max-width: 450px;
 }
 
-.footer-links,
+.footer-links-wrap,
 .footer-contact {
   flex: 1;
+  min-width: 180px;
 }
 
 .footer h3 {
@@ -634,39 +661,20 @@ body {
   color: #9c9c9c;
 }
 
-/*Responsive:*/
-@media (max-width: 992px) {
-  .why-futzo {
-    flex-direction: column;
-    padding: 80px 30px;
-    gap: 60px;
-  }
 
-  .benefits-left,
-  .benefits-right {
-    width: 100%;
-  }
-
-  .benefits-left h2 {
-    font-size: 2.4rem;
-  }
-
-  .benefits-right {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .benefits-right {
-    grid-template-columns: 1fr;
-  }
-
-  .benefits-left h2 {
-    font-size: 2rem;
-  }
-
-  .benefit-card {
-    padding: 25px;
+/* Responsive */
+/* ─── Large tablets / small laptops ─── */
+@media (max-width: 1400px) {
+  .nav-bar,
+  .hero,
+  .features,
+  .how-it-works,
+  .why-futzo,
+  .faq,
+  .cta,
+  .footer {
+    padding-left: 120px;
+    padding-right: 120px;
   }
 }
 
@@ -675,26 +683,146 @@ body {
   .hero,
   .features,
   .how-it-works,
-  .why-futzo {
+  .why-futzo,
+  .faq,
+  .cta,
+  .footer {
     padding-left: 80px;
     padding-right: 80px;
   }
+
+  .cards {
+    gap: 35px;
+    padding-top: 70px;
+  }
+
+  .how-it-works {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+
+  .stats {
+    gap: 80px;
+  }
 }
 
-@media (max-width: 900px) {
+/* ─── Tablets ─── */
+@media (max-width: 992px) {
   .nav-bar {
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .hero {
+    padding: 60px 40px;
+    gap: 50px;
+  }
+
+  .features,
+  .how-it-works,
+  .why-futzo,
+  .faq,
+  .cta,
+  .footer {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .features {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding: 60px 0 0 0;
+  }
+
+  .how-it-works {
+    flex-direction: column;
+    padding: 100px 40px;
+    gap: 60px;
+    text-align: center;
+  }
+
+  .left-content p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .benefits {
+    justify-content: center;
+  }
+
+  .why-futzo {
+    flex-direction: column;
+    padding: 80px 40px;
+    gap: 60px;
+    text-align: center;
+  }
+
+  .benefits-left p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .benefits-left h2 {
+    font-size: 2.4rem;
+  }
+
+  .benefits-right {
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stats {
+    gap: 50px;
+    padding: 30px;
+  }
+
+  .faq {
+    padding: 80px 40px;
+  }
+
+  .cta {
+    padding: 60px 40px;
+  }
+
+  .cta-content {
+    padding: 70px 40px;
+  }
+
+  .footer {
+    padding: 60px 40px 30px;
+  }
+
+  .footer-top {
+    gap: 40px;
+  }
+}
+
+/* ─── Small tablets / large phones ─── */
+@media (max-width: 768px) {
+  .nav-bar {
+    padding-left: 24px;
+    padding-right: 24px;
+    height: 70px;
   }
 
   .center-section {
     display: none;
   }
 
+  .right-section .btn {
+    padding: 10px 18px;
+    font-size: 0.85rem;
+  }
+
   .hero {
     flex-direction: column;
     text-align: center;
-    padding: 60px 30px;
+    padding: 50px 24px;
     gap: 40px;
     min-height: auto;
   }
@@ -710,40 +838,138 @@ body {
   }
 
   .stats {
-    gap: 50px;
-    padding: 30px;
+    gap: 35px;
+    padding: 25px 20px;
+  }
+
+  .stats h1 {
+    font-size: 1.8rem;
   }
 
   .features {
-    padding: 60px 30px;
+    padding: 60px 24px;
     min-height: auto;
   }
 
   .cards {
     grid-template-columns: 1fr;
-    padding: 50px 0 0 0;
-    gap: 30px;
+    padding: 40px 0 0 0;
+    gap: 25px;
+  }
+
+  .card {
+    padding: 28px;
   }
 
   .how-it-works {
-    flex-direction: column;
-    padding: 60px 30px;
+    padding: 60px 24px;
     min-height: auto;
-  }
-
-  .left-content p {
-    margin-left: auto;
-    margin-right: auto;
   }
 
   .benefits {
     grid-template-columns: 1fr;
+    text-align: left;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .step-card {
+    flex-direction: column;
+    gap: 15px;
+    padding: 25px;
+  }
+
+  .why-futzo {
+    padding: 60px 24px;
+    gap: 50px;
+  }
+
+  .benefits-left h2 {
+    font-size: 2rem;
+  }
+
+  .benefits-right {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .benefit-card {
+    padding: 25px;
+  }
+
+  .faq {
+    padding: 60px 24px;
+  }
+
+  .question {
+    padding: 10px 50px 10px 10px;
+  }
+
+  .plus {
+    right: 15px;
+    font-size: 2rem;
+  }
+
+  .cta {
+    padding: 50px 24px;
+  }
+
+  .cta-content {
+    padding: 50px 24px;
+    border-radius: 20px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-buttons .btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .footer {
+    padding: 50px 24px 25px;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .footer-about,
+  .footer-links-wrap,
+  .footer-contact {
+    flex: none;
+    width: 100%;
   }
 }
 
+/* ─── Phones ─── */
 @media (max-width: 480px) {
+  .nav-bar {
+    padding-left: 16px;
+    padding-right: 16px;
+    height: 65px;
+  }
+
+  .left-section {
+    font-size: 1.3rem;
+  }
+
+  .left-section img {
+    width: 38px;
+  }
+
+  .right-section .btn {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+  }
+
   .left-side h1 {
-    font-size: 2.4rem;
+    font-size: 2rem;
   }
 
   .hero-buttons {
@@ -755,8 +981,77 @@ body {
     width: 100%;
   }
 
-  .step-card {
-    flex-direction: column;
-    gap: 12px;
+  .hero-stats {
+    gap: 30px;
+  }
+
+  .stat h3 {
+    font-size: 1.6rem;
+  }
+
+  .stats {
+    gap: 25px;
+  }
+
+  .stats h1 {
+    font-size: 1.5rem;
+  }
+
+  .features span {
+    font-size: 1.6rem;
+  }
+
+  .card {
+    padding: 22px;
+    border-radius: 16px;
+  }
+
+  .left-content h2 {
+    font-size: 1.7rem;
+  }
+
+  .benefits-left h2 {
+    font-size: 1.7rem;
+  }
+
+  .step-number {
+    font-size: 1.6rem;
+    min-width: 45px;
+  }
+
+  .benefit-card {
+    padding: 22px;
+    border-radius: 14px;
+  }
+
+  .faq > p {
+    font-size: 1.1rem;
+  }
+
+  .question > p {
+    font-size: 0.95rem;
+    padding-right: 40px;
+  }
+
+  .plus {
+    font-size: 1.8rem;
+    right: 12px;
+  }
+
+  .cta-content {
+    padding: 40px 18px;
+    border-radius: 16px;
+  }
+
+  .cta h2 {
+    font-size: 1.6rem;
+  }
+
+  .footer {
+    padding: 40px 16px 20px;
+  }
+
+  .footer-logo img {
+    width: 40px;
   }
 }

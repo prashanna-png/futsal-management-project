@@ -11,6 +11,8 @@ const questions = document.querySelectorAll('.question');
 questions.forEach(question =>{
   question.addEventListener("click", function(){
     const answer = this.querySelector('.answer');
+    answer.classList.toggle('open');
+    this.classList.toggle('active');
 
     if(answer.style.display === 'block'){
       answer.style.display = 'none';

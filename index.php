@@ -334,7 +334,7 @@
       <p>Questions, Answere</p>
 
       <div class="questions">
-        
+
         <div class="question" id="question">
           <p>How do I book a futsal court?</p>
           <p class="plus">
@@ -342,7 +342,7 @@
           </p>
 
           <p class="answer">
-            Browse available futsal arenas, choose your preferred date and time slot, and confirm your booking. The futsal owner will review and confirm your request.
+            <span>Browse available futsal arenas, choose your preferred date and time slot, and confirm your booking. The futsal owner will review and confirm your request.</span>
           </p>
         </div>
 
@@ -354,7 +354,7 @@
           </p>
 
           <p class="answer">
-            Yes. You can cancel your booking before it has been confirmed by the futsal owner. Cancellation policies may vary depending on the arena.
+            <span>Yes. You can cancel your booking before it has been confirmed by the futsal owner. Cancellation policies may vary depending on the arena.</span>
           </p>
         </div>
 
@@ -365,7 +365,7 @@
           </p>
 
           <p class="answer">
-            Create an owner account, submit your futsal details, and wait for admin approval. Once approved, you can start adding time slots and accepting bookings.
+            <span>Create an owner account, submit your futsal details, and wait for admin approval. Once approved, you can start adding time slots and accepting bookings.</span>
           </p>
         </div>
 
@@ -376,29 +376,7 @@
           </p>
 
           <p class="answer">
-            Yes. Owners can register and manage multiple futsal arenas from a single account.
-          </p>
-        </div>
-
-        <div class="question">
-          <p>How are booking requests handled?</p>
-          <p class="plus">
-            <img src="./assets//icons///plus.png" alt="plus" width="20px">
-          </p>
-
-          <p class="answer">
-            When a customer books a time slot, the owner receives the request and can confirm, reject, or mark the booking as completed after the match.
-          </p>
-        </div>
-
-        <div class="question">
-          <p>Can I cancel my booking?</p>
-          <p class="plus">
-            <img src="./assets//icons///plus.png" alt="plus" width="20px">
-          </p>
-
-          <p class="answer">
-            Yes. You can cancel your booking before it has been confirmed by the futsal owner. Cancellation policies may vary depending on the arena.
+            <span>Yes. Owners can register and manage multiple futsal arenas from a single account.</span>
           </p>
         </div>
 
@@ -409,11 +387,105 @@
           </p>
 
           <p class="answer">
-            Yes. FutZo uses role-based authentication and secure account management to protect user information and system access.
+            <span>
+              Yes. FutZo uses role-based authentication and secure account management to protect user information and system access.
           </p>
+          </span>
         </div>
       </div>
     </section>
+
+    <section class="cta">
+
+      <div class="cta-content">
+
+        <span class="section-title">
+          GET STARTED TODAY
+        </span>
+
+        <h2>
+          Ready to Transform Your
+          <span>Futsal Business?</span>
+        </h2>
+
+        <p>
+          Join FutZo today and simplify bookings, manage courts effortlessly,
+          and deliver a better experience for your players. Everything you need,
+          all in one platform.
+        </p>
+
+        <div class="cta-buttons">
+
+          <button class="btn login-btn"
+            onclick="location.href='register.php'">
+            Register Now
+          </button>
+
+          <button class="btn signin-btn"
+            onclick="location.href='#features'">
+            Explore Features
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <footer class="footer">
+
+      <div class="footer-top">
+
+        <div class="footer-about">
+
+          <div class="footer-logo">
+
+            <img src="./assets/logo/F (1).png" alt="FutZo Logo">
+
+            <h2>FutZo</h2>
+
+          </div>
+
+          <p>
+            The complete futsal management platform designed to simplify
+            bookings, scheduling, and business operations for modern futsal arenas.
+          </p>
+
+        </div>
+
+        <div class="footer-links">
+
+          <h3>Quick Links</h3>
+
+          <a href="#home">Home</a>
+          <a href="#features">Features</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#benefits">Benefits</a>
+          <a href="#faq">FAQ</a>
+
+        </div>
+
+        <div class="footer-contact">
+
+          <h3>Contact</h3>
+
+          <p>Kathmandu, Nepal</p>
+          <p>support@futzo.com</p>
+          <p>+977 98XXXXXXXX</p>
+
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+
+        <p>
+          © 2026 FutZo. All Rights Reserved.
+        </p>
+
+      </div>
+
+    </footer>
 
   </main>
   <script src="../assets/js/landing-page.js"></script>

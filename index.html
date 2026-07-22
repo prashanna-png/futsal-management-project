@@ -4,13 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="./assets//logo//main-logo.png" type="image/x-icon">
+  <link rel="shortcut icon" href="./assets/logo/main-logo.png" type="image/x-icon">
   <title>FutZo</title>
   <link rel="stylesheet" href="./assets/css/landing-page.css">
 </head>
 
 <body>
 
+  <!-- ===== NAVBAR ===== -->
   <nav class="nav-bar">
 
     <div class="left-section">
@@ -19,18 +20,17 @@
     </div>
 
     <div class="center-section">
-      <a href="#home" class="nav-link">Home</a>
-      <a href="#features" class="nav-link">Features</a>
+      <a href="#home"         class="nav-link active">Home</a>
+      <a href="#features"     class="nav-link">Features</a>
       <a href="#how-it-works" class="nav-link">How It Works</a>
-      <a href="#benefits" class="nav-link">Benefits</a>
-      <a href="#faq" class="nav-link">FAQ</a>
+      <a href="#benefits"     class="nav-link">Benefits</a>
+      <a href="#faq"          class="nav-link">FAQ</a>
     </div>
 
     <div class="right-section">
       <button class="btn signin-btn" onclick="location.href='register.php'">
         Sign Up
       </button>
-
       <button class="btn login-btn" onclick="location.href='login.php'">
         Login
       </button>
@@ -39,9 +39,11 @@
   </nav>
 
   <main>
+
     <section class="hero" id="home">
 
       <div class="left-side">
+
         <h1>
           Run Your Futsal Arena Like <br>
           a <span>Champion.</span>
@@ -54,43 +56,33 @@
         </p>
 
         <div class="hero-buttons">
-
-          <button class="btn login-btn">
+          <button class="btn login-btn" onclick="location.href='register.php'">
             Get Started
           </button>
-
-          <button class="btn signin-btn">
+          <button class="btn signin-btn" onclick="location.href='#features'">
             Learn More
           </button>
-
         </div>
 
         <div class="hero-stats">
-
           <div class="stat">
             <h3>500+</h3>
             <p>Bookings</p>
           </div>
-
           <div class="stat">
             <h3>100+</h3>
             <p>Customers</p>
           </div>
-
           <div class="stat">
             <h3>24/7</h3>
             <p>Availability</p>
           </div>
-
         </div>
 
       </div>
 
       <div class="right-side">
-
-        <img src="./assets/images/futsal-players.png"
-          alt="Futsal Players">
-
+        <img src="./assets/images/futsal-players.png" alt="Futsal Players">
       </div>
 
     </section>
@@ -115,11 +107,16 @@
     </section>
 
     <section class="features" id="features">
-      <p class="heading">EVERY THING IN ONE PLACE</p>
+
+      <p class="heading">EVERYTHING IN ONE PLACE</p>
       <span>The Complete Toolkit</span>
-      <span>For Futsal Operator</span>
-      <p class="desc" style="margin-top: 30px;">From the first bookingto the championship final, PitchPro handles</p>
-      <p class="desc">the operations so your arena runs at full capacity</p>
+      <span>For Futsal Operators</span>
+      <p class="desc" style="margin-top: 30px;">
+        From the first booking to the championship final, FutZo handles
+      </p>
+      <p class="desc">
+        the operations so your arena runs at full capacity.
+      </p>
 
       <div class="cards">
 
@@ -149,10 +146,12 @@
         </div>
 
         <div class="card">
-          <h1>ASecure Role-Based System</h1>
+          <h1>Secure Role-Based System</h1>
           <p>Separate dashboards and permissions for Customers, Owners, Staff, and Administrators to keep your system organized and secure.</p>
         </div>
+
       </div>
+
     </section>
 
     <section class="how-it-works" id="how-it-works">
@@ -173,23 +172,10 @@
         </p>
 
         <div class="benefits">
-
-          <div class="benefit">
-            ✔ Easy setup
-          </div>
-
-          <div class="benefit">
-            ✔ Online booking
-          </div>
-
-          <div class="benefit">
-            ✔ Secure management
-          </div>
-
-          <div class="benefit">
-            ✔ 24/7 accessibility
-          </div>
-
+          <div class="benefit">✔ Easy setup</div>
+          <div class="benefit">✔ Online booking</div>
+          <div class="benefit">✔ Secure management</div>
+          <div class="benefit">✔ 24/7 accessibility</div>
         </div>
 
       </div>
@@ -197,54 +183,36 @@
       <div class="right-content">
 
         <div class="step-card">
-
-          <div class="step-number">
-            01
-          </div>
-
+          <div class="step-number">01</div>
           <div class="step-info">
             <h3>Register Your Arena</h3>
-
             <p>
               Create an owner account, add your futsal,
               upload facilities, pricing, and operating hours.
             </p>
           </div>
-
         </div>
 
         <div class="step-card">
-
-          <div class="step-number">
-            02
-          </div>
-
+          <div class="step-number">02</div>
           <div class="step-info">
             <h3>Manage Bookings</h3>
-
             <p>
               Create available time slots and receive booking
               requests from customers in real time.
             </p>
           </div>
-
         </div>
 
         <div class="step-card">
-
-          <div class="step-number">
-            03
-          </div>
-
+          <div class="step-number">03</div>
           <div class="step-info">
             <h3>Grow Your Business</h3>
-
             <p>
               Track bookings, manage customers,
               monitor revenue, and keep your courts busy.
             </p>
           </div>
-
         </div>
 
       </div>
@@ -330,78 +298,89 @@
     </section>
 
     <section class="faq" id="faq">
+
       <h1>FAQ</h1>
-      <p>Questions, Answere</p>
+      <p>Questions & Answers</p>
 
       <div class="questions">
 
-        <div class="question" id="question">
+        <div class="question">
           <p>How do I book a futsal court?</p>
           <p class="plus">
-            <img src="./assets//icons///plus.png" alt="plus" width="20px">
+            <img src="./assets/icons/plus.png" alt="plus" width="20px">
           </p>
-
           <p class="answer">
-            <span>Browse available futsal arenas, choose your preferred date and time slot, and confirm your booking. The futsal owner will review and confirm your request.</span>
+            <span>
+              Browse available futsal arenas, choose your preferred date
+              and time slot, and confirm your booking. The futsal owner
+              will review and confirm your request.
+            </span>
           </p>
         </div>
-
 
         <div class="question">
           <p>Can I cancel my booking?</p>
           <p class="plus">
-            <img src="./assets//icons///plus.png" alt="plus" width="20px">
+            <img src="./assets/icons/plus.png" alt="plus" width="20px">
           </p>
-
           <p class="answer">
-            <span>Yes. You can cancel your booking before it has been confirmed by the futsal owner. Cancellation policies may vary depending on the arena.</span>
+            <span>
+              Yes. You can cancel your booking before it has been confirmed
+              by the futsal owner. Cancellation policies may vary depending
+              on the arena.
+            </span>
           </p>
         </div>
 
         <div class="question">
           <p>How do I register my futsal arena?</p>
           <p class="plus">
-            <img src="./assets//icons///plus.png" alt="plus" width="20px">
+            <img src="./assets/icons/plus.png" alt="plus" width="20px">
           </p>
-
           <p class="answer">
-            <span>Create an owner account, submit your futsal details, and wait for admin approval. Once approved, you can start adding time slots and accepting bookings.</span>
+            <span>
+              Create an owner account, submit your futsal details,
+              and wait for admin approval. Once approved, you can start
+              adding time slots and accepting bookings.
+            </span>
           </p>
         </div>
 
         <div class="question">
           <p>Can I manage multiple futsal arenas?</p>
           <p class="plus">
-            <img src="./assets//icons///plus.png" alt="plus" width="20px">
+            <img src="./assets/icons/plus.png" alt="plus" width="20px">
           </p>
-
           <p class="answer">
-            <span>Yes. Owners can register and manage multiple futsal arenas from a single account.</span>
+            <span>
+              Yes. Owners can register and manage multiple futsal arenas
+              from a single account.
+            </span>
           </p>
         </div>
 
         <div class="question">
           <p>Is my personal information secure?</p>
           <p class="plus">
-            <img src="./assets//icons///plus.png" alt="plus" width="20px">
+            <img src="./assets/icons/plus.png" alt="plus" width="20px">
           </p>
-
           <p class="answer">
             <span>
-              Yes. FutZo uses role-based authentication and secure account management to protect user information and system access.
+              Yes. FutZo uses role-based authentication and secure account
+              management to protect user information and system access.
+            </span>
           </p>
-          </span>
         </div>
+
       </div>
+
     </section>
 
     <section class="cta">
 
       <div class="cta-content">
 
-        <span class="section-title">
-          GET STARTED TODAY
-        </span>
+        <span class="section-title">GET STARTED TODAY</span>
 
         <h2>
           Ready to Transform Your
@@ -415,17 +394,12 @@
         </p>
 
         <div class="cta-buttons">
-
-          <button class="btn login-btn"
-            onclick="location.href='register.php'">
+          <button class="btn login-btn" onclick="location.href='register.php'">
             Register Now
           </button>
-
-          <button class="btn signin-btn"
-            onclick="location.href='#features'">
+          <button class="btn signin-btn" onclick="location.href='#features'">
             Explore Features
           </button>
-
         </div>
 
       </div>
@@ -437,58 +411,44 @@
       <div class="footer-top">
 
         <div class="footer-about">
-
           <div class="footer-logo">
-
-            <img src="./assets/logo/F (1).png" alt="FutZo Logo">
-
+            <img src="./assets/logo/main-logo.png" alt="FutZo Logo">
             <h2>FutZo</h2>
-
           </div>
-
           <p>
             The complete futsal management platform designed to simplify
             bookings, scheduling, and business operations for modern futsal arenas.
           </p>
-
         </div>
 
         <div class="footer-links">
-
           <h3>Quick Links</h3>
-
           <a href="#home">Home</a>
           <a href="#features">Features</a>
           <a href="#how-it-works">How It Works</a>
           <a href="#benefits">Benefits</a>
           <a href="#faq">FAQ</a>
-
         </div>
 
         <div class="footer-contact">
-
           <h3>Contact</h3>
-
           <p>Kathmandu, Nepal</p>
           <p>support@futzo.com</p>
           <p>+977 98XXXXXXXX</p>
-
         </div>
 
       </div>
 
       <div class="footer-bottom">
-
-        <p>
-          © 2026 FutZo. All Rights Reserved.
-        </p>
-
+        <p>© 2026 FutZo. All Rights Reserved.</p>
       </div>
 
     </footer>
 
   </main>
-  <script src="../assets/js/landing-page.js"></script>
+
+  <script src="./assets/js/landing-page.js"></script>
+
 </body>
 
 </html>

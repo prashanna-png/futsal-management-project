@@ -367,6 +367,7 @@ body {
 }
 
 .why-futzo {
+  min-height: 100dvh;
   padding: 120px 250px;
   display: flex;
   justify-content: center;
@@ -500,6 +501,9 @@ body {
   border-top: #e6e6e6 1px solid;
   color: #666;
   transition: 1.5s ease-in;
+}
+.answer.open {
+  display: block;
 }
 
 .plus img {
@@ -660,7 +664,6 @@ body {
   text-align: center;
   color: #9c9c9c;
 }
-
 
 /* Responsive */
 /* ─── Large tablets / small laptops ─── */

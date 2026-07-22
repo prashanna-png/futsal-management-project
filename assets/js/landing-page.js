@@ -28,7 +28,7 @@ window.addEventListener('scroll', () => {
 window.addEventListener('scroll', () => {
   const nav = document.querySelector('.nav-bar');
   if (window.scrollY > 20) {
-    nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+    nav.style.boxShadow = '0 30px 40px rgba(0,0,0,0.08)';
   } else {
     nav.style.boxShadow = 'none';
   }

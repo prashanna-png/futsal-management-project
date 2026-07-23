@@ -525,9 +525,246 @@ $browse = mysqli_query($conn, $sql);
 
     </section>
 
+    <section class="my-bookings">
+
+      <div class="section-header">
+
+        <div>
+          <h2>My Bookings</h2>
+          <p>Manage all your futsal bookings.</p>
+        </div>
+
+        <a href="browse.php" class="new-booking-btn">
+          <i class="ri-add-line"></i>
+          New Booking
+        </a>
+
+      </div>
+
+
+      <!-- Booking Filter -->
+
+      <div class="booking-filter">
+
+        <button class="active">All</button>
+
+        <button>Upcoming</button>
+
+        <button>Confirmed</button>
+
+        <button>Pending</button>
+
+        <button>Completed</button>
+
+        <button>Cancelled</button>
+
+      </div>
+
+
+      <div class="booking-container">
+
+
+        <div class="booking-card">
+
+          <div class="booking-image">
+
+            <img src="../assets/uploads/sample.jpg" alt="">
+
+          </div>
+
+          <div class="booking-content">
+
+            <div class="booking-top">
+
+              <div>
+
+                <h3>Yala Futsal</h3>
+
+                <p>
+                  <i class="ri-map-pin-line"></i>
+                  Balkumari, Lalitpur
+                </p>
+
+              </div>
+
+              <span class="status confirmed">
+                Confirmed
+              </span>
+
+            </div>
+
+
+            <div class="booking-details">
+
+              <div class="detail">
+
+                <small>Booking Date</small>
+
+                <p>25 Jul 2026</p>
+
+              </div>
+
+              <div class="detail">
+
+                <small>Time</small>
+
+                <p>6:00 PM - 7:00 PM</p>
+
+              </div>
+
+              <div class="detail">
+
+                <small>Price</small>
+
+                <p>Rs. 1800</p>
+
+              </div>
+
+            </div>
+
+
+            <div class="booking-actions">
+
+              <a href="#" class="secondary-btn">
+                View Details
+              </a>
+
+              <a href="#" class="primary-btn">
+                Book Again
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- Booking Card -->
+
+        <div class="booking-card">
+
+          <div class="booking-image">
+
+            <img src="../assets/uploads/sample2.jpg" alt="">
+
+          </div>
+
+          <div class="booking-content">
+
+            <div class="booking-top">
+
+              <div>
+
+                <h3>Galaxy Arena</h3>
+
+                <p>
+                  <i class="ri-map-pin-line"></i>
+                  Kathmandu
+                </p>
+
+              </div>
+
+              <span class="status pending">
+                Pending
+              </span>
+
+            </div>
+
+
+            <div class="booking-details">
+
+              <div class="detail">
+
+                <small>Booking Date</small>
+
+                <p>28 Jul 2026</p>
+
+              </div>
+
+              <div class="detail">
+
+                <small>Time</small>
+
+                <p>5:00 PM - 6:00 PM</p>
+
+              </div>
+
+              <div class="detail">
+
+                <small>Price</small>
+
+                <p>Rs. 2000</p>
+
+              </div>
+
+            </div>
+
+
+            <div class="booking-actions">
+
+              <a href="#" class="secondary-btn">
+                View Details
+              </a>
+
+              <a href="#" class="danger-btn">
+                Cancel Booking
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
 
 
   </main>
+  <footer class="footer">
+
+    <div class="footer-top">
+
+      <div class="footer-about">
+        <div class="footer-logo">
+          <img src="./assets/logo/main-logo.png" alt="FutZo Logo">
+          <h2>FutZo</h2>
+        </div>
+        <p>
+          The complete futsal management platform designed to simplify
+          bookings, scheduling, and business operations for modern futsal arenas.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#benefits">Benefits</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <div class="footer-contact">
+        <h3>Contact</h3>
+        <p>Kathmandu, Nepal</p>
+        <p>support@futzo.com</p>
+        <p>+977 98XXXXXXXX</p>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 FutZo. All Rights Reserved.</p>
+    </div>
+
+  </footer>
 
 </body>
 

@@ -160,6 +160,10 @@ if (mysqli_num_rows($recommendedResult) == 0) {
 
   $recommendedResult = mysqli_query($conn, $sql);
 }
+
+$sql = "SELECT * FROM futsal WHERE status='approved'";
+$browse = mysqli_query($conn, $sql);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -439,6 +443,89 @@ if (mysqli_num_rows($recommendedResult) == 0) {
       </div>
 
     </section>
+
+    <section class="browse-section">
+
+      <div class="section-header">
+
+        <div>
+          <h2>Browse Futsals</h2>
+          <p>Find your next match venue.</p>
+        </div>
+
+        <a href="browse.php" class="view-all">
+          View All
+          <i class="ri-arrow-right-line"></i>
+        </a>
+
+      </div>
+
+
+      <div class="browse-grid">
+
+        <?php
+        if (mysqli_num_rows($browse) > 0) {
+          while ($futsal = mysqli_fetch_assoc($browse)) {
+        ?>
+            <div class="futsal-card">
+
+              <div class="card-image">
+
+                <img src="../assets/uploads/<?php echo htmlspecialchars($futsal['image']); ?>" alt="">
+
+                <span class="price">
+                  Rs. <?= $futsal['price_per_hour'] ?> /hr
+                </span>
+
+              </div>
+
+              <div class="card-content">
+
+                <h3><?= $futsal['name'] ?></h3>
+
+                <p class="location">
+                  <i class="ri-map-pin-2-fill"></i>
+                  <?= $futsal['address'] ?>, <?= $futsal['location'] ?>
+                </p>
+
+                <div class="card-info">
+
+                  <span>
+                    <i class="ri-time-line"></i>
+
+                    <?= date("g:i A", strtotime($futsal['opening_time'])); ?>
+                    -
+                    <?= date("g:i A", strtotime($futsal['closing_time'])); ?>
+
+                  </span>
+
+                </div>
+
+                <div class="card-buttons">
+
+                  <a href="#" class="details-btn">
+                    View Details
+                  </a>
+
+                  <a href="#" class="book-btn">
+                    Book Now
+                  </a>
+
+                </div>
+
+              </div>
+
+            </div>
+        <?php
+          }
+        }
+        ?>
+
+      </div>
+
+    </section>
+
+
 
   </main>
 

@@ -132,31 +132,38 @@ $nextBooking = mysqli_fetch_assoc($result);
       </div>
 
       <div>
-        <strong><?= htmlspecialchars($_SESSION['name']); ?></strong>
+        <strong>
+          <?= strtoupper($_SESSION['name']); ?>
+        </strong>
         <small>Customer</small>
       </div>
 
     </div>
 
   </nav>
-  <main class="dashboard">
 
-    <section class="hero">
+  <main class="main">
 
-      <div class="hero-text">
+    <section class="dashboard-header">
+
+      <div class="header-left">
 
         <h1>
           Welcome back,
-          <?= htmlspecialchars($_SESSION['name']); ?> 👋
+          <?= strtoupper(htmlspecialchars($_SESSION['name'])); ?>!
         </h1>
 
         <p>
-          Ready for your next futsal match? Browse available courts and manage your bookings with ease.
+          <?= date("l, d F Y"); ?>
         </p>
 
-        <button onclick="location.href='browse.php'">
-          Browse Futsals
-        </button>
+      </div>
+
+      <div class="header-right">
+
+        <a href="browse.php" class="booking-btn">
+          + New Booking
+        </a>
 
       </div>
 
@@ -165,144 +172,31 @@ $nextBooking = mysqli_fetch_assoc($result);
     <section class="stats">
 
       <div class="stat-card">
-        <h3><?= $total['total']; ?></h3>
-        <p>Total Bookings</p>
-      </div>
-
-      <div class="stat-card">
-        <h3><?= $confirmed['confirmed']; ?></h3>
-        <p>Confirmed</p>
-      </div>
-
-      <div class="stat-card">
-        <h3><?= $pending['pending']; ?></h3>
-        <p>Pending</p>
-      </div>
-
-      <div class="stat-card">
-        <h3><?= $completed['completed']; ?></h3>
-        <p>Completed</p>
-      </div>
-
-    </section>
-
-    <section class="upcoming">
-
-      <div class="section-title">
-        <h2>Next Upcoming Booking</h2>
-      </div>
-
-      <?php if ($nextBooking) { ?>
-
-        <div class="booking-card">
-
-          <div class="booking-image">
-            <img src="../uploads/<?= htmlspecialchars($nextBooking['image']); ?>" alt="">
-          </div>
-
-          <div class="booking-info">
-
-            <h2><?= htmlspecialchars($nextBooking['name']); ?></h2>
-
-            <p>📍 <?= htmlspecialchars($nextBooking['location']); ?></p>
-
-            <p>
-              📅
-              <?= date("d M Y", strtotime($nextBooking['booking_date'])); ?>
-            </p>
-
-            <p>
-              🕒
-              <?= date("g:i A", strtotime($nextBooking['start_time'])); ?>
-              -
-              <?= date("g:i A", strtotime($nextBooking['end_time'])); ?>
-            </p>
-
-            <button>
-              View Booking
-            </button>
-
-          </div>
-
+        <div class="stat-info">
+          <span>Total Bookings</span>
+          <h2><?= $total['total']; ?></h2>
         </div>
+      </div>
 
-      <?php } else { ?>
-
-        <div class="empty-booking">
-
-          <h2>No Upcoming Booking</h2>
-
-          <p>
-            Looks like you don't have any upcoming matches.
-          </p>
-
-          <button onclick="location.href='browse.php'">
-            Book Now
-          </button>
-
+      <div class="stat-card">
+        <div class="stat-info">
+          <span>Confirmed</span>
+          <h2><?= $confirmed['confirmed']; ?></h2>
         </div>
-
-      <?php } ?>
-
-    </section>
-
-    <section class="recent">
-
-      <div class="section-title">
-
-        <h2>Recent Bookings</h2>
-
-        <a href="my_bookings.php">
-          View All
-        </a>
-
       </div>
 
-      <div class="recent-grid">
-
-        <?php while ($row = mysqli_fetch_assoc($recentResult)) { ?>
-
-          <div class="recent-card">
-
-            <h3><?= htmlspecialchars($row['name']); ?></h3>
-
-            <p>
-              📅
-              <?= date("d M Y", strtotime($row['booking_date'])); ?>
-            </p>
-
-            <p>
-              🕒
-              <?= date("g:i A", strtotime($row['start_time'])); ?>
-              -
-              <?= date("g:i A", strtotime($row['end_time'])); ?>
-            </p>
-
-            <span class="status <?= strtolower($row['status']); ?>">
-              <?= ucfirst($row['status']); ?>
-            </span>
-
-          </div>
-
-        <?php } ?>
-
+      <div class="stat-card">
+        <div class="stat-info">
+          <span>Pending</span>
+          <h2><?= $pending['pending']; ?></h2>
+        </div>
       </div>
 
-    </section>
-
-    <section class="recommended">
-
-      <div class="section-title">
-
-        <h2>Recommended Futsals</h2>
-
-        <a href="browse.php">
-          View All
-        </a>
-
-      </div>
-
-      <div class="recommended-grid">
+      <div class="stat-card">
+        <div class="stat-info">
+          <span>Completed</span>
+          <h2><?= $completed['completed']; ?></h2>
+        </div>
       </div>
 
     </section>

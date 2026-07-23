@@ -10,34 +10,44 @@ $currentPage = 'dashboard';
 
 $playerid = $_SESSION['userid'];
 
-$sql = "SELECT COUNT(*) AS total
-        FROM booking
-        WHERE playerid='$playerid'";
+$sql = "
+SELECT COUNT(*) AS total
+FROM booking
+WHERE playerid='$playerid'
+";
 $result = mysqli_query($conn, $sql);
 $total = mysqli_fetch_assoc($result);
 
 
-$sql = "SELECT COUNT(*) AS pending
-        FROM booking
-        WHERE playerid='$playerid'
-        AND status='pending'";
+$sql = "
+SELECT COUNT(*) AS confirmed
+FROM booking
+WHERE playerid='$playerid'
+AND status='confirmed'
+";
+$result = mysqli_query($conn, $sql);
+$confirmed = mysqli_fetch_assoc($result);
+
+
+$sql = "
+SELECT COUNT(*) AS pending
+FROM booking
+WHERE playerid='$playerid'
+AND status='pending'
+";
 $result = mysqli_query($conn, $sql);
 $pending = mysqli_fetch_assoc($result);
 
 
-$sql = "SELECT COUNT(*) AS confirmed
-        FROM booking
-        WHERE playerid='$playerid'
-        AND status='confirmed'";
-$result = mysqli_query($conn, $sql);
-$confirmed = mysqli_fetch_assoc($result);
-
-$sql = "SELECT COUNT(*) AS completed
-        FROM booking
-        WHERE playerid='$playerid'
-        AND status='completed'";
+$sql = "
+SELECT COUNT(*) AS completed
+FROM booking
+WHERE playerid='$playerid'
+AND status='completed'
+";
 $result = mysqli_query($conn, $sql);
 $completed = mysqli_fetch_assoc($result);
+
 
 
 $sql = "
@@ -47,38 +57,17 @@ SELECT
     b.start_time,
     b.end_time,
     b.status,
-    f.name
+
+    f.futsalid,
+    f.name,
+    f.location,
+    f.image,
+    f.price_per_hour
 
 FROM booking b
 
 JOIN futsal f
 ON b.futsalid = f.futsalid
-
-WHERE b.playerid='$playerid'
-
-ORDER BY b.created_at DESC
-
-LIMIT 5
-";
-
-$recentResult = mysqli_query($conn, $sql);
-
-$sql = "
-SELECT
-    b.bookingid,
-    b.booking_date,
-    b.start_time,
-    b.end_time,
-    b.status,
-
-    f.name,
-    f.location,
-    f.image
-
-FROM booking b
-
-JOIN futsal f
-ON b.futsalid=f.futsalid
 
 WHERE
     b.playerid='$playerid'
@@ -93,11 +82,85 @@ LIMIT 1
 ";
 
 $result = mysqli_query($conn, $sql);
-
 $nextBooking = mysqli_fetch_assoc($result);
 
-?>
+$sql = "
+SELECT
 
+    b.booking_date,
+    b.start_time,
+    b.status,
+
+    f.name
+
+FROM booking b
+
+JOIN futsal f
+ON b.futsalid=f.futsalid
+
+WHERE b.playerid='$playerid'
+
+ORDER BY b.created_at DESC
+
+LIMIT 5
+";
+
+$recentResult = mysqli_query($conn, $sql);
+
+$sql = "
+SELECT
+
+    f.futsalid,
+    f.name,
+    f.location,
+    f.image,
+    f.price_per_hour
+
+FROM futsal f
+
+WHERE
+    f.status='approved'
+
+    AND f.futsalid NOT IN
+    (
+        SELECT futsalid
+        FROM booking
+        WHERE playerid='$playerid'
+    )
+
+ORDER BY RAND()
+
+LIMIT 3
+";
+
+$recommendedResult = mysqli_query($conn, $sql);
+
+
+if (mysqli_num_rows($recommendedResult) == 0) {
+
+  $sql = "
+
+    SELECT
+
+        futsalid,
+        name,
+        location,
+        image,
+        price_per_hour
+
+    FROM futsal
+
+    WHERE status='approved'
+
+    ORDER BY RAND()
+
+    LIMIT 3
+
+    ";
+
+  $recommendedResult = mysqli_query($conn, $sql);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -107,6 +170,9 @@ $nextBooking = mysqli_fetch_assoc($result);
   <link rel="shortcut icon" href="../assets/logo/main-logo.png" type="image/x-icon">
   <title>FutZo</title>
   <link rel="stylesheet" href="../assets/css/customer.css">
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+    rel="stylesheet" />
 </head>
 
 <body>
@@ -169,34 +235,207 @@ $nextBooking = mysqli_fetch_assoc($result);
 
     </section>
 
-    <section class="stats">
+    <section class="dashboard-overview">
 
-      <div class="stat-card">
-        <div class="stat-info">
-          <span>Total Bookings</span>
-          <h2><?= $total['total']; ?></h2>
+      <!-- Left -->
+      <div class="upcoming-card">
+
+        <div class="section-header">
+          <h2>Upcoming Booking</h2>
+
+          <a href="my_bookings.php">
+            View All
+          </a>
         </div>
+
+        <?php if ($nextBooking) { ?>
+
+          <div class="booking">
+
+            <img src="../assets/uploads/<?= htmlspecialchars($nextBooking['image']); ?>" alt="">
+
+            <div class="booking-info">
+
+              <h3><?= htmlspecialchars($nextBooking['name']); ?></h3>
+
+              <p>
+                <i class="ri-map-pin-line"></i>
+                <?= htmlspecialchars($nextBooking['location']); ?>
+              </p>
+
+              <div class="booking-meta">
+
+                <div>
+                  <small>Date</small>
+                  <span><?= date("d M Y", strtotime($nextBooking['booking_date'])); ?></span>
+                </div>
+
+                <div>
+                  <small>Time</small>
+                  <span>
+                    <?= date("g:i A", strtotime($nextBooking['start_time'])); ?>
+                    -
+                    <?= date("g:i A", strtotime($nextBooking['end_time'])); ?>
+                  </span>
+                </div>
+
+              </div>
+
+              <a href="my_bookings.php" class="primary-btn">
+                View Booking
+              </a>
+
+            </div>
+
+          </div>
+
+        <?php } else { ?>
+
+          <div class="empty-booking">
+
+            <i class="ri-calendar-close-line"></i>
+
+            <h3>No Upcoming Booking</h3>
+
+            <p>You don't have any confirmed bookings.</p>
+
+            <a href="browse.php" class="primary-btn">
+              Book Now
+            </a>
+
+          </div>
+
+        <?php } ?>
+
       </div>
 
-      <div class="stat-card">
-        <div class="stat-info">
-          <span>Confirmed</span>
-          <h2><?= $confirmed['confirmed']; ?></h2>
+
+
+      <!-- Right -->
+
+      <div class="overview-card">
+
+        <h2>Booking Overview</h2>
+
+        <div class="overview-item">
+
+          <div>
+            <i class="ri-calendar-line"></i>
+            Total Bookings
+          </div>
+
+          <span><?= $total['total']; ?></span>
+
         </div>
+
+        <div class="overview-item">
+
+          <div>
+            <i class="ri-checkbox-circle-line"></i>
+            Confirmed
+          </div>
+
+          <span><?= $confirmed['confirmed']; ?></span>
+
+        </div>
+
+        <div class="overview-item">
+
+          <div>
+            <i class="ri-time-line"></i>
+            Pending
+          </div>
+
+          <span><?= $pending['pending']; ?></span>
+
+        </div>
+
+        <div class="overview-item">
+
+          <div>
+            <i class="ri-trophy-line"></i>
+            Completed
+          </div>
+
+          <span><?= $completed['completed']; ?></span>
+
+        </div>
+
       </div>
 
-      <div class="stat-card">
-        <div class="stat-info">
-          <span>Pending</span>
-          <h2><?= $pending['pending']; ?></h2>
-        </div>
+    </section>
+
+    <section class="recommended">
+
+      <div class="section-title">
+
+        <h2>Recommended Futsals</h2>
+
+        <a href="browse.php">
+          View All
+        </a>
+
       </div>
 
-      <div class="stat-card">
-        <div class="stat-info">
-          <span>Completed</span>
-          <h2><?= $completed['completed']; ?></h2>
-        </div>
+      <div class="recommend-grid">
+
+        <?php if (mysqli_num_rows($recommendedResult) > 0) { ?>
+
+          <?php while ($futsal = mysqli_fetch_assoc($recommendedResult)) { ?>
+
+            <div class="recommend-card">
+
+              <img
+                src="../assets/uploads/<?= htmlspecialchars($futsal['image']); ?>"
+                alt="<?= htmlspecialchars($futsal['name']); ?>">
+
+              <div class="recommend-info">
+
+                <h3>
+                  <?= htmlspecialchars($futsal['name']); ?>
+                </h3>
+
+                <p>
+                  <i class="ri-map-pin-line"></i>
+                  <?= htmlspecialchars($futsal['location']); ?>
+                </p>
+
+                <div class="recommend-footer">
+
+                  <span>
+                    Rs.
+                    <?= number_format($futsal['price_per_hour']); ?>
+                    / hour
+                  </span>
+
+                  <a href="booking.php?futsalid=<?= $futsal['futsalid']; ?>">
+                    Book
+                  </a>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          <?php } ?>
+
+        <?php } else { ?>
+
+          <div class="empty-recommend">
+
+            <i class="ri-football-line"></i>
+
+            <h3>No futsals available</h3>
+
+            <p>
+              There are currently no approved futsals.
+            </p>
+
+          </div>
+
+        <?php } ?>
+
       </div>
 
     </section>

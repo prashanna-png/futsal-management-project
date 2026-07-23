@@ -80,18 +80,73 @@ mysqli_close($conn);
 </head>
 
 <body>
+
+  <a href="index.html" class="back-home">
+    <span>&larr;</span>
+    <span>Back to Home</span>
+  </a>
+
   <div class="container">
     <div class="left-pannel">
+
       <div class="logo">
-        <img src="./assets/logo/futzo-logo.png" alt="" width="50px"> FutZo
+        <img src="./assets/logo/futzo-logo.png" alt="" width="50">
+
+        <div>
+          <h3>FutZo</h3>
+          <span>Futsal Management System</span>
+        </div>
       </div>
+
       <div class="side-text">
-        <h2>Join the Community</h2>
+
+        <h2>Join FutZo ⚽</h2>
+
         <p>
-          Book futsal grounds, manage teams,
-          and organize matches with one account.
+          Create your account and start booking courts, managing arenas,
+          and organizing matches in minutes.
         </p>
+
       </div>
+
+      <div class="left-features">
+
+        <div class="feature-item">
+          <span>✓</span>
+          <p>Book Courts Anytime</p>
+        </div>
+
+        <div class="feature-item">
+          <span>✓</span>
+          <p>Easy Team Management</p>
+        </div>
+
+        <div class="feature-item">
+          <span>✓</span>
+          <p>Fast & Secure Registration</p>
+        </div>
+
+      </div>
+
+      <div class="left-stats">
+
+        <div>
+          <h3>2000+</h3>
+          <span>Players</span>
+        </div>
+
+        <div>
+          <h3>120+</h3>
+          <span>Arenas</span>
+        </div>
+
+        <div>
+          <h3>24/7</h3>
+          <span>Support</span>
+        </div>
+
+      </div>
+
     </div>
     <div class="right-pannel">
       <h1>Register</h1>
@@ -126,6 +181,12 @@ mysqli_close($conn);
       <p>Already have an account? <a href="login.php">Log in</a></p>
     </div>
   </div>
+
+
+  <footer class="auth-footer">
+    <p>&copy; 2026 FutZo. Built for players, owners & staff.</p>
+  </footer>
+
 </body>
 
 </html>

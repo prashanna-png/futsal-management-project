@@ -72,17 +72,73 @@ mysqli_close($conn);
 </head>
 
 <body>
+
+  <body>
+
+    <a href="index.html" class="back-home">
+      <span>&larr;</span>
+      <span>Back to Home</span>
+    </a>
+
+  </body>
+
   <div class="container">
     <div class="left-pannel">
+
       <div class="logo">
-        <img src="./assets/logo/futzo-logo.png" alt="" width="50px"> FutZo
+        <img src="./assets/logo/futzo-logo.png" alt="" width="50">
+        <div>
+          <h3>FutZo</h3>
+          <span>Futsal Management System</span>
+        </div>
       </div>
+
       <div class="side-text">
-        <h2>Welcome Back</h2>
+        <h2>Welcome Back 👋</h2>
+
         <p>
-          Login to your account to manage booking, teams, and matches.
+          Sign in to manage bookings, courts, players and grow your futsal business with ease.
         </p>
       </div>
+
+      <div class="left-features">
+
+        <div class="feature-item">
+          <span>✓</span>
+          <p>Secure Authentication</p>
+        </div>
+
+        <div class="feature-item">
+          <span>✓</span>
+          <p>Manage Bookings Easily</p>
+        </div>
+
+        <div class="feature-item">
+          <span>✓</span>
+          <p>Trusted by Futsal Owners</p>
+        </div>
+
+      </div>
+
+      <div class="left-stats">
+
+        <div>
+          <h3>120+</h3>
+          <span>Arenas</span>
+        </div>
+
+        <div>
+          <h3>5000+</h3>
+          <span>Bookings</span>
+        </div>
+
+        <div>
+          <h3>4.9★</h3>
+          <span>Rating</span>
+        </div>
+
+      </div>
+
     </div>
     <div class="right-pannel">
       <h1>Log In</h1>
@@ -116,6 +172,11 @@ mysqli_close($conn);
       <p>Don't have an account? <a href="register.php">Register</a></p>
     </div>
   </div>
+
+  <footer class="auth-footer">
+    <p>&copy; 2026 FutZo. Built for players, owners & staff.</p>
+  </footer>
+  
 </body>
 <script src="./assets/js/main.js"></script>
 

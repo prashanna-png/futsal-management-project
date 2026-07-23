@@ -104,231 +104,34 @@ $nextBooking = mysqli_fetch_assoc($result);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Customer Dashboard</title>
-
-  <link rel="stylesheet" href="../assets/css/customer.css">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="./assets/logo/main-logo.png" type="image/x-icon">
+  <title>FutZo</title>
+  <link rel="stylesheet" href="./assets/css/customer.css">
 </head>
 
 <body>
-
-  <div class="dashboard">
-
-    <?php include 'includes/sidebar.php'; ?>
-
-    <main class="main">
-
-      <div class="header">
-
-        <div>
-          <h1>
-            Welcome Back,
-            <?= htmlspecialchars($_SESSION['name']); ?> 👋
-          </h1>
-
-          <p>
-            Manage your bookings and discover new futsals.
-          </p>
-        </div>
-
-        <div class="user" onclick="location.href='profile.php'">
-          <div class="avatar">
-            <?= strtoupper(substr($_SESSION['name'], 0, 1)); ?>
-          </div>
-
-          <div>
-            <strong><?= htmlspecialchars($_SESSION['name']); ?></strong>
-            <br>
-            Customer
-          </div>
-        </div>
-
-      </div>
-
-      <section class="cards">
-
-        <div class="card">
-          <h4>Total Bookings</h4>
-          <h2><?= $total['total']; ?></h2>
-        </div>
-
-        <div class="card">
-          <h4>Confirmed</h4>
-          <h2><?= $confirmed['confirmed']; ?></h2>
-        </div>
-
-        <div class="card">
-          <h4>Pending</h4>
-          <h2><?= $pending['pending']; ?></h2>
-        </div>
-
-        <div class="card">
-          <h4>Completed</h4>
-          <h2><?= $completed['completed']; ?></h2>
-        </div>
-
-      </section>
-
-      <section class="middle">
-
-        <div class="table">
-
-          <div class="section-header">
-            <h3>Recent Bookings</h3>
-
-            <a href="my_bookings.php" class="view-all">
-              View All
-            </a>
-          </div>
-
-          <table>
-
-            <thead>
-
-              <tr>
-                <th>Futsal</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-              <?php while ($row = mysqli_fetch_assoc($recentResult)) { ?>
-
-                <tr>
-
-                  <td>
-                    <?= htmlspecialchars($row['name']); ?>
-                  </td>
-
-                  <td>
-                    <?= date("d M Y", strtotime($row['booking_date'])); ?>
-                  </td>
-
-                  <td>
-                    <?= date("g:i A", strtotime($row['start_time'])); ?>
-                    -
-                    <?= date("g:i A", strtotime($row['end_time'])); ?>
-                  </td>
-
-                  <td>
-
-                    <span class="status <?= strtolower($row['status']); ?>">
-                      <?= ucfirst($row['status']); ?>
-                    </span>
-
-                  </td>
-
-                </tr>
-
-              <?php } ?>
-
-            </tbody>
-
-          </table>
-
-        </div>
-
-        <div class="actions">
-
-          <h3>Quick Actions</h3>
-
-          <div class="action-grid">
-
-            <button class="action" onclick="location.href='browse.php'">
-              Browse Futsals
-            </button>
-
-            <button class="action" onclick="location.href='my_bookings.php'">
-              My Bookings
-            </button>
-
-            <button class="action" onclick="location.href='profile.php'">
-              Edit Profile
-            </button>
-
-            <button class="action" onclick="location.href='support.php'">
-              Support
-            </button>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <section class="bottom">
-
-        <div class="upcoming-booking">
-
-          <div class="section-header">
-
-            <h3>
-              Next Upcoming Booking
-            </h3>
-
-          </div>
-
-          <?php if (isset($nextBooking)) { ?>
-
-            <div class="booking-box">
-
-              <h2>
-                <?= htmlspecialchars($nextBooking['name']); ?>
-              </h2>
-
-              <p>
-                📍 <?= htmlspecialchars($nextBooking['location']); ?>
-              </p>
-
-              <p>
-                📅
-                <?= date("d M Y", strtotime($nextBooking['booking_date'])); ?>
-              </p>
-
-              <p>
-                🕒
-                <?= date("g:i A", strtotime($nextBooking['start_time'])); ?>
-                -
-                <?= date("g:i A", strtotime($nextBooking['end_time'])); ?>
-              </p>
-
-              <button onclick="location.href='browse.php?bookingid=<?= $nextBooking['bookingid']; ?>'">
-                View Booking
-              </button>
-
-            </div>
-
-          <?php } else { ?>
-
-            <div class="booking-box empty">
-
-              <h2>No Upcoming Booking</h2>
-
-              <p>
-                You don't have any upcoming bookings.
-              </p>
-
-              <button onclick="location.href='browse.php'">
-                Book Now
-              </button>
-
-            </div>
-
-          <?php } ?>
-
-        </div>
-
-      </section>
-
-    </main>
-  </div>
+  <nav class="nav-bar">
+
+    <div class="left-section">
+      <img src="./assets/logo/futzo-logo.png" alt="FutZo Logo">
+      <span>FutZo</span>
+    </div>
+
+    <div class="center-section">
+      <a href="#dashboard" class="nav-link active">Dashboard</a>
+      <a href="#browse" class="nav-link">Browse</a>
+      <a href="#bookings" class="nav-link">My Bookings</a>
+      <a href="#notifications" class="nav-link">Notifications</a>
+      <a href="#profile" class="nav-link">Profile</a>
+    </div>
+
+    <div class="right-section">
+      <button class="btn login-btn" onclick="location.href='login.php'">
+        Login
+      </button>
+    </div>
+
+  </nav>
 
 </body>
 

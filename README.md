@@ -175,11 +175,4 @@ This project was developed for educational purposes.
 
 ```
 
-## I also recommend adding:
 
-- `LICENSE`
-- `.gitignore`
-- `database/futsal_management_system.sql`
-
-to your repository. It will make your GitHub project look much more professional and easier for others to run.
-```

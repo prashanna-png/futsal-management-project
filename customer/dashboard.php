@@ -10,44 +10,34 @@ $currentPage = 'dashboard';
 
 $playerid = $_SESSION['userid'];
 
-$sql = "
-SELECT COUNT(*) AS total
-FROM booking
-WHERE playerid='$playerid'
-";
+$sql = "SELECT COUNT(*) AS total
+        FROM booking
+        WHERE playerid='$playerid'";
 $result = mysqli_query($conn, $sql);
 $total = mysqli_fetch_assoc($result);
 
 
-$sql = "
-SELECT COUNT(*) AS confirmed
-FROM booking
-WHERE playerid='$playerid'
-AND status='confirmed'
-";
-$result = mysqli_query($conn, $sql);
-$confirmed = mysqli_fetch_assoc($result);
-
-
-$sql = "
-SELECT COUNT(*) AS pending
-FROM booking
-WHERE playerid='$playerid'
-AND status='pending'
-";
+$sql = "SELECT COUNT(*) AS pending
+        FROM booking
+        WHERE playerid='$playerid'
+        AND status='pending'";
 $result = mysqli_query($conn, $sql);
 $pending = mysqli_fetch_assoc($result);
 
 
-$sql = "
-SELECT COUNT(*) AS completed
-FROM booking
-WHERE playerid='$playerid'
-AND status='completed'
-";
+$sql = "SELECT COUNT(*) AS confirmed
+        FROM booking
+        WHERE playerid='$playerid'
+        AND status='confirmed'";
+$result = mysqli_query($conn, $sql);
+$confirmed = mysqli_fetch_assoc($result);
+
+$sql = "SELECT COUNT(*) AS completed
+        FROM booking
+        WHERE playerid='$playerid'
+        AND status='completed'";
 $result = mysqli_query($conn, $sql);
 $completed = mysqli_fetch_assoc($result);
-
 
 
 $sql = "
@@ -57,17 +47,38 @@ SELECT
     b.start_time,
     b.end_time,
     b.status,
-
-    f.futsalid,
-    f.name,
-    f.location,
-    f.image,
-    f.price_per_hour
+    f.name
 
 FROM booking b
 
 JOIN futsal f
 ON b.futsalid = f.futsalid
+
+WHERE b.playerid='$playerid'
+
+ORDER BY b.created_at DESC
+
+LIMIT 5
+";
+
+$recentResult = mysqli_query($conn, $sql);
+
+$sql = "
+SELECT
+    b.bookingid,
+    b.booking_date,
+    b.start_time,
+    b.end_time,
+    b.status,
+
+    f.name,
+    f.location,
+    f.image
+
+FROM booking b
+
+JOIN futsal f
+ON b.futsalid=f.futsalid
 
 WHERE
     b.playerid='$playerid'
@@ -82,689 +93,242 @@ LIMIT 1
 ";
 
 $result = mysqli_query($conn, $sql);
+
 $nextBooking = mysqli_fetch_assoc($result);
 
-$sql = "
-SELECT
-
-    b.booking_date,
-    b.start_time,
-    b.status,
-
-    f.name
-
-FROM booking b
-
-JOIN futsal f
-ON b.futsalid=f.futsalid
-
-WHERE b.playerid='$playerid'
-
-ORDER BY b.created_at DESC
-
-LIMIT 5
-";
-
-$recentResult = mysqli_query($conn, $sql);
-
-$sql = "
-SELECT
-
-    f.futsalid,
-    f.name,
-    f.location,
-    f.image,
-    f.price_per_hour
-
-FROM futsal f
-
-WHERE
-    f.status='approved'
-
-    AND f.futsalid NOT IN
-    (
-        SELECT futsalid
-        FROM booking
-        WHERE playerid='$playerid'
-    )
-
-ORDER BY RAND()
-
-LIMIT 3
-";
-
-$recommendedResult = mysqli_query($conn, $sql);
-
-
-if (mysqli_num_rows($recommendedResult) == 0) {
-
-  $sql = "
-
-    SELECT
-
-        futsalid,
-        name,
-        location,
-        image,
-        price_per_hour
-
-    FROM futsal
-
-    WHERE status='approved'
-
-    ORDER BY RAND()
-
-    LIMIT 3
-
-    ";
-
-  $recommendedResult = mysqli_query($conn, $sql);
-}
-
-$sql = "SELECT * FROM futsal WHERE status='approved'";
-$browse = mysqli_query($conn, $sql);
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="../assets/logo/main-logo.png" type="image/x-icon">
-  <title>FutZo</title>
+  <title>Customer Dashboard</title>
+
   <link rel="stylesheet" href="../assets/css/customer.css">
-  <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
-    rel="stylesheet" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <nav class="nav-bar">
 
-    <div class="left-section">
-      <img src="../assets/logo/futzo-logo.png" alt="FutZo Logo">
-      <span>FutZo</span>
-    </div>
+  <div class="dashboard">
 
-    <div class="center-section">
-      <a href="#dashboard" class="nav-link active">Dashboard</a>
-      <a href="#browse" class="nav-link">Browse</a>
-      <a href="#bookings" class="nav-link">My Bookings</a>
-      <a href="#support" class="nav-link">Support</a>
-      <a href="#profile" class="nav-link">Profile</a>
-    </div>
+    <?php include 'includes/sidebar.php'; ?>
 
-    <div class="right-section">
+    <main class="main">
 
-      <div class="avatar">
-        <?= strtoupper(substr($_SESSION['name'], 0, 1)); ?>
-      </div>
+      <div class="header">
 
-      <div>
-        <strong>
-          <?= strtoupper($_SESSION['name']); ?>
-        </strong>
-        <small>Customer</small>
-      </div>
+        <div>
+          <h1>
+            Welcome Back,
+            <?= htmlspecialchars($_SESSION['name']); ?> 👋
+          </h1>
 
-    </div>
-
-  </nav>
-
-  <main class="main">
-
-    <section class="dashboard-header">
-
-      <div class="header-left">
-
-        <h1>
-          Welcome back,
-          <?= strtoupper(htmlspecialchars($_SESSION['name'])); ?>!
-        </h1>
-
-        <p>
-          <?= date("l, d F Y"); ?>
-        </p>
-
-      </div>
-
-      <div class="header-right">
-
-        <a href="browse.php" class="booking-btn">
-          + New Booking
-        </a>
-
-      </div>
-
-    </section>
-
-    <section class="dashboard-overview">
-
-      <!-- Left -->
-      <div class="upcoming-card">
-
-        <div class="section-header">
-          <h2>Upcoming Booking</h2>
-
-          <a href="my_bookings.php">
-            View All
-          </a>
+          <p>
+            Manage your bookings and discover new futsals.
+          </p>
         </div>
 
-        <?php if ($nextBooking) { ?>
+        <div class="user" onclick="location.href='profile.php'">
+          <div class="avatar">
+            <?= strtoupper(substr($_SESSION['name'], 0, 1)); ?>
+          </div>
 
-          <div class="booking">
+          <div>
+            <strong><?= htmlspecialchars($_SESSION['name']); ?></strong>
+            <br>
+            Customer
+          </div>
+        </div>
 
-            <img src="../assets/uploads/<?= htmlspecialchars($nextBooking['image']); ?>" alt="">
+      </div>
 
-            <div class="booking-info">
+      <section class="cards">
 
-              <h3><?= htmlspecialchars($nextBooking['name']); ?></h3>
+        <div class="card">
+          <h4>Total Bookings</h4>
+          <h2><?= $total['total']; ?></h2>
+        </div>
+
+        <div class="card">
+          <h4>Confirmed</h4>
+          <h2><?= $confirmed['confirmed']; ?></h2>
+        </div>
+
+        <div class="card">
+          <h4>Pending</h4>
+          <h2><?= $pending['pending']; ?></h2>
+        </div>
+
+        <div class="card">
+          <h4>Completed</h4>
+          <h2><?= $completed['completed']; ?></h2>
+        </div>
+
+      </section>
+
+      <section class="middle">
+
+        <div class="table">
+
+          <div class="section-header">
+            <h3>Recent Bookings</h3>
+
+            <a href="my_bookings.php" class="view-all">
+              View All
+            </a>
+          </div>
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>Futsal</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              <?php while ($row = mysqli_fetch_assoc($recentResult)) { ?>
+
+                <tr>
+
+                  <td>
+                    <?= htmlspecialchars($row['name']); ?>
+                  </td>
+
+                  <td>
+                    <?= date("d M Y", strtotime($row['booking_date'])); ?>
+                  </td>
+
+                  <td>
+                    <?= date("g:i A", strtotime($row['start_time'])); ?>
+                    -
+                    <?= date("g:i A", strtotime($row['end_time'])); ?>
+                  </td>
+
+                  <td>
+
+                    <span class="status <?= strtolower($row['status']); ?>">
+                      <?= ucfirst($row['status']); ?>
+                    </span>
+
+                  </td>
+
+                </tr>
+
+              <?php } ?>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+        <div class="actions">
+
+          <h3>Quick Actions</h3>
+
+          <div class="action-grid">
+
+            <button class="action" onclick="location.href='browse.php'">
+              Browse Futsals
+            </button>
+
+            <button class="action" onclick="location.href='my_bookings.php'">
+              My Bookings
+            </button>
+
+            <button class="action" onclick="location.href='profile.php'">
+              Edit Profile
+            </button>
+
+            <button class="action" onclick="location.href='support.php'">
+              Support
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="bottom">
+
+        <div class="upcoming-booking">
+
+          <div class="section-header">
+
+            <h3>
+              Next Upcoming Booking
+            </h3>
+
+          </div>
+
+          <?php if (isset($nextBooking)) { ?>
+
+            <div class="booking-box">
+
+              <h2>
+                <?= htmlspecialchars($nextBooking['name']); ?>
+              </h2>
 
               <p>
-                <i class="ri-map-pin-line"></i>
-                <?= htmlspecialchars($nextBooking['location']); ?>
+                📍 <?= htmlspecialchars($nextBooking['location']); ?>
               </p>
 
-              <div class="booking-meta">
+              <p>
+                📅
+                <?= date("d M Y", strtotime($nextBooking['booking_date'])); ?>
+              </p>
 
-                <div>
-                  <small>Date</small>
-                  <span><?= date("d M Y", strtotime($nextBooking['booking_date'])); ?></span>
-                </div>
+              <p>
+                🕒
+                <?= date("g:i A", strtotime($nextBooking['start_time'])); ?>
+                -
+                <?= date("g:i A", strtotime($nextBooking['end_time'])); ?>
+              </p>
 
-                <div>
-                  <small>Time</small>
-                  <span>
-                    <?= date("g:i A", strtotime($nextBooking['start_time'])); ?>
-                    -
-                    <?= date("g:i A", strtotime($nextBooking['end_time'])); ?>
-                  </span>
-                </div>
-
-              </div>
-
-              <a href="my_bookings.php" class="primary-btn">
+              <button onclick="location.href='browse.php?bookingid=<?= $nextBooking['bookingid']; ?>'">
                 View Booking
-              </a>
+              </button>
 
             </div>
 
-          </div>
+          <?php } else { ?>
 
-        <?php } else { ?>
+            <div class="booking-box empty">
 
-          <div class="empty-booking">
+              <h2>No Upcoming Booking</h2>
 
-            <i class="ri-calendar-close-line"></i>
+              <p>
+                You don't have any upcoming bookings.
+              </p>
 
-            <h3>No Upcoming Booking</h3>
-
-            <p>You don't have any confirmed bookings.</p>
-
-            <a href="browse.php" class="primary-btn">
-              Book Now
-            </a>
-
-          </div>
-
-        <?php } ?>
-
-      </div>
-
-
-
-      <!-- Right -->
-
-      <div class="overview-card">
-
-        <h2>Booking Overview</h2>
-
-        <div class="overview-item">
-
-          <div>
-            <i class="ri-calendar-line"></i>
-            Total Bookings
-          </div>
-
-          <span><?= $total['total']; ?></span>
-
-        </div>
-
-        <div class="overview-item">
-
-          <div>
-            <i class="ri-checkbox-circle-line"></i>
-            Confirmed
-          </div>
-
-          <span><?= $confirmed['confirmed']; ?></span>
-
-        </div>
-
-        <div class="overview-item">
-
-          <div>
-            <i class="ri-time-line"></i>
-            Pending
-          </div>
-
-          <span><?= $pending['pending']; ?></span>
-
-        </div>
-
-        <div class="overview-item">
-
-          <div>
-            <i class="ri-trophy-line"></i>
-            Completed
-          </div>
-
-          <span><?= $completed['completed']; ?></span>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <section class="recommended">
-
-      <div class="section-title">
-
-        <h2>Recommended Futsals</h2>
-
-        <a href="browse.php">
-          View All
-        </a>
-
-      </div>
-
-      <div class="recommend-grid">
-
-        <?php if (mysqli_num_rows($recommendedResult) > 0) { ?>
-
-          <?php while ($futsal = mysqli_fetch_assoc($recommendedResult)) { ?>
-
-            <div class="recommend-card">
-
-              <img
-                src="../assets/uploads/<?= htmlspecialchars($futsal['image']); ?>"
-                alt="<?= htmlspecialchars($futsal['name']); ?>">
-
-              <div class="recommend-info">
-
-                <h3>
-                  <?= htmlspecialchars($futsal['name']); ?>
-                </h3>
-
-                <p>
-                  <i class="ri-map-pin-line"></i>
-                  <?= htmlspecialchars($futsal['location']); ?>
-                </p>
-
-                <div class="recommend-footer">
-
-                  <span>
-                    Rs.
-                    <?= number_format($futsal['price_per_hour']); ?>
-                    / hour
-                  </span>
-
-                  <a href="booking.php?futsalid=<?= $futsal['futsalid']; ?>">
-                    Book
-                  </a>
-
-                </div>
-
-              </div>
+              <button onclick="location.href='browse.php'">
+                Book Now
+              </button>
 
             </div>
 
           <?php } ?>
 
-        <?php } else { ?>
-
-          <div class="empty-recommend">
-
-            <i class="ri-football-line"></i>
-
-            <h3>No futsals available</h3>
-
-            <p>
-              There are currently no approved futsals.
-            </p>
-
-          </div>
-
-        <?php } ?>
-
-      </div>
-
-    </section>
-
-    <section class="browse-section">
-
-      <div class="section-header">
-
-        <div>
-          <h2>Browse Futsals</h2>
-          <p>Find your next match venue.</p>
         </div>
 
-        <a href="browse.php" class="view-all">
-          View All
-          <i class="ri-arrow-right-line"></i>
-        </a>
+      </section>
 
-      </div>
-
-
-      <div class="browse-grid">
-
-        <?php
-        if (mysqli_num_rows($browse) > 0) {
-          while ($futsal = mysqli_fetch_assoc($browse)) {
-        ?>
-            <div class="futsal-card">
-
-              <div class="card-image">
-
-                <img src="../assets/uploads/<?php echo htmlspecialchars($futsal['image']); ?>" alt="">
-
-                <span class="price">
-                  Rs. <?= $futsal['price_per_hour'] ?> /hr
-                </span>
-
-              </div>
-
-              <div class="card-content">
-
-                <h3><?= $futsal['name'] ?></h3>
-
-                <p class="location">
-                  <i class="ri-map-pin-2-fill"></i>
-                  <?= $futsal['address'] ?>, <?= $futsal['location'] ?>
-                </p>
-
-                <div class="card-info">
-
-                  <span>
-                    <i class="ri-time-line"></i>
-
-                    <?= date("g:i A", strtotime($futsal['opening_time'])); ?>
-                    -
-                    <?= date("g:i A", strtotime($futsal['closing_time'])); ?>
-
-                  </span>
-
-                </div>
-
-                <div class="card-buttons">
-
-                  <a href="#" class="details-btn">
-                    View Details
-                  </a>
-
-                  <a href="#" class="book-btn">
-                    Book Now
-                  </a>
-
-                </div>
-
-              </div>
-
-            </div>
-        <?php
-          }
-        }
-        ?>
-
-      </div>
-
-    </section>
-
-    <section class="my-bookings">
-
-      <div class="section-header">
-
-        <div>
-          <h2>My Bookings</h2>
-          <p>Manage all your futsal bookings.</p>
-        </div>
-
-        <a href="browse.php" class="new-booking-btn">
-          <i class="ri-add-line"></i>
-          New Booking
-        </a>
-
-      </div>
-
-
-      <!-- Booking Filter -->
-
-      <div class="booking-filter">
-
-        <button class="active">All</button>
-
-        <button>Upcoming</button>
-
-        <button>Confirmed</button>
-
-        <button>Pending</button>
-
-        <button>Completed</button>
-
-        <button>Cancelled</button>
-
-      </div>
-
-
-      <div class="booking-container">
-
-
-        <div class="booking-card">
-
-          <div class="booking-image">
-
-            <img src="../assets/uploads/sample.jpg" alt="">
-
-          </div>
-
-          <div class="booking-content">
-
-            <div class="booking-top">
-
-              <div>
-
-                <h3>Yala Futsal</h3>
-
-                <p>
-                  <i class="ri-map-pin-line"></i>
-                  Balkumari, Lalitpur
-                </p>
-
-              </div>
-
-              <span class="status confirmed">
-                Confirmed
-              </span>
-
-            </div>
-
-
-            <div class="booking-details">
-
-              <div class="detail">
-
-                <small>Booking Date</small>
-
-                <p>25 Jul 2026</p>
-
-              </div>
-
-              <div class="detail">
-
-                <small>Time</small>
-
-                <p>6:00 PM - 7:00 PM</p>
-
-              </div>
-
-              <div class="detail">
-
-                <small>Price</small>
-
-                <p>Rs. 1800</p>
-
-              </div>
-
-            </div>
-
-
-            <div class="booking-actions">
-
-              <a href="#" class="secondary-btn">
-                View Details
-              </a>
-
-              <a href="#" class="primary-btn">
-                Book Again
-              </a>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- Booking Card -->
-
-        <div class="booking-card">
-
-          <div class="booking-image">
-
-            <img src="../assets/uploads/sample2.jpg" alt="">
-
-          </div>
-
-          <div class="booking-content">
-
-            <div class="booking-top">
-
-              <div>
-
-                <h3>Galaxy Arena</h3>
-
-                <p>
-                  <i class="ri-map-pin-line"></i>
-                  Kathmandu
-                </p>
-
-              </div>
-
-              <span class="status pending">
-                Pending
-              </span>
-
-            </div>
-
-
-            <div class="booking-details">
-
-              <div class="detail">
-
-                <small>Booking Date</small>
-
-                <p>28 Jul 2026</p>
-
-              </div>
-
-              <div class="detail">
-
-                <small>Time</small>
-
-                <p>5:00 PM - 6:00 PM</p>
-
-              </div>
-
-              <div class="detail">
-
-                <small>Price</small>
-
-                <p>Rs. 2000</p>
-
-              </div>
-
-            </div>
-
-
-            <div class="booking-actions">
-
-              <a href="#" class="secondary-btn">
-                View Details
-              </a>
-
-              <a href="#" class="danger-btn">
-                Cancel Booking
-              </a>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-
-
-  </main>
-  <footer class="footer">
-
-    <div class="footer-top">
-
-      <div class="footer-about">
-        <div class="footer-logo">
-          <img src="./assets/logo/main-logo.png" alt="FutZo Logo">
-          <h2>FutZo</h2>
-        </div>
-        <p>
-          The complete futsal management platform designed to simplify
-          bookings, scheduling, and business operations for modern futsal arenas.
-        </p>
-      </div>
-
-      <div class="footer-links">
-        <h3>Quick Links</h3>
-        <a href="#home">Home</a>
-        <a href="#features">Features</a>
-        <a href="#how-it-works">How It Works</a>
-        <a href="#benefits">Benefits</a>
-        <a href="#faq">FAQ</a>
-      </div>
-
-      <div class="footer-contact">
-        <h3>Contact</h3>
-        <p>Kathmandu, Nepal</p>
-        <p>support@futzo.com</p>
-        <p>+977 98XXXXXXXX</p>
-      </div>
-
-    </div>
-
-    <div class="footer-bottom">
-      <p>© 2026 FutZo. All Rights Reserved.</p>
-    </div>
-
-  </footer>
+    </main>
+  </div>
 
 </body>
 

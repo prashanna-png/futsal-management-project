@@ -42,6 +42,7 @@ ORDER BY
 ";
 $result = mysqli_query($conn, $sql);
 
+
 ?>
 
 <!DOCTYPE html>
